@@ -13,81 +13,72 @@ import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 const About: React.FC = () => {
   const storyAnimation = useScrollAnimation();
-  const servicesAnimation = useScrollAnimation();
-  const technicalSkillsAnimation = useScrollAnimation();
+  const languagesAnimation = useScrollAnimation();
+  const frameworksAnimation = useScrollAnimation();
+  const cloudDevOpsAnimation = useScrollAnimation();
+  const databasesAnimation = useScrollAnimation();
   const editingSkillsAnimation = useScrollAnimation();
+  const softSkillsAnimation = useScrollAnimation();
   const experienceAnimation = useScrollAnimation();
-  const technicalSkills = [
-    { name: 'React', icon: <img src="/react.svg" alt="Docker" style={{ width: 48, height: 48 }} /> },
-    { name: 'TypeScript', icon: <img src="/typescript.svg" alt="TypeScript" style={{ width: 48, height: 48 }} /> },
+
+  const languages = [
+    { name: 'C', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#A8B9CC', fontFamily: 'monospace' }}>C</Typography> },
+    { name: 'Java', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#007396', fontFamily: 'monospace' }}>J</Typography> },
+    { name: 'Python', icon: <img src="/python.svg" alt="Python" style={{ width: 48, height: 48 }} /> },
     { name: 'JavaScript', icon: <img src="/javascript.svg" alt="JavaScript" style={{ width: 48, height: 48 }} /> },
-    { name: 'SpringBoot', icon: <img src="/springboot.svg" alt="SpringBoot" style={{ width: 48, height: 48 }} /> },
-    { name: 'MySQL', icon: <img src="/mysql.svg" alt="MongoDB" style={{ width: 48, height: 48 }} /> },
+    { name: 'TypeScript', icon: <img src="/typescript.svg" alt="TypeScript" style={{ width: 48, height: 48 }} /> },
+  ];
+
+  const frameworks = [
+    { name: 'React', icon: <img src="/react.svg" alt="React" style={{ width: 48, height: 48 }} /> },
+    { name: 'Tailwind CSS', icon: <Typography sx={{ fontSize: 40, fontWeight: 'bold', color: '#06B6D4', fontFamily: 'monospace' }}>TW</Typography> },
+    { name: 'Spring Boot', icon: <img src="/springboot.svg" alt="Spring Boot" style={{ width: 48, height: 48 }} /> },
+    { name: 'Node.js', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#339933', fontFamily: 'monospace' }}>N</Typography> },
+    { name: 'Express', icon: <Typography sx={{ fontSize: 40, fontWeight: 'bold', color: '#000000', fontFamily: 'monospace' }}>Ex</Typography> },
+  ];
+
+  const cloudDevOps = [
+    { name: 'Vite', icon: <img src="/vite.svg" alt="Vite" style={{ width: 48, height: 48 }} /> },
+    { name: 'Docker', icon: <img src="/docker.svg" alt="Docker" style={{ width: 48, height: 48 }} /> },
+    { name: 'Kubernetes', icon: <Typography sx={{ fontSize: 40, fontWeight: 'bold', color: '#326CE5', fontFamily: 'monospace' }}>K8s</Typography> },
+    { name: 'Jenkins', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#D24939', fontFamily: 'monospace' }}>J</Typography> },
+    { name: 'AWS', icon: <img src="/aws.svg" alt="AWS" style={{ width: 48, height: 48 }} /> },
+    { name: 'CI/CD', icon: <Typography sx={{ fontSize: 32, fontWeight: 'bold', color: '#1976d2', fontFamily: 'monospace' }}>CI/CD</Typography> },
+  ];
+
+  const databases = [
     { name: 'MongoDB', icon: <img src="/mongodb.svg" alt="MongoDB" style={{ width: 48, height: 48 }} /> },
-    { name: 'AWS/Cloud', icon: <img src="/aws.svg" alt="AWS/Cloud" style={{ width: 48, height: 48 }} /> },
-    { name: 'Docker', icon: <img src="/docker.svg" alt="AWS/Cloud" style={{ width: 48, height: 48 }} /> },
-
-
-
+    { name: 'MySQL', icon: <img src="/mysql.svg" alt="MySQL" style={{ width: 48, height: 48 }} /> },
   ];
 
   const editingSkills = [
-    { name: 'Photoshop', icon: <img src="/photoshop.svg" alt="Photoshop" style={{ width: 48, height: 48 }} /> },
-    { name: 'Premiere Pro', icon: <img src="/premiere-pro.svg" alt="Premiere Pro" style={{ width: 48, height: 48 }} /> },
+    { name: 'Adobe Photoshop', icon: <img src="/photoshop.svg" alt="Photoshop" style={{ width: 48, height: 48 }} /> },
+    { name: 'Adobe Premiere Pro', icon: <img src="/premiere-pro.svg" alt="Premiere Pro" style={{ width: 48, height: 48 }} /> },
     { name: 'DaVinci Resolve', icon: <img src="/davinci.svg" alt="DaVinci Resolve" style={{ width: 48, height: 48 }} /> },
     { name: 'Canva', icon: <img src="/canva.svg" alt="Canva" style={{ width: 48, height: 48 }} /> },
   ];
 
-  const services = [
-    {
-      icon: <Box component="span" fontSize={42}>💻</Box>,
-      title: 'Web Development',
-      description: 'Building responsive and modern web applications using latest technologies and best practices.'
-    },
-    {
-      icon: <Box component="span" fontSize={42}>🎨</Box>,
-      title: 'Graphic Design',
-      description: 'Creating intuitive and beautiful user interfaces that provide excellent user experience.'
-    },
-    {
-      icon: <Box component="span" fontSize={42}>⚡</Box>,
-      title: 'Performance',
-      description: 'Optimizing applications for speed, performance, and scalability across all devices.'
-    },
-    {
-      icon: <Box component="span" fontSize={42}>🧠</Box>,
-      title: 'Problem Solving',
-      description: 'Analyzing complex problems and implementing efficient, scalable solutions.'
-    }
+  const softSkills = [
+    { name: 'Leadership', icon: <Typography sx={{ fontSize: 42 }}>👥</Typography> },
+    { name: 'Problem-Solving', icon: <Typography sx={{ fontSize: 42 }}>🧩</Typography> },
+    { name: 'Time Management', icon: <Typography sx={{ fontSize: 42 }}>⏱️</Typography> },
+    { name: 'Communication', icon: <Typography sx={{ fontSize: 42 }}>💬</Typography> },
   ];
+
   const renderSkillBox = (item: { name: string; icon: JSX.Element }) => (
     <Box
       key={item.name}
       sx={{
-        p: 4,
-        bgcolor: '#f8f9fa',
-        borderRadius: 2,
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100%',
-        flex: 1,
-        gap: 1.5,
-        textAlign: 'center',
-        border: '1px solid #e0e0e0',
-        borderColor: '#1976d2',
-        transition: 'transform 0.25s ease',
-        '&:hover': {
-          transform: 'translateY(-6px)',
-          boxShadow: '0 8px 16px rgba(25,118,210,0.1)'
-
-        }
+        padding: { xs: '8px 12px', sm: '10px 16px' },
+        bgcolor: '#f5f5f5',
+        borderRadius: '8px',
+        border: '1px solid #e0e0e0'
       }}
     >
-      {/* Directly render icon without blue circle */}
-      <Box sx={{ mb: 1 }}>{item.icon}</Box>
-      <Typography variant="subtitle2" sx={{ fontWeight: 600, color: '#0d47a1' }}>
+      <Typography variant="body2" sx={{ fontWeight: 500, color: '#0d47a1' }}>
         {item.name}
       </Typography>
     </Box>
@@ -117,70 +108,95 @@ const About: React.FC = () => {
           </Box>
         </Box>
 
-        {/* What I Do */}
-        <Box 
-          ref={servicesAnimation.ref}
-          className={servicesAnimation.isVisible ? 'scroll-animate' : ''}
-          sx={{ mb: 8 }}
-        >
-          <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 5, color: '#1976d2', textAlign: 'center' }}>
-            What I Do
-          </Typography>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 2 }}>
-            {services.map((service, index) => (
-              <Box
-                key={index}
-                sx={{
-                  p: 2,
-                  bgcolor: '#f8f9fa',
-                  borderRadius: 2,
-                  textAlign: 'center',
-                  border: '1px solid #e0e0e0',
-                  borderColor: '#1976d2',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-6px)',
-                    boxShadow: '0 8px 16px rgba(25,118,210,0.1)'
-                  }
-                }}
-              >
-                <Box sx={{ mb: 1 }}>{service.icon}</Box>
-                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: '#0d47a1' }}>
-                  {service.title}
-                </Typography>
-                <Typography variant="body2" sx={{ color: '#666', lineHeight: 1.6 }}>
-                  {service.description}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-        </Box>
-
         {/* Skills Section */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          {/* Technical Skills */}
-          <Box
-            ref={technicalSkillsAnimation.ref}
-            className={technicalSkillsAnimation.isVisible ? 'scroll-animate' : ''}
-          >
-            <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 4, color: '#1976d2', textAlign: 'center' }}>
-              Technical Skills
-            </Typography>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 2 }}>
-              {technicalSkills.map(renderSkillBox)}
+          {/* Row 1: Languages, Frameworks, Cloud & DevOps */}
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
+            {/* Languages */}
+            <Box
+              ref={languagesAnimation.ref}
+              className={languagesAnimation.isVisible ? 'scroll-animate' : ''}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+            >
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+                Programming Languages
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
+                {languages.map(renderSkillBox)}
+              </Box>
+            </Box>
+
+            {/* Frameworks */}
+            <Box
+              ref={frameworksAnimation.ref}
+              className={frameworksAnimation.isVisible ? 'scroll-animate' : ''}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+            >
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+                Frameworks & Libraries
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
+                {frameworks.map(renderSkillBox)}
+              </Box>
+            </Box>
+
+            {/* Cloud & DevOps */}
+            <Box
+              ref={cloudDevOpsAnimation.ref}
+              className={cloudDevOpsAnimation.isVisible ? 'scroll-animate' : ''}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+            >
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+                Cloud & DevOps
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
+                {cloudDevOps.map(renderSkillBox)}
+              </Box>
             </Box>
           </Box>
 
-          {/* Editing Skills */}
-          <Box
-            ref={editingSkillsAnimation.ref}
-            className={editingSkillsAnimation.isVisible ? 'scroll-animate' : ''}
-          >
-            <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 4, color: '#1976d2', textAlign: 'center' }}>
-              Editing Skills
-            </Typography>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 2 }}>
-              {editingSkills.map(renderSkillBox)}
+          {/* Row 2: Databases, Creative Tools, Soft Skills */}
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
+            {/* Databases */}
+            <Box
+              ref={databasesAnimation.ref}
+              className={databasesAnimation.isVisible ? 'scroll-animate' : ''}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+            >
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+                Databases
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
+                {databases.map(renderSkillBox)}
+              </Box>
+            </Box>
+
+            {/* Editing Skills */}
+            <Box
+              ref={editingSkillsAnimation.ref}
+              className={editingSkillsAnimation.isVisible ? 'scroll-animate' : ''}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+            >
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+                Creative Tools
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
+                {editingSkills.map(renderSkillBox)}
+              </Box>
+            </Box>
+
+            {/* Soft Skills */}
+            <Box
+              ref={softSkillsAnimation.ref}
+              className={softSkillsAnimation.isVisible ? 'scroll-animate' : ''}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+            >
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+                Soft Skills
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
+                {softSkills.map(renderSkillBox)}
+              </Box>
             </Box>
           </Box>
 
@@ -190,7 +206,7 @@ const About: React.FC = () => {
             className={experienceAnimation.isVisible ? 'scroll-animate' : ''}
             sx={{ textAlign: 'center', p: 4 }}
           >
-            <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 1, color: '#1976d2' }}>
+            <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 1, color: '#1976d2', fontSize: { xs: '1.75rem', md: '3rem' } }}>
               Experience
             </Typography>
             <Typography variant="h1" sx={{ fontWeight: 'bold', color: '#1976d2', lineHeight: 1 }}>
