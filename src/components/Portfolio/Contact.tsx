@@ -20,6 +20,7 @@ import {
   GitHub as GitHubIcon,
   Send as SendIcon
 } from '@mui/icons-material';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 // Interface for the form's state
 interface IFormData {
@@ -39,6 +40,9 @@ const Contact: React.FC = () => {
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [errorAlert, setErrorAlert] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false); // <-- NEW: Add loading state
+  
+  const headerAnimation = useScrollAnimation();
+  const contentAnimation = useScrollAnimation();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -113,34 +117,43 @@ const Contact: React.FC = () => {
   return (
     <Box id="contact" sx={{ py: 10, bgcolor: '#f8f9fa' }}>
       <Container maxWidth="lg">
-        <Typography
-          variant="h3"
-          component="h2"
-          align="center"
-          sx={{
-            fontWeight: 'bold',
-            mb: 2,
-            color: '#1976d2'
-          }}
+        <Box
+          ref={headerAnimation.ref}
+          className={headerAnimation.isVisible ? 'scroll-animate' : ''}
         >
-          Get In Touch
-        </Typography>
-        
-        <Typography
-          variant="body1"
-          align="center"
-          sx={{
-            color: '#666',
-            mb: 8,
-            fontSize: '1.1rem',
-            maxWidth: '600px',
-            mx: 'auto'
-          }}
-        >
-          Have a project in mind or want to collaborate? I'd love to hear from you. Let's create something amazing together!
-        </Typography>
+          <Typography
+            variant="h3"
+            component="h2"
+            align="center"
+            sx={{
+              fontWeight: 'bold',
+              mb: 2,
+              color: '#1976d2'
+            }}
+          >
+            Get In Touch
+          </Typography>
+          
+          <Typography
+            variant="body1"
+            align="center"
+            sx={{
+              color: '#666',
+              mb: 8,
+              fontSize: '1.1rem',
+              maxWidth: '600px',
+              mx: 'auto'
+            }}
+          >
+            Have a project in mind or want to collaborate? I'd love to hear from you. Let's create something amazing together!
+          </Typography>
+        </Box>
 
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 6 }}>
+        <Box 
+          ref={contentAnimation.ref}
+          className={contentAnimation.isVisible ? 'scroll-animate' : ''}
+          sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 6 }}
+        >
           <Box sx={{ flex: 1 }}>
             <Card sx={{ height: '100%', borderRadius: 2, boxShadow: '0 8px 24px rgba(0,0,0,0.2)', border: '1px solid #e0e0e0', borderColor: '#1976d2' }}>
               <CardContent sx={{ p: 4 }}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Container, Card, CardMedia, CardContent, CardActions, Button, Chip, IconButton } from '@mui/material';
 import { Launch as LaunchIcon, GitHub as GitHubIcon } from '@mui/icons-material';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -16,6 +17,8 @@ interface Project {
 
 const Projects: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const headerAnimation = useScrollAnimation();
+  const projectsAnimation = useScrollAnimation();
 
   const fetchProjects = async () => {
     try {
@@ -36,14 +39,23 @@ const Projects: React.FC = () => {
   return (
     <Box id="projects" sx={{ py: 10, bgcolor: 'white' }}>
       <Container maxWidth="lg">
-        <Typography variant="h3" align="center" fontWeight="bold" color="primary" sx={{ mb: 2 }}>
-          My Projects
-        </Typography>
-        <Typography align="center" color="text.secondary" sx={{ mb: 8, maxWidth: 600, mx: 'auto' }}>
-          Here are some of my recent projects that showcase my skills and experience.
-        </Typography>
+        <Box
+          ref={headerAnimation.ref}
+          className={headerAnimation.isVisible ? 'scroll-animate' : ''}
+        >
+          <Typography variant="h3" align="center" fontWeight="bold" color="primary" sx={{ mb: 2 }}>
+            My Projects
+          </Typography>
+          <Typography align="center" color="text.secondary" sx={{ mb: 8, maxWidth: 600, mx: 'auto' }}>
+            Here are some of my recent projects that showcase my skills and experience.
+          </Typography>
+        </Box>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', lg: '1fr 1fr 1fr' }, gap: 4 }}>
+        <Box 
+          ref={projectsAnimation.ref}
+          className={projectsAnimation.isVisible ? 'scroll-animate' : ''}
+          sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', lg: '1fr 1fr 1fr' }, gap: 4 }}
+        >
           {projects.map(project => (
             <Card key={project.id} sx={{ display: 'flex', flexDirection: 'column', borderRadius: 2,  boxShadow: '0 6px 18px rgba(0,0,0,0.06)', border: '1px solid #e0e0e0', borderColor: '#1976d2', transition: 'all 0.3s ease', '&:hover': { transform: 'translateY(-6px)', boxShadow: '0 12px 24px rgba(0,0,0,0.12)' } }}>
               <CardMedia component="img" height="200" image={project.imageUrl} alt={project.title} onError={e => { e.currentTarget.src = '/placeholder.svg'; }} />

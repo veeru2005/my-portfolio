@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Container, Typography, Card, CardContent, CardMedia, CircularProgress } from '@mui/material';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -14,6 +15,9 @@ interface Certification {
 }
 
 const EducationCertifications = () => {
+  const educationAnimation = useScrollAnimation();
+  const certificationAnimation = useScrollAnimation();
+  
   const defaultEducations = [
     {
       institution: 'Bhashyam Ramasethu Campus',
@@ -98,7 +102,11 @@ const EducationCertifications = () => {
           Education & Certifications
         </Typography>
 
-        <Box sx={{ mt: 6 }}>
+        <Box 
+          ref={educationAnimation.ref}
+          className={educationAnimation.isVisible ? 'scroll-animate' : ''}
+          sx={{ mt: 6 }}
+        >
           <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2' }}>
             Education
           </Typography>
@@ -118,9 +126,14 @@ const EducationCertifications = () => {
             ))}
           </Box>
 
-          <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, mt: 6, color: '#1976d2' }}>
-            Certifications
-          </Typography>
+          <Box
+            ref={certificationAnimation.ref}
+            className={certificationAnimation.isVisible ? 'scroll-animate' : ''}
+          >
+            <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, mt: 6, color: '#1976d2' }}>
+              Certifications
+            </Typography>
+          </Box>
 
           {loadingCerts ? (
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>

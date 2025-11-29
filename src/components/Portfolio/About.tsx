@@ -9,8 +9,14 @@ import {
   DataObject as ReactIcon,
   CodeOff as PythonIcon
 } from '@mui/icons-material';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 const About: React.FC = () => {
+  const storyAnimation = useScrollAnimation();
+  const servicesAnimation = useScrollAnimation();
+  const technicalSkillsAnimation = useScrollAnimation();
+  const editingSkillsAnimation = useScrollAnimation();
+  const experienceAnimation = useScrollAnimation();
   const technicalSkills = [
     { name: 'React', icon: <img src="/react.svg" alt="Docker" style={{ width: 48, height: 48 }} /> },
     { name: 'TypeScript', icon: <img src="/typescript.svg" alt="TypeScript" style={{ width: 48, height: 48 }} /> },
@@ -93,7 +99,11 @@ const About: React.FC = () => {
     <Box id="about" sx={{ py: 8, bgcolor: 'white' }}>
       <Container maxWidth="lg">
         {/* My Story */}
-        <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <Box 
+          ref={storyAnimation.ref}
+          className={storyAnimation.isVisible ? 'scroll-animate' : ''}
+          sx={{ textAlign: 'center', mb: 8 }}
+        >
           <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2' }}>
             My Story
           </Typography>
@@ -108,7 +118,11 @@ const About: React.FC = () => {
         </Box>
 
         {/* What I Do */}
-        <Box sx={{ mb: 8 }}>
+        <Box 
+          ref={servicesAnimation.ref}
+          className={servicesAnimation.isVisible ? 'scroll-animate' : ''}
+          sx={{ mb: 8 }}
+        >
           <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 5, color: '#1976d2', textAlign: 'center' }}>
             What I Do
           </Typography>
@@ -145,7 +159,10 @@ const About: React.FC = () => {
         {/* Skills Section */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {/* Technical Skills */}
-          <Box>
+          <Box
+            ref={technicalSkillsAnimation.ref}
+            className={technicalSkillsAnimation.isVisible ? 'scroll-animate' : ''}
+          >
             <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 4, color: '#1976d2', textAlign: 'center' }}>
               Technical Skills
             </Typography>
@@ -155,7 +172,10 @@ const About: React.FC = () => {
           </Box>
 
           {/* Editing Skills */}
-          <Box>
+          <Box
+            ref={editingSkillsAnimation.ref}
+            className={editingSkillsAnimation.isVisible ? 'scroll-animate' : ''}
+          >
             <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 4, color: '#1976d2', textAlign: 'center' }}>
               Editing Skills
             </Typography>
@@ -165,7 +185,11 @@ const About: React.FC = () => {
           </Box>
 
           {/* Experience */}
-          <Box sx={{ textAlign: 'center', p: 4 }}>
+          <Box 
+            ref={experienceAnimation.ref}
+            className={experienceAnimation.isVisible ? 'scroll-animate' : ''}
+            sx={{ textAlign: 'center', p: 4 }}
+          >
             <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 1, color: '#1976d2' }}>
               Experience
             </Typography>
