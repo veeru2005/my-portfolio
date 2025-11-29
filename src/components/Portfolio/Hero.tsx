@@ -13,9 +13,12 @@ import {
   LinkedIn as LinkedInIcon,
   GitHub as GitHubIcon
 } from '@mui/icons-material';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 const Hero = () => {
   const skills = ['React', 'JavaScript / TypeScript', 'SpringBoot', 'MySQL', 'Node.js', 'MongoDB'];
+  const contentAnimation = useScrollAnimation();
+  const avatarAnimation = useScrollAnimation();
 
   return (
     <Box
@@ -72,7 +75,10 @@ const Hero = () => {
             />
           </Box>
 
-          <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, order: { xs: 2, md: 1 } }}>
+          <Box 
+            ref={contentAnimation.ref}
+            className={contentAnimation.isVisible ? 'scroll-animate-left' : ''}
+            sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, order: { xs: 2, md: 1 } }}>
             <Typography
               variant="h6"
               sx={{
@@ -231,7 +237,10 @@ const Hero = () => {
           </Box>
 
           {/* Avatar for desktop view */}
-          <Box sx={{ flex: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', order: { xs: 1, md: 2 } }}>
+          <Box 
+            ref={avatarAnimation.ref}
+            className={avatarAnimation.isVisible ? 'scroll-animate-right' : ''}
+            sx={{ flex: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', order: { xs: 1, md: 2 } }}>
             <Avatar
               sx={{
                 width: 350,
