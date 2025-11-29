@@ -145,7 +145,7 @@ const AdminCertifications: React.FC = () => {
   const deleteCertification = async (id: number) => {
     try {
       const token = getAuthToken();
-      const response = await fetch(`${API_BASE_URL}/admin/certifications/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/portfolio/admin/certifications/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
