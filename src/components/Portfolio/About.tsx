@@ -75,10 +75,11 @@ const About: React.FC = () => {
         padding: { xs: '8px 12px', sm: '10px 16px' },
         bgcolor: '#f5f5f5',
         borderRadius: '8px',
-        border: '1px solid #e0e0e0'
+        border: '1px solid #e0e0e0',
+        whiteSpace: 'nowrap'
       }}
     >
-      <Typography variant="body2" sx={{ fontWeight: 500, color: '#0d47a1' }}>
+      <Typography variant="body2" sx={{ fontWeight: 500, color: '#0d47a1', whiteSpace: 'nowrap' }}>
         {item.name}
       </Typography>
     </Box>
@@ -111,15 +112,15 @@ const About: React.FC = () => {
         {/* Skills Section */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {/* Row 1: Languages, Frameworks, Cloud & DevOps */}
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', alignItems: 'flex-start' }}>
             {/* Languages */}
             <Box
               ref={languagesAnimation.ref}
               className={languagesAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 2, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
             >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
-                Programming Languages
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                Tech Stack
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
                 {languages.map(renderSkillBox)}
@@ -130,9 +131,9 @@ const About: React.FC = () => {
             <Box
               ref={frameworksAnimation.ref}
               className={frameworksAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
             >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 Frameworks & Libraries
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
@@ -144,9 +145,9 @@ const About: React.FC = () => {
             <Box
               ref={cloudDevOpsAnimation.ref}
               className={cloudDevOpsAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
             >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 Cloud & DevOps
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
@@ -156,14 +157,14 @@ const About: React.FC = () => {
           </Box>
 
           {/* Row 2: Databases, Creative Tools, Soft Skills */}
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', alignItems: 'flex-start' }}>
             {/* Databases */}
             <Box
               ref={databasesAnimation.ref}
               className={databasesAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
             >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 Databases
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
@@ -175,9 +176,9 @@ const About: React.FC = () => {
             <Box
               ref={editingSkillsAnimation.ref}
               className={editingSkillsAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
             >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 Creative Tools
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
@@ -189,9 +190,9 @@ const About: React.FC = () => {
             <Box
               ref={softSkillsAnimation.ref}
               className={softSkillsAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' } }}
+              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 } }}
             >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' } }}>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 Soft Skills
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
