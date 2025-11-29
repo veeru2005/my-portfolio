@@ -31,6 +31,7 @@ const About: React.FC = () => {
 
   const frameworks = [
     { name: 'React', icon: <img src="/react.svg" alt="React" style={{ width: 48, height: 48 }} /> },
+    { name: 'Vite', icon: <img src="/vite.svg" alt="Vite" style={{ width: 48, height: 48 }} /> },
     { name: 'Tailwind CSS', icon: <Typography sx={{ fontSize: 40, fontWeight: 'bold', color: '#06B6D4', fontFamily: 'monospace' }}>TW</Typography> },
     { name: 'Spring Boot', icon: <img src="/springboot.svg" alt="Spring Boot" style={{ width: 48, height: 48 }} /> },
     { name: 'Node.js', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#339933', fontFamily: 'monospace' }}>N</Typography> },
@@ -38,7 +39,6 @@ const About: React.FC = () => {
   ];
 
   const cloudDevOps = [
-    { name: 'Vite', icon: <img src="/vite.svg" alt="Vite" style={{ width: 48, height: 48 }} /> },
     { name: 'Docker', icon: <img src="/docker.svg" alt="Docker" style={{ width: 48, height: 48 }} /> },
     { name: 'Kubernetes', icon: <Typography sx={{ fontSize: 40, fontWeight: 'bold', color: '#326CE5', fontFamily: 'monospace' }}>K8s</Typography> },
     { name: 'Jenkins', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#D24939', fontFamily: 'monospace' }}>J</Typography> },
