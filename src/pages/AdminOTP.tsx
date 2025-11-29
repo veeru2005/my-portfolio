@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Avatar, Box, TextField, Button, Typography, Paper, Grid, CircularProgress, Snackbar, Alert
+  Avatar, Box, TextField, Button, Typography, Paper, CircularProgress, Snackbar, Alert
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ArrowBack from '@mui/icons-material/ArrowBack';
@@ -130,14 +130,24 @@ const AdminOTP: React.FC = () => {
         Back
       </Button>
 
-      <Grid container spacing={6} alignItems="center" justifyContent="center" sx={{ maxWidth: '1000px' }}>
-        <Grid item component="div" xs={12} md={7} sx={{ display: 'flex', justifyContent: 'center', order: { xs: 2, md: 1 } }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: 6,
+          alignItems: 'center',
+          justifyContent: 'center',
+          maxWidth: '1000px',
+          width: '100%'
+        }}
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'center', order: { xs: 2, md: 1 }, flex: { md: '1 1 60%' } }}>
           <div dangerouslySetInnerHTML={{
             __html: `<lottie-player src="/Login.json" background="transparent" speed="1" style="width:100%; max-width:500px;" loop autoplay></lottie-player>`
           }} />
-        </Grid>
+        </Box>
 
-        <Grid item component="div" xs={12} md={5} sx={{ order: { xs: 1, md: 2 } }}>
+        <Box sx={{ order: { xs: 1, md: 2 }, flex: { md: '1 1 40%' }, width: '100%' }}>
           <Paper
             elevation={0}
             sx={{
@@ -204,8 +214,8 @@ const AdminOTP: React.FC = () => {
               </Button>
             </Box>
           </Paper>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 };
