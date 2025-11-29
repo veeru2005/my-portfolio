@@ -8,7 +8,7 @@ import AdminNavbar from './AdminNavbar';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-const getAuthToken = () => localStorage.getItem('jwtToken') || '';
+const getAuthToken = () => localStorage.getItem('adminAuthToken') || '';
 
 // Certification interface
 interface Certification {

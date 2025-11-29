@@ -135,7 +135,7 @@ const AdminProjects: React.FC = () => {
     formData.append('githubUrl', projectForm.githubUrl);
     if (projectForm.imageFile) formData.append('image', projectForm.imageFile);
 
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('adminAuthToken');
 
     try {
       const method = projectForm.id ? 'PUT' : 'POST';
@@ -162,7 +162,7 @@ const AdminProjects: React.FC = () => {
   };
 
   const deleteProject = async (id: number) => {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('adminAuthToken');
     try {
       const response = await fetch(`${API_BASE_URL}/api/portfolio/admin/projects/${id}`, {
         method: 'DELETE',
