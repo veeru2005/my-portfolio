@@ -183,7 +183,7 @@ const Footer = () => {
               color: 'rgba(255,255,255,0.8)'
             }}
           >
-            © {new Date().getFullYear()} Sunkavalli Veerendra Chowdary. All rights reserved.
+            © 2025 Sunkavalli Veerendra Chowdary. All rights reserved.
           </Typography>
         </Box>
       </Container>
