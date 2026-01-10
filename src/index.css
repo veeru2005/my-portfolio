@@ -170,6 +170,17 @@ html {
   }
 }
 
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .scroll-animate {
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
@@ -183,4 +194,26 @@ html {
 .scroll-animate-right {
   opacity: 0;
   animation: fadeInRight 0.8s ease-out forwards;
+}
+
+/* Mobile-specific animations */
+.scroll-animate-mobile-up {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.scroll-animate-mobile-down {
+  opacity: 0;
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+/* Desktop overrides */
+@media (min-width: 900px) {
+  .scroll-animate-mobile-up {
+    animation: fadeInLeft 0.8s ease-out forwards;
+  }
+  
+  .scroll-animate-mobile-down {
+    animation: fadeInRight 0.8s ease-out forwards;
+  }
 }

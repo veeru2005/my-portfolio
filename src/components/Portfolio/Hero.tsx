@@ -18,7 +18,8 @@ import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 const Hero = () => {
   const skills = ['React', 'JavaScript / TypeScript', 'SpringBoot', 'MySQL', 'Node.js', 'MongoDB'];
   const contentAnimation = useScrollAnimation();
-  const avatarAnimation = useScrollAnimation();
+  const avatarAnimationMobile = useScrollAnimation();
+  const avatarAnimationDesktop = useScrollAnimation();
 
   return (
     <Box
@@ -54,8 +55,10 @@ const Hero = () => {
             gap: 2
           }}
         >
-          {/* Avatar for mobile view */}
+          {/* Avatar for mobile view - top to bottom animation */}
           <Box
+            ref={avatarAnimationMobile.ref}
+            className={avatarAnimationMobile.isVisible ? 'scroll-animate-mobile-down' : ''}
             sx={{
               display: { xs: 'flex', md: 'none' },
               justifyContent: 'center',
@@ -75,9 +78,10 @@ const Hero = () => {
             />
           </Box>
 
+          {/* Content section - bottom to top on mobile, left on desktop */}
           <Box 
             ref={contentAnimation.ref}
-            className={contentAnimation.isVisible ? 'scroll-animate-left' : ''}
+            className={contentAnimation.isVisible ? 'scroll-animate-mobile-up' : ''}
             sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, order: { xs: 2, md: 1 } }}>
             <Typography
               variant="h6"
@@ -238,8 +242,8 @@ const Hero = () => {
 
           {/* Avatar for desktop view */}
           <Box 
-            ref={avatarAnimation.ref}
-            className={avatarAnimation.isVisible ? 'scroll-animate-right' : ''}
+            ref={avatarAnimationDesktop.ref}
+            className={avatarAnimationDesktop.isVisible ? 'scroll-animate-right' : ''}
             sx={{ flex: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', order: { xs: 1, md: 2 } }}>
             <Avatar
               sx={{

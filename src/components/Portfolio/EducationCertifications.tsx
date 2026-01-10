@@ -114,7 +114,6 @@ const EducationCertifications = () => {
             {educationsState.map((edu, idx) => (
               <Box key={idx}>
                 <Card sx={{ height: '100%', borderRadius: 2,  boxShadow: '0 6px 18px rgba(0,0,0,0.06)', border: '1px solid #e0e0e0', borderColor: '#1976d2', transition: 'all 0.3s ease', '&:hover': { transform: 'translateY(-6px)', boxShadow: '0 12px 24px rgba(0,0,0,0.12)'} }}>
-                  {edu.image && <CardMedia component="img" image={edu.image} alt={`${edu.institution} image`} sx={{ height: 300, objectFit: 'cover' }} />}
                   <CardContent>
                     <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#0d47a1' }}>{edu.institution}</Typography>
                     <Typography variant="subtitle1" sx={{ color: '#424242', fontWeight: 500, mb: 0.5 }}>{edu.degree} • {edu.year}</Typography>
