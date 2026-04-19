@@ -18,14 +18,17 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     chunkSizeWarningLimit: 1000,
+    sourcemap: false, // Ensures no source code is leaked
     rollupOptions: {
       output: {
         manualChunks: {
           react: ["react", "react-dom"],
           mui: ["@mui/material", "@mui/icons-material"],
-          lottie: ["lottie-web"],
         },
       },
     },
+  },
+  esbuild: {
+    drop: ["console", "debugger"], // Completely remove console.logs and debuggers in prod
   },
 }))

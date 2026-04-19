@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '@mui/material';
 import Navbar from './Navbar';
 import Hero from './Hero';
 import About from './About';
@@ -9,17 +10,15 @@ import Footer from './Footer';
 
 const Portfolio = () => {
   return (
-    <>
-      <div className="font-outfit" style={{ overflowX: 'hidden', width: '100%', boxSizing: 'border-box' }}>
-        <Navbar />
-        <Hero />
-        <About />
-        <EducationCertifications />
-        <Projects />
-        <Contact />
-        <Footer />
-      </div>
-    </>
+    <Box sx={{ overflowX: 'clip', width: '100%', position: 'relative' }}>
+      <Navbar />
+      <Hero />
+      <About />
+      <EducationCertifications />
+      <Projects />
+      <Contact />
+      <Footer />
+    </Box>
   );
 };
 

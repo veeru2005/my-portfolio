@@ -4,192 +4,180 @@ import {
   Typography,
   Button,
   Container,
-  Avatar,
-  Chip
+  Chip,
+  IconButton,
+  Stack
 } from '@mui/material';
 import {
+  ArrowOutward as ArrowOutwardIcon,
   Download as DownloadIcon,
   Email as EmailIcon,
   LinkedIn as LinkedInIcon,
   GitHub as GitHubIcon
 } from '@mui/icons-material';
-import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 const Hero = () => {
-  const skills = ['React', 'JavaScript / TypeScript', 'SpringBoot', 'MySQL', 'Node.js', 'MongoDB'];
-  const contentAnimation = useScrollAnimation();
-  const avatarAnimationMobile = useScrollAnimation();
-  const avatarAnimationDesktop = useScrollAnimation();
+  const skills = ['React', 'TypeScript', 'Spring Boot', 'Node.js', 'MongoDB', 'Cloud'];
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   return (
     <Box
       id="home"
       sx={{
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #000000ff 0%, #3156c4ff 100%)',
-         pt: { xs: 12, md: 14 },
+        minHeight: { xs: 'auto', md: '100svh' },
+        pt: { xs: 13, md: 19 },
+        pb: { xs: 8, md: 10 },
         position: 'relative',
-        overflow: 'hidden'
+        display: 'flex',
+        alignItems: 'center'
       }}
     >
-      {/* Background decoration */}
       <Box
+        className="hero-grid-pattern"
         sx={{
           position: 'absolute',
           top: 0,
           left: 0,
           width: '100%',
           height: '100%',
-          background:
-            'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.1\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'2\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-          opacity: 0.3
+          opacity: 0.34
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, width: '100%' }}>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            alignItems: 'center',
-            gap: 2
+            display: 'grid',
+            gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: '1fr 1fr' },
+            gap: { xs: 3, md: 8 },
+            alignItems: 'center'
           }}
         >
-          {/* Avatar for mobile view - top to bottom animation */}
           <Box
-            ref={avatarAnimationMobile.ref}
-            className={avatarAnimationMobile.isVisible ? 'scroll-animate-mobile-down' : ''}
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              justifyContent: 'center',
-              mb: 2,
-              order: { xs: 1, md: 2 }
-            }}
+            className="scroll-animate-cert-up"
+            sx={{ textAlign: { xs: 'center', md: 'left' }, order: { xs: 2, md: 1 }, minWidth: 0, animationDelay: '100ms' }}
           >
-            <Avatar
-              sx={{
-                width: { xs: 130, sm: 150 },
-                height: { xs: 130, sm: 150 },
-                border: '4px solid rgba(255,255,255,0.3)',
-                boxShadow: '0 15px 30px rgba(0,0,0,0.3)'
-              }}
-              src="Web.jpg"
-              alt="Sunkavalli Veerendra Chowdary"
-            />
-          </Box>
-
-          {/* Content section - bottom to top on mobile, left on desktop */}
-          <Box 
-            ref={contentAnimation.ref}
-            className={contentAnimation.isVisible ? 'scroll-animate-mobile-up' : ''}
-            sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, order: { xs: 2, md: 1 } }}>
             <Typography
-              variant="h6"
               sx={{
-                color: 'rgba(255,255,255,0.9)',
-                mb: 2,
-                fontWeight: 'medium'
+                color: '#b8c3dd',
+                textTransform: 'uppercase',
+                letterSpacing: '0.14em',
+                fontWeight: 600,
+                fontSize: { xs: '0.72rem', sm: '0.8rem' },
+                mb: 2
               }}
             >
-              Hello, I'm
+              Full-Stack Developer + Creative Designer
             </Typography>
 
-            {/* Name layout for mobile - First name and middle name */}
             <Typography
-              variant="h2"
               component="h1"
               sx={{
-                fontWeight: 'bold',
-                color: 'white',
-                mb: { xs: 1, md: 2 },
-                fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' },
-                lineHeight: { xs: 1.1, md: 1.2 },
-                wordBreak: 'break-word',
-                overflowWrap: 'break-word'
+                fontSize: { xs: '1.75rem', sm: '2.4rem', md: '3.1rem', lg: '3.6rem' },
+                lineHeight: { xs: 1.1, md: 1.05 },
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                color: '#f5f7ff'
               }}
             >
-            Sunkavalli Veerendra
-            </Typography>
-
-            {/* Last name on separate line for mobile */}
-            <Typography
-              variant="h2"
-              component="h1"
-              sx={{
-                fontWeight: 'bold',
-                color: 'white',
-                mb: { xs: 2, md: 2 },
-                fontSize: { xs: '1.8rem', sm: '2.2rem', md: '3.5rem' },
-                lineHeight: { xs: 1.1, md: 1.2 },
-                wordBreak: 'break-word',
-                overflowWrap: 'break-word'
-              }}
-            >
+              <Box component="span" sx={{ whiteSpace: { xs: 'normal', sm: 'nowrap' } }}>Sunkavalli Veerendra</Box> <br />
               Chowdary
             </Typography>
 
             <Typography
-              variant="h5"
               sx={{
-                color: '#ffeb3b',
+                mt: 1,
                 mb: 3,
-                fontWeight: 'medium',
-                fontSize: { xs: '1.1rem', md: '1.5rem' }
+                fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.55rem' },
+                fontWeight: 600,
+                whiteSpace: { xs: 'normal', sm: 'nowrap' }
               }}
+              className="accent-gradient-text"
             >
-              Graphic Designer & Full Stack Developer
+              Building immersive, high-performance web products.
             </Typography>
 
             <Typography
-              variant="body1"
               sx={{
-                color: 'rgba(255,255,255,0.9)',
+                color: '#a6b0c6',
                 mb: 4,
-                fontSize: { xs: '1rem', md: '1.1rem' },
-                lineHeight: 1.7,
-                maxWidth: '500px',
+                fontSize: { xs: '0.96rem', md: '1.07rem' },
+                lineHeight: 1.8,
+                maxWidth: 620,
                 mx: { xs: 'auto', md: 0 }
               }}
             >
-              As a passionate Graphic Designer, I specialize in photo and video editing, creating visually stunning content that captures attention. I channel this creative expertise into my work as a Full Stack Developer, where I build responsive and user-friendly web applications.
+              I blend software engineering with strong design direction to craft polished user experiences.
+              From frontend interactions to backend logic, I build products that feel modern, fast, and professional.
             </Typography>
 
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="body2" sx={{ color: 'white', mb: 2 }}>
-                Tech Stack:
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: { xs: 'center', md: 'flex-start' } }}>
-                {skills.map((skill) => (
+            <Box
+              sx={{
+                mb: 4,
+                width: '100%',
+                maxWidth: { xs: '100%', md: '620px' },
+                overflow: 'hidden',
+                position: 'relative',
+                mx: { xs: 'auto', md: 0 },
+                maskImage: { xs: 'none', md: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' },
+                WebkitMaskImage: { xs: 'none', md: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' }
+              }}
+            >
+              <Box 
+                className="skill-marquee-track" 
+                sx={{ 
+                  gap: 1.5,
+                  alignItems: 'center',
+                  py: 1
+                }}
+              >
+                {[...skills, ...skills, ...skills, ...skills].map((skill, index) => (
                   <Chip
-                    key={skill}
+                    key={`${skill}-${index}`}
                     label={skill}
                     sx={{
-                      bgcolor: 'rgba(255,255,255,0.2)',
-                      color: 'white',
-                      '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' }
+                      bgcolor: '#302313',
+                      color: '#ff9f1a',
+                      border: 'none',
+                      fontWeight: 600,
+                      fontSize: '0.85rem',
+                      borderRadius: '8px',
+                      px: 0.5
                     }}
                   />
                 ))}
               </Box>
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+            <Stack direction={{ xs: 'row', sm: 'row' }} spacing={1.6} sx={{ alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
               <Button
                 variant="contained"
-                component="a" // Render as a link
-                href="/Veerendra_CV.pdf" // Path to the file
-                download="Veerendra_CV.pdf" // Tell the browser to download it
-                startIcon={<DownloadIcon />}
+                component="a"
+                href="/Veerendra's_Resume.pdf"
+                download="Veerendra's_Resume.pdf"
+                endIcon={<DownloadIcon />}
                 sx={{
-                  color: '#1976d2',
-                  bgcolor: '#ffeb3b',
-                  fontWeight: 'bold',
-                  px: 3,
-                  py: 1.5,
+                  px: { xs: 2.5, sm: 3.5 },
+                  py: 1.4,
+                  width: { xs: 'auto', sm: 'auto' },
+                  background: '#ff9f1a',
+                  color: '#1b1205',
+                  fontSize: '0.94rem',
+                  fontWeight: 700,
+                  borderRadius: '16px',
+                  border: '1px solid #ff9f1a',
+                  boxShadow: 'none',
                   '&:hover': {
-                    bgcolor: '#fff59d',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 6px 20px rgba(255,235,59,0.4)'
+                    background: '#ffab33',
+                    borderColor: '#ffab33',
+                    boxShadow: 'none'
                   }
                 }}
               >
@@ -198,64 +186,152 @@ const Hero = () => {
 
               <Button
                 variant="outlined"
-                // Remove the href and add this onClick function
-                onClick={() => {
-                  const element = document.getElementById('contact');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
                 startIcon={<EmailIcon />}
+                onClick={() => scrollToSection('contact')}
                 sx={{
-                  borderColor: 'white',
-                  color: 'white',
-                  px: 3,
-                  py: 1.5,
+                  border: '1px solid #ff9f1a',
+                  color: '#ff9f1a',
+                  px: { xs: 2.5, sm: 3.5 },
+                  py: 1.4,
+                  width: { xs: 'auto', sm: 'auto' },
+                  fontSize: '0.94rem',
+                  fontWeight: 700,
+                  borderRadius: '16px',
                   '&:hover': {
-                    borderColor: '#ffeb3b',
-                    color: '#ffeb3b',
-                    transform: 'translateY(-2px)'
+                    border: '1px solid #ffab33',
+                    color: '#ffab33',
+                    bgcolor: 'transparent'
                   }
                 }}
               >
                 Contact Me
               </Button>
-            </Box>
+            </Stack>
 
-            <Box sx={{ display: 'flex', gap: 2, mt: 3, mb: 5, justifyContent: { xs: 'center', md: 'flex-start' } }}>
-              <Button
-                sx={{ color: 'white', minWidth: 'auto', p: 1 }}
+            <Box sx={{ display: 'flex', gap: 1.15, mt: 3.5, justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              <IconButton
+                sx={{
+                  width: 50,
+                  height: 50,
+                  color: '#dce4f5',
+                  bgcolor: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.14)',
+                  transition: 'all 0.25s ease',
+                  '&:hover': {
+                    color: '#ff9f1a',
+                    bgcolor: 'rgba(255,159,26,0.13)',
+                    borderColor: 'rgba(255,159,26,0.62)',
+                    boxShadow: '0 0 0 1px rgba(255,159,26,0.2) inset'
+                  }
+                }}
                 href="https://www.linkedin.com/in/veerendra-chowdary-sunkavalli-513b58309"
                 target="_blank"
               >
                 <LinkedInIcon />
-              </Button>
-              <Button
-                sx={{ color: 'white', minWidth: 'auto', p: 1 }}
+              </IconButton>
+              <IconButton
+                sx={{
+                  width: 50,
+                  height: 50,
+                  color: '#dce4f5',
+                  bgcolor: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.14)',
+                  transition: 'all 0.25s ease',
+                  '&:hover': {
+                    color: '#ff9f1a',
+                    bgcolor: 'rgba(255,159,26,0.13)',
+                    borderColor: 'rgba(255,159,26,0.62)',
+                    boxShadow: '0 0 0 1px rgba(255,159,26,0.2) inset'
+                  }
+                }}
                 href="https://github.com/veeru2005"
                 target="_blank"
               >
                 <GitHubIcon />
-              </Button>
+              </IconButton>
+              <IconButton
+                sx={{
+                  width: 50,
+                  height: 50,
+                  color: '#dce4f5',
+                  bgcolor: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.14)',
+                  transition: 'all 0.25s ease',
+                  '&:hover': {
+                    color: '#ff9f1a',
+                    bgcolor: 'rgba(255,159,26,0.13)',
+                    borderColor: 'rgba(255,159,26,0.62)',
+                    boxShadow: '0 0 0 1px rgba(255,159,26,0.2) inset'
+                  }
+                }}
+                href="mailto:sunkavalli.veerendra1973@gmail.com"
+              >
+                <EmailIcon />
+              </IconButton>
             </Box>
           </Box>
 
-          {/* Avatar for desktop view */}
-          <Box 
-            ref={avatarAnimationDesktop.ref}
-            className={avatarAnimationDesktop.isVisible ? 'scroll-animate-right' : ''}
-            sx={{ flex: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', order: { xs: 1, md: 2 } }}>
-            <Avatar
+          <Box
+            className="scroll-animate-mobile-down"
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              order: { xs: 1, md: 2 },
+              mb: { xs: 0.5, md: 0 },
+              minWidth: 0,
+              animationDelay: '300ms'
+            }}
+          >
+            <Box
               sx={{
-                width: 350,
-                height: 350,
-                border: '5px solid rgba(255,255,255,0.3)',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
-                transform: 'translate(70px, -35px)'
+                width: { xs: 120, sm: 340, md: 410 },
+                height: { xs: 120, sm: 'auto', md: 'auto' },
+                maxWidth: 430,
+                borderRadius: { xs: '50%', sm: '16px' },
+                border: { xs: '4px solid #ff9f1a', sm: '1px solid #ff9f1a' },
+                background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                p: { xs: 0, sm: 1.5, md: 2 },
+                boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                transform: { md: 'perspective(1000px) rotateY(-8deg) rotateX(3deg)' },
+                transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                '&:hover': {
+                  transform: { md: 'perspective(1000px) rotateY(-2deg) rotateX(0deg) translateY(-6px)' }
+                }
               }}
-              src="Web.jpg"
-              alt="Sunkavalli Veerendra Chowdary"
-            />
+            >
+              <Box
+                component="img"
+                src="Web.jpg"
+                alt="Sunkavalli Veerendra Chowdary"
+                sx={{
+                  width: '100%',
+                  height: { xs: '100%', sm: 380, md: 440 },
+                  objectFit: 'cover',
+                  objectPosition: 'center top',
+                  borderRadius: { xs: '50%', sm: '16px' }
+                }}
+              />
+
+              <Box
+                sx={{
+                  display: { xs: 'none', sm: 'block' },
+                  mt: 1.5,
+                  px: 1.4,
+                  py: 1,
+                  borderRadius: '16px',
+                  bgcolor: 'rgba(255,255,255,0.04)',
+                  border: '1px solid #ff9f1a'
+                }}
+              >
+                <Typography sx={{ color: '#ff9f1a', fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  Available for freelance
+                </Typography>
+                <Typography sx={{ color: '#d9e1f5', fontSize: '0.9rem', mt: 0.4 }}>
+                  Full Stack Web Apps | UI/UX Focused Delivery
+                </Typography>
+              </Box>
+            </Box>
           </Box>
         </Box>
       </Container>

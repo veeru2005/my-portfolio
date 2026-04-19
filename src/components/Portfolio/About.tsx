@@ -1,224 +1,356 @@
 import React from 'react';
-import { Box, Typography, Container } from '@mui/material';
-import {
-  Code as CodeIcon,
-  Brush as DesignIcon,
-  Speed as SpeedIcon,
-  Psychology as PsychologyIcon,
-  Cloud as CloudIcon,
-  DataObject as ReactIcon,
-  CodeOff as PythonIcon
-} from '@mui/icons-material';
+import { Box, Typography, Container, Card, CardContent, Chip } from '@mui/material';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 const About: React.FC = () => {
-  const storyAnimation = useScrollAnimation();
-  const languagesAnimation = useScrollAnimation();
-  const frameworksAnimation = useScrollAnimation();
-  const cloudDevOpsAnimation = useScrollAnimation();
-  const databasesAnimation = useScrollAnimation();
-  const editingSkillsAnimation = useScrollAnimation();
-  const softSkillsAnimation = useScrollAnimation();
-  const experienceAnimation = useScrollAnimation();
+  const storyAnimation = useScrollAnimation(0.16);
+  const bigCardsAnimation = useScrollAnimation(0.16);
+  const cardsAnimation = useScrollAnimation(0.16);
+  const marqueeAnimation = useScrollAnimation(0.16);
+  const techSkillsAnimation = useScrollAnimation(0.14);
 
-  const languages = [
-    { name: 'C', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#A8B9CC', fontFamily: 'monospace' }}>C</Typography> },
-    { name: 'Java', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#007396', fontFamily: 'monospace' }}>J</Typography> },
-    { name: 'Python', icon: <img src="/python.svg" alt="Python" style={{ width: 48, height: 48 }} /> },
-    { name: 'JavaScript', icon: <img src="/javascript.svg" alt="JavaScript" style={{ width: 48, height: 48 }} /> },
-    { name: 'TypeScript', icon: <img src="/typescript.svg" alt="TypeScript" style={{ width: 48, height: 48 }} /> },
+  const getCardAnimationClass = (index: number) => {
+    const mod = index % 3;
+    if (mod === 0) return 'scroll-animate-cert-left';
+    if (mod === 1) return 'scroll-animate-cert-up';
+    return 'scroll-animate-cert-right';
+  };
+
+  const getCardTransform = (index: number) => {
+    const col = index % 3;
+    if (col === 0) return 'perspective(1000px) rotateY(8deg) rotateX(3deg)';
+    if (col === 1) return 'perspective(1000px) rotateY(0deg) rotateX(3deg)';
+    return 'perspective(1000px) rotateY(-8deg) rotateX(3deg)';
+  };
+
+  const expertiseCards = [
+    {
+      title: 'Product-Focused Development',
+      description:
+        'I architect features from idea to release with practical UX decisions and maintainable code structure.'
+    },
+    {
+      title: 'Creative Engineering Edge',
+      description:
+        'Design background helps me craft stronger layouts, balanced visual hierarchy, and polished interactions.'
+    },
+    {
+      title: 'Scalable Full-Stack Delivery',
+      description:
+        'From React interfaces to backend APIs and cloud-ready workflows, I build systems that can grow.'
+    }
   ];
 
-  const frameworks = [
-    { name: 'React', icon: <img src="/react.svg" alt="React" style={{ width: 48, height: 48 }} /> },
-    { name: 'Vite', icon: <img src="/vite.svg" alt="Vite" style={{ width: 48, height: 48 }} /> },
-    { name: 'Tailwind CSS', icon: <Typography sx={{ fontSize: 40, fontWeight: 'bold', color: '#06B6D4', fontFamily: 'monospace' }}>TW</Typography> },
-    { name: 'Spring Boot', icon: <img src="/springboot.svg" alt="Spring Boot" style={{ width: 48, height: 48 }} /> },
-    { name: 'Node.js', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#339933', fontFamily: 'monospace' }}>N</Typography> },
-    { name: 'Express', icon: <Typography sx={{ fontSize: 40, fontWeight: 'bold', color: '#000000', fontFamily: 'monospace' }}>Ex</Typography> },
+  const skillCategories = [
+    {
+      name: 'Languages',
+      skills: ['C', 'Java', 'JavaScript', 'TypeScript']
+    },
+    {
+      name: 'Frameworks & Libraries',
+      skills: ['React', 'Vite', 'Tailwind CSS', 'Spring Boot', 'Node.js', 'Express']
+    },
+    {
+      name: 'Cloud & DevOps',
+      skills: ['Docker', 'Kubernetes', 'Jenkins', 'AWS', 'Azure', 'GCP', 'CI/CD']
+    },
+    {
+      name: 'Databases',
+      skills: ['MongoDB', 'MySQL']
+    },
+    {
+      name: 'Design & Tools',
+      skills: ['UI/UX', 'Adobe Photoshop', 'Canva', 'Premiere Pro', 'DaVinci']
+    }
   ];
-
-  const cloudDevOps = [
-    { name: 'Docker', icon: <img src="/docker.svg" alt="Docker" style={{ width: 48, height: 48 }} /> },
-    { name: 'Kubernetes', icon: <Typography sx={{ fontSize: 40, fontWeight: 'bold', color: '#326CE5', fontFamily: 'monospace' }}>K8s</Typography> },
-    { name: 'Jenkins', icon: <Typography sx={{ fontSize: 48, fontWeight: 'bold', color: '#D24939', fontFamily: 'monospace' }}>J</Typography> },
-    { name: 'AWS', icon: <img src="/aws.svg" alt="AWS" style={{ width: 48, height: 48 }} /> },
-    { name: 'CI/CD', icon: <Typography sx={{ fontSize: 32, fontWeight: 'bold', color: '#1976d2', fontFamily: 'monospace' }}>CI/CD</Typography> },
-  ];
-
-  const databases = [
-    { name: 'MongoDB', icon: <img src="/mongodb.svg" alt="MongoDB" style={{ width: 48, height: 48 }} /> },
-    { name: 'MySQL', icon: <img src="/mysql.svg" alt="MySQL" style={{ width: 48, height: 48 }} /> },
-  ];
-
-  const editingSkills = [
-    { name: 'Adobe Photoshop', icon: <img src="/photoshop.svg" alt="Photoshop" style={{ width: 48, height: 48 }} /> },
-    { name: 'Adobe Premiere Pro', icon: <img src="/premiere-pro.svg" alt="Premiere Pro" style={{ width: 48, height: 48 }} /> },
-    { name: 'DaVinci Resolve', icon: <img src="/davinci.svg" alt="DaVinci Resolve" style={{ width: 48, height: 48 }} /> },
-    { name: 'Canva', icon: <img src="/canva.svg" alt="Canva" style={{ width: 48, height: 48 }} /> },
-  ];
-
-  const softSkills = [
-    { name: 'Leadership', icon: <Typography sx={{ fontSize: 42 }}>👥</Typography> },
-    { name: 'Problem-Solving', icon: <Typography sx={{ fontSize: 42 }}>🧩</Typography> },
-    { name: 'Time Management', icon: <Typography sx={{ fontSize: 42 }}>⏱️</Typography> },
-    { name: 'Communication', icon: <Typography sx={{ fontSize: 42 }}>💬</Typography> },
-  ];
-
-  const renderSkillBox = (item: { name: string; icon: JSX.Element }) => (
-    <Box
-      key={item.name}
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: { xs: '8px 12px', sm: '10px 16px' },
-        bgcolor: '#f5f5f5',
-        borderRadius: '8px',
-        border: '1px solid #e0e0e0',
-        whiteSpace: 'nowrap'
-      }}
-    >
-      <Typography variant="body2" sx={{ fontWeight: 500, color: '#0d47a1', whiteSpace: 'nowrap' }}>
-        {item.name}
-      </Typography>
-    </Box>
-  );
-
-
 
   return (
-    <Box id="about" sx={{ py: 8, bgcolor: 'white' }}>
-      <Container maxWidth="lg">
-        {/* My Story */}
-        <Box 
+    <Box
+      id="about"
+      sx={{
+        py: { xs: 9, md: 11 },
+        position: 'relative',
+        background: 'linear-gradient(180deg, rgba(6,8,15,0.82) 0%, rgba(9,11,18,1) 100%)'
+      }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          opacity: 0.34
+        }}
+      />
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Box
           ref={storyAnimation.ref}
           className={storyAnimation.isVisible ? 'scroll-animate' : ''}
-          sx={{ textAlign: 'center', mb: 8 }}
+          sx={{ opacity: storyAnimation.isVisible ? 1 : 0 }}
         >
-          <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2' }}>
-            My Story
-          </Typography>
-          <Box sx={{ maxWidth: '1000px', mx: 'auto', textAlign: 'center' }}>
-            <Typography variant="body1" sx={{ mb: 2, lineHeight: 1.8, color: '#555', fontSize: '1.05rem' }}>
-              I'm a developer with the eye of a designer. My journey into the tech world wasn't a straight line—it was a creative path that started with a passion for graphic design. At KL University, I immersed myself in the world of visuals, taking on leadership roles as the Designing Head and later the Co-Lead for the VYUHA club (KL SAC), and also serving as the Director of Designing for the VIDHURA club (AIDS). These experiences taught me how to lead creative projects and master tools for photo editing and design.
-            </Typography>
-            <Typography variant="body1" sx={{ lineHeight: 1.8, color: '#555', fontSize: '1.05rem' }}>
-              This ambition to build experiences from the ground up led me to full-stack development, where I developed a strong foundation in backend and frontend technologies. Over time, I have specialized in creating powerful web applications with Spring Boot, React, and MySQL. Currently, I am pursuing a specialization in Cloud Native Software Engineering, further enhancing my ability to design scalable, resilient, and modern applications. My unique background allows me to not only write clean, maintainable code but also ensure the final product is intuitive, visually appealing, and provides an exceptional user experience.
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* Skills Section */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          {/* Row 1: Languages, Frameworks, Cloud & DevOps */}
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', alignItems: 'flex-start' }}>
-            {/* Languages */}
-            <Box
-              ref={languagesAnimation.ref}
-              className={languagesAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 2, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                Tech Stack
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
-                {languages.map(renderSkillBox)}
-              </Box>
-            </Box>
-
-            {/* Frameworks */}
-            <Box
-              ref={frameworksAnimation.ref}
-              className={frameworksAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                Frameworks & Libraries
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
-                {frameworks.map(renderSkillBox)}
-              </Box>
-            </Box>
-
-            {/* Cloud & DevOps */}
-            <Box
-              ref={cloudDevOpsAnimation.ref}
-              className={cloudDevOpsAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                Cloud & DevOps
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
-                {cloudDevOps.map(renderSkillBox)}
-              </Box>
-            </Box>
-          </Box>
-
-          {/* Row 2: Databases, Creative Tools, Soft Skills */}
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', alignItems: 'flex-start' }}>
-            {/* Databases */}
-            <Box
-              ref={databasesAnimation.ref}
-              className={databasesAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                Databases
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
-                {databases.map(renderSkillBox)}
-              </Box>
-            </Box>
-
-            {/* Editing Skills */}
-            <Box
-              ref={editingSkillsAnimation.ref}
-              className={editingSkillsAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 }, borderBottom: { xs: '1px solid #e0e0e0', md: 'none' } }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                Creative Tools
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
-                {editingSkills.map(renderSkillBox)}
-              </Box>
-            </Box>
-
-            {/* Soft Skills */}
-            <Box
-              ref={softSkillsAnimation.ref}
-              className={softSkillsAnimation.isVisible ? 'scroll-animate' : ''}
-              sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: { xs: '100%', md: '250px' }, pt: { xs: 0, md: 0 }, pb: { xs: 4, md: 0 } }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2rem' }, minHeight: { md: '80px' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                Soft Skills
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
-                {softSkills.map(renderSkillBox)}
-              </Box>
-            </Box>
-          </Box>
-
-          {/* Experience */}
-          <Box 
-            ref={experienceAnimation.ref}
-            className={experienceAnimation.isVisible ? 'scroll-animate' : ''}
-            sx={{ textAlign: 'center', p: 4 }}
+          <Typography
+            sx={{
+              color: '#ff9f1a',
+              textTransform: 'uppercase',
+              letterSpacing: '0.11em',
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              textAlign: 'center',
+              mb: 1
+            }}
           >
-            <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 1, color: '#1976d2', fontSize: { xs: '1.75rem', md: '3rem' } }}>
-              Experience
-            </Typography>
-            <Typography variant="h1" sx={{ fontWeight: 'bold', color: '#1976d2', lineHeight: 1 }}>
-              1+
-            </Typography>
-            <Typography variant="h6" sx={{ color: '#666' }}>
-              Year of Professional Experience
-            </Typography>
-          </Box>
+            Introduction
+          </Typography>
+
+          <Typography variant="h3" align="center" fontWeight={800} sx={{ mb: 1.4, color: '#f4f7ff' }}>
+            About Me
+          </Typography>
+          
+          <Typography align="center" sx={{ mb: 6, maxWidth: 640, mx: 'auto', color: '#aeb8ce' }}>
+            Exploring my technical background, core philosophies, and what drives my development approach.
+          </Typography>
         </Box>
 
+        <Box
+          ref={bigCardsAnimation.ref}
+          sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1.08fr 0.92fr' }, gap: { xs: 3, md: 4.5 }, mb: 6, alignItems: 'stretch', opacity: bigCardsAnimation.isVisible ? 1 : 0 }}
+        >
+          <Card
+            className={bigCardsAnimation.isVisible ? 'scroll-animate-cert-left' : ''}
+            sx={{
+              borderRadius: '16px',
+              border: '1px solid #ff9f1a',
+              background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+              p: { xs: 1.5, md: 2 },
+              boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+            }}
+          >
+              <CardContent sx={{ p: { xs: 2.8, md: 3.4 } }}>
+                <Typography
+                  variant="h3"
+                  sx={{
+                    color: '#f6f8ff',
+                    mb: 2,
+                    fontSize: { xs: '2rem', md: '2.5rem' },
+                    lineHeight: 1.1
+                  }}
+                >
+                  Creative at the core,
+                  <Box component="span" className="accent-gradient-text" sx={{ display: 'block', mt: 0.5 }}>
+                    engineer in execution.
+                  </Box>
+                </Typography>
+
+                <Typography variant="body1" sx={{ mb: 2, lineHeight: 1.85, color: '#aeb8cf' }}>
+                  I started with visual design and grew into full-stack development to build complete digital products.
+                  This blend helps me bridge functionality and aesthetics while keeping user experience central.
+                </Typography>
+
+                <Typography variant="body1" sx={{ lineHeight: 1.85, color: '#aeb8cf' }}>
+                  At KL University, I led multiple creative teams while sharpening my technical stack.
+                  Today I focus on building responsive interfaces, robust application logic, and scalable systems.
+                </Typography>
+
+                <Box sx={{ mt: 2.4, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                  <Chip label="Design Leadership" sx={{ bgcolor: 'rgba(255,159,26,0.16)', color: '#ff9f1a', borderRadius: '6px' }} />
+                  <Chip label="Full-Stack Projects" sx={{ bgcolor: 'rgba(255,159,26,0.16)', color: '#ff9f1a', borderRadius: '6px' }} />
+                  <Chip label="Cloud Learning Path" sx={{ bgcolor: 'rgba(255,159,26,0.16)', color: '#ff9f1a', borderRadius: '6px' }} />
+                </Box>
+              </CardContent>
+            </Card>
+
+            <Card
+              className={bigCardsAnimation.isVisible ? 'scroll-animate-cert-right' : ''}
+              sx={{
+                borderRadius: '16px',
+                position: 'relative',
+                overflow: 'hidden',
+                border: '1px solid #ff9f1a',
+                background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                p: { xs: 1.5, md: 2 },
+                boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <CardContent sx={{ p: { xs: 2.8, md: 3.4 }, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                <Typography sx={{ color: '#cfd8ed', fontWeight: 700, mb: 1.2 }}>Core strengths</Typography>
+
+                <Box sx={{ display: 'grid', gap: 1.2 }}>
+                  {[
+                    'Strong frontend architecture and component systems',
+                    'Backend API development and database design',
+                    'UI polish with performance-focused implementation',
+                    'Production-ready deployment mindset'
+                  ].map((point) => (
+                    <Box key={point} sx={{ display: 'flex', gap: 1.2, alignItems: 'flex-start' }}>
+                      <Box
+                        sx={{
+                          width: 8,
+                          height: 8,
+                          borderRadius: '50%',
+                          bgcolor: '#ff9f1a',
+                          mt: '8px',
+                          flexShrink: 0
+                        }}
+                      />
+                      <Typography sx={{ color: '#aeb8cf', lineHeight: 1.7 }}>{point}</Typography>
+                    </Box>
+                  ))}
+                </Box>
+
+                <Box
+                  sx={{
+                    mt: 'auto',
+                    p: 2,
+                    borderRadius: '16px',
+                    background: 'linear-gradient(135deg, rgba(255,159,26,0.14), rgba(255,159,26,0.08))',
+                    border: '1px solid #ff9f1a'
+                  }}
+                >
+                  <Typography sx={{ color: '#edf2ff', fontWeight: 700, mb: 0.4 }}>Goal</Typography>
+                  <Typography sx={{ color: '#c6d0e7', lineHeight: 1.7 }}>
+                    Build modern software experiences that are visually strong, technically clean, and useful in real-world use.
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+
+        <Box 
+          sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 2.2, mb: 5 }}
+        >
+          {expertiseCards.map((item, index) => (
+            <Box
+              key={item.title}
+              ref={index === 0 ? cardsAnimation.ref : null}
+              className={cardsAnimation.isVisible ? getCardAnimationClass(index) : ''}
+              sx={{
+                height: '100%',
+                opacity: cardsAnimation.isVisible ? 1 : 0,
+                animationDelay: `${index * 110}ms`
+              }}
+            >
+              <Card
+                sx={{
+                  borderRadius: '16px',
+                  height: '100%',
+                  border: '1px solid #ff9f1a',
+                  background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                  p: { xs: 1.5, md: 2 },
+                  boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                  transform: { md: getCardTransform(index) },
+                  transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease',
+                  '&:hover': {
+                    transform: { md: 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-6px)' },
+                    borderColor: '#ff9f1a',
+                    boxShadow: 'none'
+                  }
+                }}
+              >
+                <CardContent sx={{ p: 1.6 }}>
+                <Typography sx={{ color: '#ff9f1a', fontWeight: 700, mb: 1.1, fontSize: '0.86rem' }}>0{index + 1}</Typography>
+                <Typography variant="h6" sx={{ color: '#eef2ff', fontWeight: 700, mb: 1.2, lineHeight: 1.3 }}>
+                  {item.title}
+                </Typography>
+                <Typography sx={{ color: '#9faaC3', lineHeight: 1.75 }}>{item.description}</Typography>
+              </CardContent>
+            </Card>
+            </Box>
+          ))}
+        </Box>
+
+        {/* Added gap as separation */}
+        <Box sx={{ mt: { xs: 6, md: 10 }, mb: { xs: 6, md: 8 } }} />
+
+        <Box 
+          ref={marqueeAnimation.ref} 
+          className={marqueeAnimation.isVisible ? 'scroll-animate' : ''}
+          sx={{ opacity: marqueeAnimation.isVisible ? 1 : 0 }}
+        >
+          <Typography
+            sx={{
+              color: '#ff9f1a',
+              textTransform: 'uppercase',
+              letterSpacing: '0.11em',
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              textAlign: 'center',
+              mb: 1
+            }}
+          >
+            Capabilities
+          </Typography>
+
+          <Typography variant="h3" align="center" fontWeight={800} sx={{ mb: 1.4, color: '#f4f7ff' }}>
+            Technical Skills
+          </Typography>
+
+          <Typography align="center" sx={{ mb: 6, maxWidth: 640, mx: 'auto', color: '#aeb8ce' }}>
+            A comprehensive overview of my technical expertise, programming languages, and tools.
+          </Typography>
+
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }, gap: 3.5, mb: 4 }}>
+            {skillCategories.map((category, index) => (
+              <Box
+                key={category.name}
+                ref={index === 0 ? techSkillsAnimation.ref : null}
+                className={techSkillsAnimation.isVisible ? getCardAnimationClass(index) : ''}
+                sx={{
+                  opacity: techSkillsAnimation.isVisible ? 1 : 0,
+                  animationDelay: `${Math.floor(index / 3) * 150 + (index % 3) * 110}ms`,
+                  height: '100%'
+                }}
+              >
+                <Card
+                  sx={{
+                    borderRadius: '16px',
+                    background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                    border: '1px solid #ff9f1a',
+                    p: { xs: 1.5, md: 2 },
+                    boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transform: { md: getCardTransform(index) },
+                    transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    '&:hover': {
+                      transform: { md: 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-6px)' }
+                    }
+                  }}
+                >
+                  <CardContent sx={{ p: 1.6, flexGrow: 1 }}>
+                    <Typography variant="h5" sx={{ color: '#f4f7ff', fontWeight: 700, mb: 2, fontSize: { xs: '1.2rem', md: '1.35rem' }, letterSpacing: '-0.01em' }}>
+                      {category.name}
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                    {category.skills.map((skill) => (
+                      <Chip
+                        key={skill}
+                        label={skill}
+                        sx={{
+                          bgcolor: 'rgba(255,159,26,0.16)',
+                          color: '#ff9f1a',
+                          border: 'none',
+                          fontWeight: 600,
+                          fontSize: '0.8rem',
+                          borderRadius: '6px',
+                          transition: 'all 0.2s',
+                          '&:hover': {
+                            bgcolor: 'rgba(255,159,26,0.25)',
+                            color: '#ff9f1a',
+                          }
+                        }}
+                      />
+                    ))}
+                  </Box>
+                  </CardContent>
+                </Card>
+              </Box>
+            ))}
+          </Box>
+        </Box>
       </Container>
     </Box>
   );

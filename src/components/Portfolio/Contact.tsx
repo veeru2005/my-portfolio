@@ -10,7 +10,10 @@ import {
   IconButton,
   Alert,
   Snackbar,
-  CircularProgress // <-- NEW: Import CircularProgress
+  Chip,
+  Portal,
+  Slide,
+  SlideProps
 } from '@mui/material';
 import {
   Email as EmailIcon,
@@ -30,6 +33,10 @@ interface IFormData {
   message: string;
 }
 
+function SlideTransition(props: SlideProps) {
+  return <Slide {...props} direction="down" />;
+}
+
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState<IFormData>({
     name: '',
@@ -38,11 +45,20 @@ const Contact: React.FC = () => {
     message: ''
   });
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [errorAlert, setErrorAlert] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false); // <-- NEW: Add loading state
+  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   
-  const headerAnimation = useScrollAnimation();
-  const contentAnimation = useScrollAnimation();
+  const headerAnimation = useScrollAnimation(0.14);
+  const contentAnimation = useScrollAnimation(0.14);
+  const contactInfoAnimation = useScrollAnimation(0.14);
+
+  const getContactAnimationClass = (index: number) => {
+    const mod = index % 3;
+    if (mod === 0) return 'scroll-animate-cert-left';
+    if (mod === 1) return 'scroll-animate-cert-up';
+    return 'scroll-animate-cert-right';
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -54,58 +70,66 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true); // <-- NEW: Set loading to true
-    
+    setIsSubmitting(true);
+
     try {
-      // We are now ONLY calling your backend to send the email.
-      const API_BASE_URL = import.meta.env.VITE_API_URL;
-
-      const response = await fetch(`${API_BASE_URL}/api/contact/send`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: '550b5502-1b5f-4fb7-a344-cd848a78ef11',
+          from_name: 'My Portfolio',
+          subject: `New Portfolio Message from ${formData.name}`,
+          name: formData.name,
+          email: formData.email,
+          replyto: formData.email,
+          "User Subject": formData.subject,
+          message: formData.message
+        })
       });
-      
 
-      if (!response.ok) {
-        const errorBody = await response.text();
-        console.error(`Backend returned an error: ${response.status} ${response.statusText}`);
-        console.error("Error details:", errorBody);
-        // This will trigger the catch block and show the error alert.
-        throw new Error(`HTTP error! Status: ${response.status}`);
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setAlertSeverity('success');
+        setAlertMessage('Thank you! Your message has been sent successfully.');
+        setShowAlert(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setAlertSeverity('error');
+        setAlertMessage(result.message || 'Failed to send your message. Please try again.');
+        setShowAlert(true);
       }
-
-      // If the email sends successfully:
-      setShowAlert(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      
     } catch (error) {
-      // This will catch network errors, CORS errors, or the error thrown above.
-      console.error("Failed to send message:", error);
-      setErrorAlert(true);
+      console.error("Error submitting form:", error);
+      setAlertSeverity('error');
+      setAlertMessage('Something went wrong. Please try again later.');
+      setShowAlert(true);
     } finally {
-      setIsLoading(false); // <-- NEW: Set loading to false after try/catch
+      setIsSubmitting(false);
     }
   };
 
   const contactInfo = [
     {
-      icon: <EmailIcon sx={{ fontSize: 30, color: '#1976d2' }} />,
+      icon: <EmailIcon sx={{ fontSize: 30, color: '#ff9f1a' }} />,
       title: 'Email',
       value: 'sunkavalli.veerendra1973@gmail.com',
-      link: '#'
+      link: 'mailto:sunkavalli.veerendra1973@gmail.com'
     },
     {
-      icon: <PhoneIcon sx={{ fontSize: 30, color: '#1976d2' }} />,
+      icon: <PhoneIcon sx={{ fontSize: 30, color: '#ff9f1a' }} />,
       title: 'Phone',
       value: '+91 7995762616',
-      link: '#'
+      link: 'tel:+917995762616'
     },
     {
-      icon: <LocationIcon sx={{ fontSize: 30, color: '#1976d2' }} />,
+      icon: <LocationIcon sx={{ fontSize: 30, color: '#ff9f1a' }} />,
       title: 'Location',
       value: 'Rajahmundry, Andhra Pradesh, India',
-      link: '#'
+      link: 'https://maps.google.com/?q=Rajahmundry,+Andhra+Pradesh,+India'
     }
   ];
 
@@ -115,20 +139,52 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <Box id="contact" sx={{ py: 10, bgcolor: '#f8f9fa' }}>
-      <Container maxWidth="lg">
+    <Box
+      id="contact"
+      sx={{
+        py: { xs: 9, md: 10 },
+        position: 'relative',
+        background: 'linear-gradient(180deg, rgba(8,10,15,1) 0%, rgba(5,7,12,1) 100%)'
+      }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          opacity: 0.34
+        }}
+      />
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Box
           ref={headerAnimation.ref}
           className={headerAnimation.isVisible ? 'scroll-animate' : ''}
+          sx={{ opacity: headerAnimation.isVisible ? 1 : 0 }}
         >
+          <Typography
+            sx={{
+              color: '#ff9f1a',
+              textTransform: 'uppercase',
+              letterSpacing: '0.11em',
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              textAlign: 'center',
+              mb: 1
+            }}
+          >
+            Contact
+          </Typography>
+
           <Typography
             variant="h3"
             component="h2"
             align="center"
             sx={{
-              fontWeight: 'bold',
-              mb: 2,
-              color: '#1976d2'
+              fontWeight: 800,
+              mb: 1.5,
+              color: '#f5f7ff'
             }}
           >
             Get In Touch
@@ -138,57 +194,82 @@ const Contact: React.FC = () => {
             variant="body1"
             align="center"
             sx={{
-              color: '#666',
-              mb: 8,
-              fontSize: '1.1rem',
+              color: '#aeb8ce',
+              mb: 5,
+              fontSize: '1rem',
               maxWidth: '600px',
               mx: 'auto'
             }}
           >
-            Have a project in mind or want to collaborate? I'd love to hear from you. Let's create something amazing together!
+            Tell me about your idea, role, or collaboration goal and I will get back to you quickly.
           </Typography>
         </Box>
 
         <Box 
           ref={contentAnimation.ref}
-          className={contentAnimation.isVisible ? 'scroll-animate' : ''}
-          sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 6 }}
+          sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '0.92fr 1.08fr' }, gap: 2.4, opacity: contentAnimation.isVisible ? 1 : 0 }}
         >
-          <Box sx={{ flex: 1 }}>
-            <Card sx={{ height: '100%', borderRadius: 2, boxShadow: '0 8px 24px rgba(0,0,0,0.2)', border: '1px solid #e0e0e0', borderColor: '#1976d2' }}>
-              <CardContent sx={{ p: 4 }}>
+          <Box className={contentAnimation.isVisible ? 'scroll-animate-cert-left' : ''}>
+            <Card 
+              sx={{ 
+                height: '100%', 
+                borderRadius: '16px', 
+                border: '1px solid #ff9f1a',
+              }}
+            >
+              <CardContent sx={{ p: { xs: 2.7, md: 3.2 } }}>
                 <Typography
                   variant="h5"
-                  sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2' }}
+                  sx={{ fontWeight: 750, mb: 2.2, color: '#f1f5ff' }}
                 >
                   Contact Information
                 </Typography>
+
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, mb: 2.5 }}>
+                  <Chip label="Open to freelance" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
+                  <Chip label="Open to full-time role" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
+                </Box>
                 
                 {contactInfo.map((info, index) => (
                   <Box
                     key={index}
+                    ref={index === 0 ? contactInfoAnimation.ref : null}
+                    className={contactInfoAnimation.isVisible ? getContactAnimationClass(index) : ''}
                     sx={{
                       display: 'flex',
                       alignItems: 'center',
-                      mb: 3,
-                      p: 2,
-                      borderRadius: 2,
-                      transition: 'background-color 0.3s ease',
-                      '&:hover': { bgcolor: '#e3f2fd' }
+                      mb: 1.5,
+                      p: 1.6,
+                      borderRadius: '16px',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      bgcolor: 'rgba(255,255,255,0.03)',
+                      transition: 'all 0.3s ease',
+                      opacity: contactInfoAnimation.isVisible ? 1 : 0,
+                      animationDelay: `${index * 110}ms`,
+                      '&:hover': {
+                        bgcolor: 'rgba(255,159,26,0.08)',
+                        borderColor: 'rgba(255,159,26,0.35)'
+                      }
                     }}
                   >
-                    <Box sx={{ mr: 3 }}>{info.icon}</Box>
+                    <Box sx={{ mr: 2.2 }}>{info.icon}</Box>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: '#333' }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#eef2ff' }}>
                         {info.title}
                       </Typography>
                       <Typography
                         variant="body2"
                         sx={{
-                          color: '#666',
-                          cursor: info.link !== '#' ? 'pointer' : 'default'
+                          color: '#aeb8ce',
+                          cursor: 'pointer'
                         }}
-                        onClick={() => info.link !== '#' && window.open(info.link, '_blank')}
+                        onClick={() => {
+                          if (info.link.startsWith('http')) {
+                            window.open(info.link, '_blank');
+                            return;
+                          }
+                          window.location.href = info.link;
+                        }}
                       >
                         {info.value}
                       </Typography>
@@ -197,7 +278,7 @@ const Contact: React.FC = () => {
                 ))}
 
                 <Box sx={{ mt: 4 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.2, color: '#f1f5ff' }}>
                     Follow Me
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 2 }}>
@@ -207,11 +288,13 @@ const Contact: React.FC = () => {
                         href={social.url}
                         target="_blank"
                         sx={{
-                          bgcolor: '#e3f2fd',
-                          color: '#1976d2',
+                          bgcolor: 'rgba(255,255,255,0.05)',
+                          color: '#dce4f5',
+                          border: '1px solid rgba(255,255,255,0.1)',
                           '&:hover': {
-                            bgcolor: '#1976d2',
-                            color: 'white',
+                            bgcolor: 'rgba(255,159,26,0.12)',
+                            borderColor: 'rgba(255,159,26,0.4)',
+                            color: '#ff9f1a',
                             transform: 'translateY(-2px)'
                           }
                         }}
@@ -224,32 +307,43 @@ const Contact: React.FC = () => {
 
                 <Box
                   sx={{
-                    mt: 4,
-                    p: 3,
-                    background: 'linear-gradient(135deg, #3156c4ff 100%)',
-                    borderRadius: 2,
-                    textAlign: 'center'
+                    mt: 3,
+                    p: 2.3,
+                    background: 'linear-gradient(125deg, rgba(255,159,26,0.17), rgba(255,159,26,0.1))',
+                    border: '1px solid #ff9f1a',
+                    borderRadius: '16px',
+                    textAlign: 'left'
                   }}
                 >
-                  <Typography variant="h6" sx={{ color: 'white', mb: 1 }}>
+                  <Typography variant="h6" sx={{ color: '#f3f7ff', mb: 0.6 }}>
                     Let's Build Something Great!
                   </Typography>
-                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-                    I'm always open to discussing new opportunities and exciting projects.
+                  <Typography variant="body2" sx={{ color: '#d4ddf2', lineHeight: 1.7 }}>
+                    Send your details with project scope and timeline. I usually respond within 24 hours.
                   </Typography>
                 </Box>
               </CardContent>
             </Card>
           </Box>
 
-          <Box sx={{ flex: 1 }}>
-            <Card sx={{ height: '100%', borderRadius:2, boxShadow: '0 8px 24px rgba(0,0,0,0.2)', border: '1px solid #e0e0e0', borderColor: '#1976d2'}}>
-              <CardContent sx={{ p: 4 }}>
+          <Box className={contentAnimation.isVisible ? 'scroll-animate-cert-right' : ''}>
+            <Card 
+              sx={{ 
+                height: '100%', 
+                borderRadius: '16px', 
+                border: '1px solid #ff9f1a',
+              }}
+            >
+              <CardContent sx={{ p: { xs: 2.7, md: 3.2 } }}>
                 <Typography
                   variant="h5"
-                  sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2' }}
+                  sx={{ fontWeight: 750, mb: 0.9, color: '#f1f5ff' }}
                 >
                   Send Message
+                </Typography>
+
+                <Typography sx={{ color: '#9faac4', mb: 3.2, lineHeight: 1.7 }}>
+                  Share your requirement and I will contact you directly by email.
                 </Typography>
                 
                 <Box component="form" onSubmit={handleSubmit}>
@@ -292,55 +386,59 @@ const Contact: React.FC = () => {
                     required
                     sx={{ mb: 3 }}
                   />
-                  {/* -- NEW: Updated Button -- */}
                   <Button
                     type="submit"
                     variant="contained"
                     size="large"
-                    disabled={isLoading} // <-- NEW: Disable button when loading
-                    startIcon={isLoading ? null : <SendIcon />} // <-- NEW: Hide icon when loading
+                    disabled={isSubmitting}
+                    startIcon={<SendIcon />}
                     sx={{
-                      bgcolor: '#1976d2',
                       px: 4,
-                      py: 1.5,
-                      fontWeight: 'bold',
-                      minWidth: '180px', // <-- NEW: Prevents size change on load
-                      minHeight: '52.5px', // <-- NEW: Prevents size change on load
-                        transform: 'translateY(-2px)',
-                      
-                      
+                      py: 1.35,
+                      minWidth: '190px',
+                      bgcolor: '#ff9f1a',
+                      color: '#1a1205',
+                      boxShadow: 'none',
+                      '&:hover': {
+                        bgcolor: '#ffab33',
+                        boxShadow: 'none'
+                      }
                     }}
                   >
-                    {isLoading ? <CircularProgress size={24}  /> : 'Send Message'}
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
-                   {/* -- End of Updated Button -- */}
                 </Box>
               </CardContent>
             </Card>
           </Box>
         </Box>
 
-        <Snackbar
-          open={showAlert}
-          autoHideDuration={2500}
-          onClose={() => setShowAlert(false)}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        >
-          <Alert severity="success" onClose={() => setShowAlert(false)} sx={{ width: '100%' }}>
-            Thank you for your message! It has been sent.
-          </Alert>
-        </Snackbar>
-
-        <Snackbar
-          open={errorAlert}
-          autoHideDuration={2500}
-          onClose={() => setErrorAlert(false)}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        >
-          <Alert severity="error" onClose={() => setErrorAlert(false)} sx={{ width: '100%' }}>
-            Failed to send message. Please try again later.
-          </Alert>
-        </Snackbar>
+        <Portal>
+          <Snackbar
+            open={showAlert}
+            autoHideDuration={2250}
+            onClose={() => setShowAlert(false)}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            TransitionComponent={SlideTransition}
+            sx={{ zIndex: 999999, top: { xs: 24, md: 32 } }}
+          >
+            <Alert 
+              severity={alertSeverity} 
+              onClose={() => setShowAlert(false)} 
+              sx={{ 
+                width: '100%', 
+                fontSize: '1.05rem', 
+                alignItems: 'center',
+                color: '#ffffff',
+                '& .MuiAlert-icon': { color: '#ffffff' },
+                '& .MuiIconButton-root, & .MuiSvgIcon-root': { color: '#ffffff' }
+              }}
+              variant="filled"
+            >
+              {alertMessage}
+            </Alert>
+          </Snackbar>
+        </Portal>
       </Container>
     </Box>
   );

@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Container, Typography, Card, CardContent, CardMedia, CircularProgress } from '@mui/material';
+import React from 'react';
+import { Box, Container, Typography, Card, CardContent, CardMedia } from '@mui/material';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
-
-// --- Interface updated to match the final backend entity ---
 interface Certification {
   id: number;
   name: string;
@@ -14,157 +11,335 @@ interface Certification {
   imageUrl: string;
 }
 
+const defaultEducations = [
+  {
+    institution: 'Bhashyam Ramasethu Campus',
+    degree: 'SSC (10th)',
+    year: '2020 - 2021',
+    location: 'Guntur, Andhra Pradesh, India',
+    description: 'Finished high school with a primary focus on foundational courses in mathematics, sciences and languages',
+    image: '/brc.png'
+  },
+  {
+    institution: 'Bhashyam Titanic Campus',
+    degree: 'Intermediate (11th and 12th)',
+    year: '2021 - 2023',
+    location: 'Guntur, Andhra Pradesh, India',
+    description: 'Focused on Mathematics, Physics, and Chemistry with consistent academic performance.',
+    image: '/btc.png'
+  },
+  {
+    institution: 'KL University',
+    degree: 'B.Tech in CSE (Ongoing)',
+    year: '2023 - Present',
+    location: 'Vijayawada, Andhra Pradesh, India',
+    description: 'Currently pursuing B.Tech with interests in software engineering, algorithms, web development and specialising in Cloud Native Software Engineering.',
+    image: '/klu.png'
+  }
+];
+
+const staticCertifications: Certification[] = [
+  {
+    id: 1,
+    name: 'AZ-900: Azure Fundamentals',
+    issuer: 'Microsoft',
+    year: 'Aug 2025',
+    description: 'Fundamentals of cloud computing, Microsoft Azure services, core solutions, and security, compliance, and pricing best practices.',
+    imageUrl: 'https://res.cloudinary.com/dpff7l6hb/image/upload/v1757569931/opigqs1d37blod8oqzyv.jpg'
+  },
+  {
+    id: 2,
+    name: 'Build Your Own Generative AI Model',
+    issuer: 'Net wave',
+    year: 'July 2025',
+    description: 'A comprehensive program covering the fundamentals of Generative AI, including model architecture, training techniques, and practical applications.',
+    imageUrl: 'https://res.cloudinary.com/dpff7l6hb/image/upload/v1757602604/wyhvmjfqlvvvqd5xlmrj.jpg'
+  },
+  {
+    id: 3,
+    name: 'AI-ML Virtual Internship',
+    issuer: 'AP State Council of Higher Education (APSCHE)',
+    year: '2025',
+    description: 'Completed 10-week AI/ML internship focusing on real-world applications and hands-on projects. Achieved grade B (Good) through program backed by Google, EduSkills, and AICTE.',
+    imageUrl: 'https://res.cloudinary.com/dpff7l6hb/image/upload/v1760550786/ntznfm1r2z2laqnanblx.jpg'
+  },
+  {
+    id: 4,
+    name: 'Cloud Infrastructure 2025 Certified DevOps Professional',
+    issuer: 'Oracle University',
+    year: 'Oct 2025',
+    description: 'Certified for expertise in DevOps on Oracle Cloud, including building and managing automated pipelines and secure cloud deployments. Valid until October 31, 2027.',
+    imageUrl: 'https://res.cloudinary.com/dpff7l6hb/image/upload/v1762451528/whufyprvnnpgwjr8glbd.jpg'
+  },
+  {
+    id: 5,
+    name: 'Aviatrix Certified Engineer - Multicloud Network Associate (ACE)',
+    issuer: 'Aviatrix',
+    year: 'Oct 2025',
+    description: 'Skilled in multicloud networking and security using Aviatrix to build and manage solutions across AWS, Azure, GCP, and Oracle Cloud.',
+    imageUrl: 'https://res.cloudinary.com/dpff7l6hb/image/upload/v1762451858/oz0kbbqbsii4cglr09lj.jpg'
+  },
+  {
+    id: 6,
+    name: 'Certified Essentials Automation Professional',
+    issuer: 'Automation Anywhere',
+    year: 'Jan 2026',
+    description: 'Certified in essential automation practices with Automation Anywhere, covering core RPA concepts and workflow automation fundamentals.',
+    imageUrl: 'https://res.cloudinary.com/dpff7l6hb/image/upload/v1776617341/Essential_Automation_fdaumh.jpg'
+  }
+];
+
 const EducationCertifications = () => {
-  const educationAnimation = useScrollAnimation();
-  const certificationAnimation = useScrollAnimation();
-  
-  const defaultEducations = [
-    {
-      institution: 'Bhashyam Ramasethu Campus',
-      degree: 'SSC (10th)',
-      year: '2020 - 2021',
-      location: 'Guntur, Andhra Pradesh, India',
-      description: 'Finished high school with a primary focus on foundational courses in mathematics, sciences and languages',
-      image: '/brc.png'
-    },
-    {
-      institution: 'Bhashyam Titanic Campus',
-      degree: 'Intermediate (11th and 12th)',
-      year: '2021 - 2023',
-      location: 'Guntur, Andhra Pradesh, India',
-      description: 'Focused on Mathematics, Physics, and Chemistry with consistent academic performance.',
-      image: '/btc.png'
-    },
-    {
-      institution: 'KL University',
-      degree: 'B.Tech in Computer Science & Engineering (Ongoing)',
-      year: '2023 - Present',
-      location: 'Vijayawada, Andhra Pradesh, India',
-      description: 'Currently pursuing B.Tech with interests in software engineering, algorithms, web development and specialising in Cloud Native Software Engineering.',
-      image: '/klu.png'
-    }
-  ];
+  const educationAnimation = useScrollAnimation(0.14);
+  const certificationAnimation = useScrollAnimation(0.14);
+  const certRow1Animation = useScrollAnimation(0.14);
+  const certRow2Animation = useScrollAnimation(0.14);
 
-  const [educationsState, setEducationsState] = React.useState(() => {
-    try {
-      const s = localStorage.getItem('educations');
-      return s ? JSON.parse(s) : defaultEducations;
-    } catch (e) {
-      return defaultEducations;
-    }
-  });
+  const getCertificateAnimationClass = (index: number) => {
+    const mod = index % 3;
+    if (mod === 0) return 'scroll-animate-cert-left';
+    if (mod === 1) return 'scroll-animate-cert-up';
+    return 'scroll-animate-cert-right';
+  };
 
-  const [certificationsState, setCertificationsState] = useState<Certification[]>([]);
-  const [loadingCerts, setLoadingCerts] = useState(true);
-
-  useEffect(() => {
-    const fetchCertifications = async () => {
-      setLoadingCerts(true);
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/portfolio/certifications`);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data: Certification[] = await response.json();
-        setCertificationsState(data);
-      } catch (error) {
-        console.error("Error fetching certifications:", error);
-        setCertificationsState([]);
-      } finally {
-        setLoadingCerts(false);
-      }
-    };
-    fetchCertifications();
-  }, []);
-
-  useEffect(() => {
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === 'educations' && e.newValue) {
-        setEducationsState(JSON.parse(e.newValue));
-      }
-    };
-    const onLocalUpdate = () => {
-      try {
-        const s = localStorage.getItem('educations');
-        if (s) setEducationsState(JSON.parse(s));
-      } catch (err) { /* ignore */ }
-    };
-    window.addEventListener('storage', onStorage);
-    window.addEventListener('localDataUpdated', onLocalUpdate as EventListener);
-    return () => {
-      window.removeEventListener('storage', onStorage);
-      window.removeEventListener('localDataUpdated', onLocalUpdate as EventListener);
-    };
-  }, []);
+  const getCardTransform = (index: number) => {
+    const col = index % 3;
+    if (col === 0) return 'perspective(1000px) rotateY(8deg) rotateX(3deg)';
+    if (col === 1) return 'perspective(1000px) rotateY(0deg) rotateX(3deg)';
+    return 'perspective(1000px) rotateY(-8deg) rotateX(3deg)';
+  };
 
   return (
-    <Box id="education" sx={{ py: 10, bgcolor: '#f8f9fa' }}>
-      <Container maxWidth="lg">
-        <Typography variant="h3" component="h2" align="center" sx={{ fontWeight: 'bold', mb: 2, color: '#1976d2' }}>
-          Education & Certifications
-        </Typography>
+    <>
+      <Box
+        id="education"
+        sx={{
+          py: { xs: 9, md: 10 },
+          position: 'relative',
+          background: 'linear-gradient(180deg, rgba(9,11,18,1) 0%, rgba(8,10,16,1) 100%)'
+        }}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            opacity: 0.34
+          }}
+        />
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+          <Box
+            ref={educationAnimation.ref}
+            className={educationAnimation.isVisible ? 'scroll-animate' : ''}
+            sx={{ opacity: educationAnimation.isVisible ? 1 : 0 }}
+          >
+            <Typography
+              sx={{
+                color: '#ff9f1a',
+                textTransform: 'uppercase',
+                letterSpacing: '0.11em',
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                textAlign: 'center',
+                mb: 1
+              }}
+            >
+              Academic Path
+            </Typography>
+            <Typography variant="h3" component="h2" align="center" sx={{ fontWeight: 800, mb: 1.6, color: '#f4f7ff' }}>
+              Education
+            </Typography>
+            <Typography align="center" sx={{ mb: 5, maxWidth: 640, mx: 'auto', color: '#aeb8ce' }}>
+              My academic journey and the institutions that shaped my foundation.
+            </Typography>
+          </Box>
 
-        <Box 
-          ref={educationAnimation.ref}
-          className={educationAnimation.isVisible ? 'scroll-animate' : ''}
-          sx={{ mt: 6 }}
-        >
-          <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: '#1976d2' }}>
-            Education
-          </Typography>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 3 }}>
-            {educationsState.map((edu, idx) => (
-              <Box key={idx}>
-                <Card sx={{ height: '100%', borderRadius: 2,  boxShadow: '0 6px 18px rgba(0,0,0,0.06)', border: '1px solid #e0e0e0', borderColor: '#1976d2', transition: 'all 0.3s ease', '&:hover': { transform: 'translateY(-6px)', boxShadow: '0 12px 24px rgba(0,0,0,0.12)'} }}>
-                  <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#0d47a1' }}>{edu.institution}</Typography>
-                    <Typography variant="subtitle1" sx={{ color: '#424242', fontWeight: 500, mb: 0.5 }}>{edu.degree} • {edu.year}</Typography>
-                    {edu.location && <Typography variant="caption" sx={{ color: '#6b6b6b', display: 'block', mb: 1 }}>{edu.location}</Typography>}
-                    <Typography variant="body2" sx={{ color: '#555' }}>{edu.description}</Typography>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 2.3 }}>
+            {defaultEducations.map((edu, idx) => (
+              <Box
+                key={idx}
+                ref={idx === 0 ? educationAnimation.ref : null}
+                className={educationAnimation.isVisible ? getCertificateAnimationClass(idx) : ''}
+                sx={{
+                  height: '100%',
+                  opacity: educationAnimation.isVisible ? 1 : 0,
+                  animationDelay: `${idx * 110}ms`
+                }}
+              >
+                <Card
+                  sx={{
+                    height: '100%',
+                    borderRadius: '16px',
+                    border: '1px solid #ff9f1a',
+                    background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                    p: { xs: 1.5, md: 2 },
+                    boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                    transform: { md: getCardTransform(idx) },
+                    transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    '&:hover': {
+                      transform: { md: 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-6px)' }
+                    }
+                  }}
+                >
+                  <CardContent sx={{ p: 1.6, display: 'flex', flexDirection: 'column', height: '100%', boxSizing: 'border-box' }}>
+                    <Typography sx={{ color: '#ff9f1a', fontWeight: 800, mb: 2, fontSize: '0.875rem', letterSpacing: '0.06em' }}>
+                      0{idx + 1}
+                    </Typography>
+                    <Typography variant="h5" title={edu.institution} sx={{ fontWeight: 800, color: '#ff9f1a', mb: 2, lineHeight: 1.3, fontSize: { xs: '1.2rem', md: '1.35rem' }, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {edu.institution}
+                    </Typography>
+                    <Typography variant="subtitle1" sx={{ color: '#dbe2f3', fontWeight: 600, mb: 1, fontSize: '1rem' }}>
+                      {edu.degree}
+                    </Typography>
+                    <Typography sx={{ color: '#8f9ab4', fontSize: '0.875rem', mb: 2 }}>
+                      {edu.year} • {edu.location}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#aeb8cf', lineHeight: 1.7, fontSize: '0.875rem', mt: 'auto' }}>
+                      {edu.description}
+                    </Typography>
                   </CardContent>
                 </Card>
               </Box>
             ))}
           </Box>
+        </Container>
+      </Box>
 
+      <Box
+        id="certificates"
+        sx={{
+          py: { xs: 9, md: 10 },
+          position: 'relative',
+          background: 'linear-gradient(180deg, rgba(8,10,16,1) 0%, rgba(6,8,14,1) 100%)'
+        }}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            opacity: 0.34
+          }}
+        />
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
           <Box
             ref={certificationAnimation.ref}
             className={certificationAnimation.isVisible ? 'scroll-animate' : ''}
+            sx={{ opacity: certificationAnimation.isVisible ? 1 : 0 }}
           >
-            <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, mt: 6, color: '#1976d2' }}>
-              Certifications
+            <Typography
+              sx={{
+                color: '#ff9f1a',
+                textTransform: 'uppercase',
+                letterSpacing: '0.11em',
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                textAlign: 'center',
+                mb: 1
+              }}
+            >
+              Verified Learning
+            </Typography>
+            <Typography variant="h3" component="h2" align="center" sx={{ fontWeight: 800, mb: 1.6, color: '#f4f7ff' }}>
+              Certificates
+            </Typography>
+            <Typography align="center" sx={{ mb: 5, maxWidth: 640, mx: 'auto', color: '#aeb8ce' }}>
+              Selected certifications that reflect my continuous learning in software development and cloud technologies.
             </Typography>
           </Box>
 
-          {loadingCerts ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
-              <CircularProgress />
-            </Box>
-          ) : (
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(3, 1fr)' }, gap: 3 }}>
-              {certificationsState.map((cert) => (
-                <Box key={cert.id}>
-                  <Card sx={{ height: '100%', borderRadius: 2, boxShadow: '0 6px 18px rgba(0,0,0,0.06)', border: '1px solid #e0e0e0', borderColor: '#1976d2', transition: 'all 0.3s ease', '&:hover': { transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(0,0,0,0.15)'} }}>
-                    {cert.imageUrl && (
-                      <CardMedia component="img" image={cert.imageUrl} alt={`${cert.name} certificate`} sx={{ height: 300, objectFit: 'cover' }} />
-                    )}
-                    <CardContent>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#0d47a1' }}>
-                        {cert.name}
-                      </Typography>
-                      <Typography variant="subtitle2" sx={{ color: '#1976d2', mb: 1 }}>
-                        {cert.issuer} • {cert.year}
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: '#555' }}>
-                        {cert.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Box>
-              ))}
-            </Box>
-          )}
-        </Box>
-      </Container>
-    </Box>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(3, 1fr)' }, gap: { xs: 2.5, md: 4 } }}>
+            {[...staticCertifications].sort((a, b) => b.id - a.id).map((cert, index) => {
+              const animatingRow = index < 3 ? certRow1Animation : certRow2Animation;
+              const isVisible = animatingRow.isVisible;
+              
+              return (
+              <Box
+                key={cert.id}
+                ref={index === 0 ? certRow1Animation.ref : (index === 3 ? certRow2Animation.ref : null)}
+                className={isVisible ? getCertificateAnimationClass(index) : ''}
+                sx={{
+                  height: '100%',
+                  opacity: isVisible ? 1 : 0,
+                  animationDelay: `${Math.floor(index / 3) * 150 + (index % 3) * 110}ms`
+                }}
+              >
+                <Card
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: '16px',
+                    border: '1px solid #ff9f1a',
+                    background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                    p: { xs: 1.5, md: 2 },
+                    boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                    transform: { md: getCardTransform(index) },
+                    transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    '&:hover': {
+                      transform: { md: 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-6px)' }
+                    }
+                  }}
+                >
+                  {cert.imageUrl && (
+                    <CardMedia
+                      component="img"
+                      image={cert.imageUrl}
+                      alt={`${cert.name} certificate`}
+                      sx={{
+                        height: { xs: 210, sm: 220, md: 228 },
+                        width: '100%',
+                        objectFit: 'fill',
+                        borderRadius: '12px',
+                        borderBottom: '1px solid rgba(255,255,255,0.1)'
+                      }}
+                    />
+                  )}
+                  <CardContent sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: 2.25, px: 1 }}>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 700,
+                        color: '#eef2ff',
+                        lineHeight: 1.35,
+                        mb: 0.75,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      {cert.name}
+                    </Typography>
+                    <Typography variant="subtitle2" sx={{ color: '#ff9f1a', mb: 1, fontWeight: 600 }}>
+                      {cert.issuer} • {cert.year}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: '#a9b4cc',
+                        lineHeight: 1.6,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      {cert.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            );
+            })}
+          </Box>
+        </Container>
+      </Box>
+    </>
   );
 };
 
