@@ -24,6 +24,7 @@ import {
   Send as SendIcon
 } from '@mui/icons-material';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { ScrollScatter } from '../ui/ScrollScatter';
 
 // Interface for the form's state
 interface IFormData {
@@ -142,7 +143,7 @@ const Contact: React.FC = () => {
     <Box
       id="contact"
       sx={{
-        py: { xs: 9, md: 10 },
+        pt: { xs: 5, md: 6 }, pb: { xs: 9, md: 10 },
         position: 'relative',
         background: 'linear-gradient(180deg, rgba(8,10,15,1) 0%, rgba(5,7,12,1) 100%)'
       }}
@@ -158,100 +159,96 @@ const Contact: React.FC = () => {
         }}
       />
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box
-          ref={headerAnimation.ref}
-          className={headerAnimation.isVisible ? 'scroll-animate' : ''}
-          sx={{ opacity: headerAnimation.isVisible ? 1 : 0 }}
-        >
-          <Typography
-            sx={{
-              color: '#ff9f1a',
-              textTransform: 'uppercase',
-              letterSpacing: '0.11em',
-              fontSize: '0.72rem',
-              fontWeight: 700,
-              textAlign: 'center',
-              mb: 1
-            }}
-          >
-            Contact
-          </Typography>
+        <Box>
+          <ScrollScatter direction="up" distance={100}>
+            <Box>
+              <Typography
+                sx={{
+                  color: '#ff9f1a',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.11em',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  textAlign: 'center',
+                  mb: 1
+                }}
+              >
+                Contact
+              </Typography>
 
-          <Typography
-            variant="h3"
-            component="h2"
-            align="center"
-            sx={{
-              fontWeight: 800,
-              mb: 1.5,
-              color: '#f5f7ff'
-            }}
-          >
-            Get In Touch
-          </Typography>
-          
-          <Typography
-            variant="body1"
-            align="center"
-            sx={{
-              color: '#aeb8ce',
-              mb: 5,
-              fontSize: '1rem',
-              maxWidth: '600px',
-              mx: 'auto'
-            }}
-          >
-            Tell me about your idea, role, or collaboration goal and I will get back to you quickly.
-          </Typography>
+              <Typography
+                variant="h3"
+                component="h2"
+                align="center"
+                sx={{
+                  fontWeight: 800,
+                  mb: 1.5,
+                  color: '#f5f7ff'
+                }}
+              >
+                Get In Touch
+              </Typography>
+              
+              <Typography
+                variant="body1"
+                align="center"
+                sx={{
+                  color: '#aeb8ce',
+                  mb: 5,
+                  fontSize: '1rem',
+                  maxWidth: '600px',
+                  mx: 'auto'
+                }}
+              >
+                Tell me about your idea, role, or collaboration goal and I will get back to you quickly.
+              </Typography>
+            </Box>
+          </ScrollScatter>
         </Box>
 
         <Box 
-          ref={contentAnimation.ref}
-          sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '0.92fr 1.08fr' }, gap: 2.4, opacity: contentAnimation.isVisible ? 1 : 0 }}
+          sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '0.92fr 1.08fr' }, gap: 2.4 }}
         >
-          <Box className={contentAnimation.isVisible ? 'scroll-animate-cert-left' : ''}>
-            <Card 
-              sx={{ 
-                height: '100%', 
-                borderRadius: '16px', 
-                border: '1px solid #ff9f1a',
-              }}
-            >
-              <CardContent sx={{ p: { xs: 2.7, md: 3.2 } }}>
-                <Typography
-                  variant="h5"
-                  sx={{ fontWeight: 750, mb: 2.2, color: '#f1f5ff' }}
-                >
-                  Contact Information
-                </Typography>
-
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, mb: 2.5 }}>
-                  <Chip label="Open to freelance" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
-                  <Chip label="Open to full-time role" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
-                </Box>
-                
-                {contactInfo.map((info, index) => (
-                  <Box
-                    key={index}
-                    ref={index === 0 ? contactInfoAnimation.ref : null}
-                    className={contactInfoAnimation.isVisible ? getContactAnimationClass(index) : ''}
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      mb: 1.5,
-                      p: 1.6,
-                      borderRadius: '16px',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      bgcolor: 'rgba(255,255,255,0.03)',
-                      transition: 'all 0.3s ease',
-                      opacity: contactInfoAnimation.isVisible ? 1 : 0,
-                      animationDelay: `${index * 110}ms`,
-                      '&:hover': {
-                        bgcolor: 'rgba(255,159,26,0.08)',
-                        borderColor: 'rgba(255,159,26,0.35)'
-                      }
-                    }}
+          <ScrollScatter direction="left" distance={250}>
+            <Box sx={{ width: '100%', height: '100%' }}>
+              <Card 
+                sx={{ 
+                  height: '100%', 
+                  borderRadius: '16px', 
+                  border: '1px solid #ff9f1a',
+                }}
+              >
+                <CardContent sx={{ p: { xs: 2.7, md: 3.2 } }}>
+                  <Typography
+                    variant="h5"
+                    sx={{ fontWeight: 750, mb: 2.2, color: '#f1f5ff' }}
                   >
+                    Contact Information
+                  </Typography>
+
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, mb: 2.5 }}>
+                    <Chip label="Open to freelance" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
+                    <Chip label="Open to full-time role" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
+                  </Box>
+                  
+                  {contactInfo.map((info, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        mb: 1.5,
+                        p: 1.6,
+                        borderRadius: '16px',
+                        border: '1px solid rgba(255,159,26,0.35)',
+                        bgcolor: 'rgba(255,159,26,0.08)',
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          bgcolor: 'rgba(255,159,26,0.15)',
+                          borderColor: 'rgba(255,159,26,0.6)'
+                        }
+                      }}
+                    >
                     <Box sx={{ mr: 2.2 }}>{info.icon}</Box>
                     <Box>
                       <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#eef2ff' }}>
@@ -324,21 +321,23 @@ const Contact: React.FC = () => {
                 </Box>
               </CardContent>
             </Card>
-          </Box>
+            </Box>
+          </ScrollScatter>
 
-          <Box className={contentAnimation.isVisible ? 'scroll-animate-cert-right' : ''}>
-            <Card 
-              sx={{ 
-                height: '100%', 
-                borderRadius: '16px', 
-                border: '1px solid #ff9f1a',
-              }}
-            >
-              <CardContent sx={{ p: { xs: 2.7, md: 3.2 } }}>
-                <Typography
-                  variant="h5"
-                  sx={{ fontWeight: 750, mb: 0.9, color: '#f1f5ff' }}
-                >
+          <ScrollScatter direction="right" distance={250}>
+            <Box sx={{ width: '100%', height: '100%' }}>
+              <Card 
+                sx={{ 
+                  height: '100%', 
+                  borderRadius: '16px', 
+                  border: '1px solid #ff9f1a',
+                }}
+              >
+                <CardContent sx={{ p: { xs: 2.7, md: 3.2 } }}>
+                  <Typography
+                    variant="h5"
+                    sx={{ fontWeight: 750, mb: 0.9, color: '#f1f5ff' }}
+                  >
                   Send Message
                 </Typography>
 
@@ -410,7 +409,8 @@ const Contact: React.FC = () => {
                 </Box>
               </CardContent>
             </Card>
-          </Box>
+            </Box>
+          </ScrollScatter>
         </Box>
 
         <Portal>

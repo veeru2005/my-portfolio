@@ -180,6 +180,61 @@
   }
 }
 
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+}
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-34px);
+  }
+}
+
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(34px);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-28px);
+  }
+}
+
+@keyframes fadeOutScale {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+}
+
 @keyframes certEnterLeft {
   from {
     opacity: 0;
@@ -213,6 +268,39 @@
   }
 }
 
+@keyframes certExitLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-68px) translateY(16px);
+  }
+}
+
+@keyframes certExitRight {
+  from {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(68px) translateY(16px);
+  }
+}
+
+@keyframes certExitUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+}
+
 @keyframes floatingGlow {
   0% {
     transform: translate3d(0, 0, 0);
@@ -239,12 +327,27 @@
   animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.scroll-animate-exit {
+  opacity: 1;
+  animation: fadeOutUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .scroll-animate-left {
   animation: fadeInLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.scroll-animate-left-exit {
+  opacity: 1;
+  animation: fadeOutLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .scroll-animate-right {
   animation: fadeInRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.scroll-animate-right-exit {
+  opacity: 1;
+  animation: fadeOutRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .scroll-animate-mobile-up {
@@ -252,9 +355,19 @@
   animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.scroll-animate-mobile-up-exit {
+  opacity: 1;
+  animation: fadeOutUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .scroll-animate-mobile-down {
   opacity: 0;
   animation: fadeInDown 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.scroll-animate-mobile-down-exit {
+  opacity: 1;
+  animation: fadeOutDown 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .scroll-animate-scale {
@@ -262,9 +375,19 @@
   animation: fadeInScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.scroll-animate-scale-exit {
+  opacity: 1;
+  animation: fadeOutScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .scroll-animate-cert-left {
   opacity: 0;
   animation: certEnterLeft 0.86s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.scroll-animate-cert-left-exit {
+  opacity: 1;
+  animation: certExitLeft 0.86s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .scroll-animate-cert-right {
@@ -272,9 +395,19 @@
   animation: certEnterRight 0.86s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.scroll-animate-cert-right-exit {
+  opacity: 1;
+  animation: certExitRight 0.86s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .scroll-animate-cert-up {
   opacity: 0;
   animation: certEnterUp 0.86s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.scroll-animate-cert-up-exit {
+  opacity: 1;
+  animation: certExitUp 0.86s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .accent-gradient-text {
@@ -401,8 +534,21 @@
 
 /* Pause Hero component animations until preloader begins sliding out */
 body.preloader-active .scroll-animate-cert-right,
+body.preloader-active .scroll-animate-cert-left,
+body.preloader-active .scroll-animate-cert-right-exit,
+body.preloader-active .scroll-animate-cert-left-exit,
+body.preloader-active .scroll-animate-right,
+body.preloader-active .scroll-animate-left,
+body.preloader-active .scroll-animate-right-exit,
+body.preloader-active .scroll-animate-left-exit,
 body.preloader-active .scroll-animate-mobile-down,
-body.preloader-active .scroll-animate-cert-up {
+body.preloader-active .scroll-animate-mobile-up,
+body.preloader-active .scroll-animate-mobile-down-exit,
+body.preloader-active .scroll-animate-mobile-up-exit,
+body.preloader-active .scroll-animate-exit,
+body.preloader-active .scroll-animate-scale-exit,
+body.preloader-active .scroll-animate-cert-up,
+body.preloader-active .scroll-animate-cert-up-exit {
   animation-play-state: paused !important;
   opacity: 0 !important;
 }

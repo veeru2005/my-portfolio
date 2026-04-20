@@ -75,17 +75,15 @@ const Navbar = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visible?.target?.id) {
-          setActiveSection(visible.target.id);
-        }
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
       },
       {
         root: null,
-        rootMargin: '-10% 0px -40% 0px',
+        rootMargin: '-20% 0px -40% 0px',
         threshold: 0
       }
     );

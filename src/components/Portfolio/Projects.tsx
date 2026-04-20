@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Container, Card, CardMedia, CardContent, CardActions, Button, Chip, IconButton } from '@mui/material';
 import { Launch as LaunchIcon } from '@mui/icons-material';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { ScrollScatter } from '../ui/ScrollScatter';
 
 interface Project {
   id: number;
@@ -65,7 +66,7 @@ const Projects: React.FC = () => {
     <Box
       id="projects"
       sx={{
-        py: { xs: 9, md: 10 },
+        py: { xs: 5, md: 6 },
         position: 'relative',
         background: 'linear-gradient(180deg, rgba(6,8,14,1) 0%, rgba(8,10,15,1) 100%)'
       }}
@@ -81,11 +82,9 @@ const Projects: React.FC = () => {
         }}
       />
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box
-          ref={headerAnimation.ref}
-          className={headerAnimation.isVisible ? 'scroll-animate' : ''}
-        >
-          <Typography
+        <ScrollScatter direction="up" distance={100}>
+          <Box>
+            <Typography
             sx={{
               color: '#ff9f1a',
               textTransform: 'uppercase',
@@ -106,38 +105,38 @@ const Projects: React.FC = () => {
             Production-style builds where design clarity, feature depth, and clean engineering come together.
           </Typography>
         </Box>
+      </ScrollScatter>
 
         <Box 
           sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', lg: '1fr 1fr 1fr' }, gap: 2.3 }}
         >
           {[...STATIC_PROJECTS].sort((a, b) => b.id - a.id).map((project, index) => (
-            <Box
-              key={project.id}
-              ref={index === 0 ? projectsAnimation.ref : null}
-              className={projectsAnimation.isVisible ? getProjectAnimationClass(index) : ''}
-              sx={{
-                height: '100%',
-                opacity: projectsAnimation.isVisible ? 1 : 0,
-                animationDelay: `${Math.floor(index / 3) * 150 + (index % 3) * 110}ms`
-              }}
-            >
-              <Card
+            <ScrollScatter key={project.id} direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"} distance={200}>
+              <Box
+                ref={index === 0 ? projectsAnimation.ref : null}
                 sx={{
                   height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  borderRadius: '16px',
-                  border: '1px solid #ff9f1a',
-                  background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
-                  p: { xs: 1.5, md: 2 },
-                  boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
-                  transform: { md: getCardTransform(index) },
-                  transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                  '&:hover': {
-                    transform: { md: 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-6px)' }
-                  }
+                  opacity: projectsAnimation.isVisible ? 1 : 0,
+                  animationDelay: `${Math.floor(index / 3) * 150 + (index % 3) * 110}ms`
                 }}
               >
+                <Card
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: '16px',
+                    border: '1px solid #ff9f1a',
+                    background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                    p: { xs: 1.5, md: 2 },
+                    boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                    transform: { md: getCardTransform(index) },
+                    transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    '&:hover': {
+                      transform: { md: 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-6px)' }
+                    }
+                  }}
+                >
                 <CardMedia
                   component="img"
                   height="220"
@@ -199,7 +198,8 @@ const Projects: React.FC = () => {
                   </Button>
                 </CardActions>
               </Card>
-            </Box>
+              </Box>
+            </ScrollScatter>
           ))}
         </Box>
       </Container>

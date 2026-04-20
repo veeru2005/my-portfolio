@@ -1,21 +1,8 @@
 import React from 'react';
 import { Box, Typography, Container, Card, CardContent, Chip } from '@mui/material';
-import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { ScrollScatter } from '../ui/ScrollScatter';
 
 const About: React.FC = () => {
-  const storyAnimation = useScrollAnimation(0.16);
-  const bigCardsAnimation = useScrollAnimation(0.16);
-  const cardsAnimation = useScrollAnimation(0.16);
-  const marqueeAnimation = useScrollAnimation(0.16);
-  const techSkillsAnimation = useScrollAnimation(0.14);
-
-  const getCardAnimationClass = (index: number) => {
-    const mod = index % 3;
-    if (mod === 0) return 'scroll-animate-cert-left';
-    if (mod === 1) return 'scroll-animate-cert-up';
-    return 'scroll-animate-cert-right';
-  };
-
   const getCardTransform = (index: number) => {
     const col = index % 3;
     if (col === 0) return 'perspective(1000px) rotateY(8deg) rotateX(3deg)';
@@ -68,7 +55,7 @@ const About: React.FC = () => {
     <Box
       id="about"
       sx={{
-        py: { xs: 9, md: 11 },
+        pt: { xs: 5, md: 6 }, pb: { xs: 1, md: 2 },
         position: 'relative',
         background: 'linear-gradient(180deg, rgba(6,8,15,0.82) 0%, rgba(9,11,18,1) 100%)'
       }}
@@ -84,12 +71,9 @@ const About: React.FC = () => {
         }}
       />
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box
-          ref={storyAnimation.ref}
-          className={storyAnimation.isVisible ? 'scroll-animate' : ''}
-          sx={{ opacity: storyAnimation.isVisible ? 1 : 0 }}
-        >
-          <Typography
+        <ScrollScatter direction="up" distance={100}>
+          <Box>
+            <Typography
             sx={{
               color: '#ff9f1a',
               textTransform: 'uppercase',
@@ -111,21 +95,24 @@ const About: React.FC = () => {
             Exploring my technical background, core philosophies, and what drives my development approach.
           </Typography>
         </Box>
+      </ScrollScatter>
 
         <Box
-          ref={bigCardsAnimation.ref}
-          sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1.08fr 0.92fr' }, gap: { xs: 3, md: 4.5 }, mb: 6, alignItems: 'stretch', opacity: bigCardsAnimation.isVisible ? 1 : 0 }}
+          sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1.08fr 0.92fr' }, gap: { xs: 3, md: 4.5 }, mb: 6, alignItems: 'stretch' }}
         >
-          <Card
-            className={bigCardsAnimation.isVisible ? 'scroll-animate-cert-left' : ''}
-            sx={{
-              borderRadius: '16px',
-              border: '1px solid #ff9f1a',
-              background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
-              p: { xs: 1.5, md: 2 },
-              boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
-            }}
-          >
+          <ScrollScatter direction="left" distance={250}>
+            <Card
+              sx={{
+                borderRadius: '16px',
+                border: '1px solid #ff9f1a',
+                background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                p: { xs: 1.5, md: 2 },
+                minHeight: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+              }}
+            >
               <CardContent sx={{ p: { xs: 2.8, md: 3.4 } }}>
                 <Typography
                   variant="h3"
@@ -159,9 +146,10 @@ const About: React.FC = () => {
                 </Box>
               </CardContent>
             </Card>
+          </ScrollScatter>
 
+          <ScrollScatter direction="right" distance={250}>
             <Card
-              className={bigCardsAnimation.isVisible ? 'scroll-animate-cert-right' : ''}
               sx={{
                 borderRadius: '16px',
                 position: 'relative',
@@ -169,6 +157,7 @@ const About: React.FC = () => {
                 border: '1px solid #ff9f1a',
                 background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
                 p: { xs: 1.5, md: 2 },
+                minHeight: '100%',
                 boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
                 display: 'flex',
                 flexDirection: 'column',
@@ -216,26 +205,23 @@ const About: React.FC = () => {
                 </Box>
               </CardContent>
             </Card>
-          </Box>
+          </ScrollScatter>
+        </Box>
 
         <Box 
           sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 2.2, mb: 5 }}
         >
           {expertiseCards.map((item, index) => (
-            <Box
+            <ScrollScatter
               key={item.title}
-              ref={index === 0 ? cardsAnimation.ref : null}
-              className={cardsAnimation.isVisible ? getCardAnimationClass(index) : ''}
-              sx={{
-                height: '100%',
-                opacity: cardsAnimation.isVisible ? 1 : 0,
-                animationDelay: `${index * 110}ms`
-              }}
+              direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"}
+              distance={200}
             >
-              <Card
-                sx={{
-                  borderRadius: '16px',
-                  height: '100%',
+              <Box sx={{ height: '100%' }}>
+                <Card
+                  sx={{
+                    borderRadius: '16px',
+                    height: '100%',
                   border: '1px solid #ff9f1a',
                   background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
                   p: { xs: 1.5, md: 2 },
@@ -257,18 +243,16 @@ const About: React.FC = () => {
                 <Typography sx={{ color: '#9faaC3', lineHeight: 1.75 }}>{item.description}</Typography>
               </CardContent>
             </Card>
-            </Box>
+              </Box>
+            </ScrollScatter>
           ))}
         </Box>
 
         {/* Added gap as separation */}
         <Box sx={{ mt: { xs: 6, md: 10 }, mb: { xs: 6, md: 8 } }} />
 
-        <Box 
-          ref={marqueeAnimation.ref} 
-          className={marqueeAnimation.isVisible ? 'scroll-animate' : ''}
-          sx={{ opacity: marqueeAnimation.isVisible ? 1 : 0 }}
-        >
+      <ScrollScatter direction="up" distance={100}>
+        <Box>
           <Typography
             sx={{
               color: '#ff9f1a',
@@ -290,18 +274,15 @@ const About: React.FC = () => {
           <Typography align="center" sx={{ mb: 6, maxWidth: 640, mx: 'auto', color: '#aeb8ce' }}>
             A comprehensive overview of my technical expertise, programming languages, and tools.
           </Typography>
+        </Box>
+      </ScrollScatter>
 
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }, gap: 3.5, mb: 4 }}>
             {skillCategories.map((category, index) => (
-              <Box
+              <ScrollScatter
                 key={category.name}
-                ref={index === 0 ? techSkillsAnimation.ref : null}
-                className={techSkillsAnimation.isVisible ? getCardAnimationClass(index) : ''}
-                sx={{
-                  opacity: techSkillsAnimation.isVisible ? 1 : 0,
-                  animationDelay: `${Math.floor(index / 3) * 150 + (index % 3) * 110}ms`,
-                  height: '100%'
-                }}
+                direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"}
+                distance={200}
               >
                 <Card
                   sx={{
@@ -347,10 +328,9 @@ const About: React.FC = () => {
                   </Box>
                   </CardContent>
                 </Card>
-              </Box>
+              </ScrollScatter>
             ))}
           </Box>
-        </Box>
       </Container>
     </Box>
   );

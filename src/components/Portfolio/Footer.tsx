@@ -236,12 +236,24 @@ const Footer = () => {
           }}
         >
           <Typography
-            variant="body2"
+            variant="body1"
             sx={{
-              color: '#94a0b9'
+              color: '#94a0b9',
+              display: { xs: 'none', sm: 'block' },
             }}
           >
             © 2026 Sunkavalli Veerendra Chowdary. All rights reserved.
+          </Typography>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: '#94a0b9',
+              display: { xs: 'block', sm: 'none' },
+              lineHeight: 1.6
+            }}
+          >
+            © 2026 Sunkavalli Veerendra Chowdary.<br />All rights reserved.
           </Typography>
         </Box>
       </Container>

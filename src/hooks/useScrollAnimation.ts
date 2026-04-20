@@ -3,13 +3,37 @@ import { useEffect, useRef, useState } from 'react';
 export const useScrollAnimation = (threshold = 0.1) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY) {
+        setScrollDirection('down');
+      } else if (currentScrollY < lastScrollY) {
+        setScrollDirection('up');
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        const nextVisible = entry.isIntersecting;
+
+        if (nextVisible) {
           setIsVisible(true);
-          observer.unobserve(entry.target);
+          setHasEntered(true);
+        } else {
+          if (window.innerWidth > 768) {
+            setIsVisible(false);
+          }
         }
       },
       {
@@ -24,11 +48,10 @@ export const useScrollAnimation = (threshold = 0.1) => {
     }
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
     };
   }, [threshold]);
 
-  return { ref, isVisible };
+  return { ref, isVisible, hasEntered, scrollDirection };
 };

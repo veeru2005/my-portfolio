@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Box,
   Typography,
@@ -17,6 +19,8 @@ import {
 } from '@mui/icons-material';
 
 const Hero = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const skills = ['React', 'TypeScript', 'Spring Boot', 'Node.js', 'MongoDB', 'Cloud'];
 
   const scrollToSection = (sectionId: string) => {
@@ -61,12 +65,18 @@ const Hero = () => {
           }}
         >
           <Box
-            className="scroll-animate-cert-up"
-            sx={{ textAlign: { xs: 'center', md: 'left' }, order: { xs: 2, md: 1 }, minWidth: 0, animationDelay: '100ms' }}
+            className={isMobile ? "scroll-animate-cert-up" : "scroll-animate-left"}
+            sx={{
+              textAlign: { xs: 'center', md: 'left' },
+              order: { xs: 2, md: 1 },
+              minWidth: 0,
+              animationDelay: '100ms'
+            }}
           >
-            <Typography
-              sx={{
-                color: '#b8c3dd',
+            <Box>
+              <Typography
+                sx={{
+                  color: '#b8c3dd',
                 textTransform: 'uppercase',
                 letterSpacing: '0.14em',
                 fontWeight: 600,
@@ -171,7 +181,7 @@ const Hero = () => {
                   color: '#1b1205',
                   fontSize: '0.94rem',
                   fontWeight: 700,
-                  borderRadius: '16px',
+                  borderRadius: '12px',
                   border: '1px solid #ff9f1a',
                   boxShadow: 'none',
                   '&:hover': {
@@ -196,11 +206,11 @@ const Hero = () => {
                   width: { xs: 'auto', sm: 'auto' },
                   fontSize: '0.94rem',
                   fontWeight: 700,
-                  borderRadius: '16px',
+                  borderRadius: '12px',
                   '&:hover': {
                     border: '1px solid #ffab33',
                     color: '#ffab33',
-                    bgcolor: 'transparent'
+                    bgcolor: '#0c111c'
                   }
                 }}
               >
@@ -269,12 +279,14 @@ const Hero = () => {
                 <EmailIcon />
               </IconButton>
             </Box>
+            </Box>
           </Box>
 
           <Box
-            className="scroll-animate-mobile-down"
+            className={isMobile ? "scroll-animate-mobile-down" : "scroll-animate-right"}
             sx={{
               display: 'flex',
+              flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
               order: { xs: 1, md: 2 },
@@ -285,15 +297,15 @@ const Hero = () => {
           >
             <Box
               sx={{
-                width: { xs: 120, sm: 340, md: 410 },
-                height: { xs: 120, sm: 'auto', md: 'auto' },
+                width: { xs: 130, sm: 340, md: 410 },
+                height: { xs: 130, sm: 'auto', md: 'auto' },
                 maxWidth: 430,
-                borderRadius: { xs: '50%', sm: '16px' },
-                border: { xs: '4px solid #ff9f1a', sm: '1px solid #ff9f1a' },
+                borderRadius: '16px',
+                border: '1px solid #ff9f1a',
                 background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
-                p: { xs: 0, sm: 1.5, md: 2 },
+                p: { xs: 1, sm: 1.5, md: 2 },
                 boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
-                transform: { md: 'perspective(1000px) rotateY(-8deg) rotateX(3deg)' },
+                transform: { xs: 'none', md: 'perspective(1000px) rotateY(-8deg) rotateX(3deg)' },
                 transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
                 '&:hover': {
                   transform: { md: 'perspective(1000px) rotateY(-2deg) rotateX(0deg) translateY(-6px)' }
@@ -309,7 +321,7 @@ const Hero = () => {
                   height: { xs: '100%', sm: 380, md: 440 },
                   objectFit: 'cover',
                   objectPosition: 'center top',
-                  borderRadius: { xs: '50%', sm: '16px' }
+                  borderRadius: { xs: '10px', sm: '12px' }
                 }}
               />
 
@@ -331,6 +343,26 @@ const Hero = () => {
                   Full Stack Web Apps | UI/UX Focused Delivery
                 </Typography>
               </Box>
+            </Box>
+
+            <Box
+              sx={{
+                display: { xs: 'block', sm: 'none' },
+                mt: 1.25,
+                px: 1.2,
+                py: 0.9,
+                borderRadius: '14px',
+                bgcolor: '#0c111c',
+                border: '1px solid #ff9f1a',
+                width: 280
+              }}
+            >
+              <Typography sx={{ color: '#ff9f1a', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                Available for freelance
+              </Typography>
+              <Typography sx={{ color: '#d9e1f5', fontSize: '0.82rem', mt: 0.35 }}>
+                Full Stack Web Apps | UI/UX Focused Delivery
+              </Typography>
             </Box>
           </Box>
         </Box>

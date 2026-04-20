@@ -9,6 +9,7 @@ const GREETINGS = [
   'வணக்கம்', // Tamil
   'നമസ്കാരം', // Malayalam
   'ನಮಸ್ಕಾರ', // Kannada
+  '안녕하세요', // Korean
   'नमस्कार' // Marathi
 ];
 
@@ -24,7 +25,6 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete, onExiting }) => {
   useEffect(() => {
     // Determine how long this specific word should stay on screen
     // First word "Hello" slightly longer, others faster to simulate the rapid swap
-    // Total animation time is perfectly tuned to 3.30 seconds
     const delay = index === 0 ? 950 : 250;
 
     if (index === GREETINGS.length) {
@@ -35,7 +35,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete, onExiting }) => {
       // Wait for exit animation to finish before unmounting
       const exitTimer = setTimeout(() => {
         onComplete();
-      }, 600); 
+      }, 500); 
       return () => clearTimeout(exitTimer);
     }
 
@@ -53,7 +53,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete, onExiting }) => {
 
   return (
     <Box className={`preloader-fixed ${isExiting ? 'preloader-hidden' : ''}`}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: { xs: 8, md: 0 } }}>
         <Box key={displayIndex} sx={{ display: 'inline-flex' }}>
           {Array.from(new (Intl as any).Segmenter(undefined, { granularity: 'grapheme' }).segment(GREETINGS[displayIndex] || '')).map(({ segment: char }: any, i: number) => (
               <span

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Container, Typography, Card, CardContent, CardMedia } from '@mui/material';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { ScrollScatter } from '../ui/ScrollScatter';
 
 interface Certification {
   id: number;
@@ -114,7 +115,7 @@ const EducationCertifications = () => {
       <Box
         id="education"
         sx={{
-          py: { xs: 9, md: 10 },
+          py: { xs: 5, md: 6 },
           position: 'relative',
           background: 'linear-gradient(180deg, rgba(9,11,18,1) 0%, rgba(8,10,16,1) 100%)'
         }}
@@ -130,12 +131,9 @@ const EducationCertifications = () => {
           }}
         />
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <Box
-            ref={educationAnimation.ref}
-            className={educationAnimation.isVisible ? 'scroll-animate' : ''}
-            sx={{ opacity: educationAnimation.isVisible ? 1 : 0 }}
-          >
-            <Typography
+          <ScrollScatter direction="up" distance={100}>
+            <Box>
+              <Typography
               sx={{
                 color: '#ff9f1a',
                 textTransform: 'uppercase',
@@ -155,19 +153,19 @@ const EducationCertifications = () => {
               My academic journey and the institutions that shaped my foundation.
             </Typography>
           </Box>
+        </ScrollScatter>
 
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 2.3 }}>
             {defaultEducations.map((edu, idx) => (
-              <Box
-                key={idx}
-                ref={idx === 0 ? educationAnimation.ref : null}
-                className={educationAnimation.isVisible ? getCertificateAnimationClass(idx) : ''}
-                sx={{
-                  height: '100%',
-                  opacity: educationAnimation.isVisible ? 1 : 0,
-                  animationDelay: `${idx * 110}ms`
-                }}
-              >
+              <ScrollScatter key={idx} direction={idx % 3 === 0 ? "left" : idx % 3 === 1 ? "up" : "right"} distance={200}>
+                <Box
+                  ref={idx === 0 ? educationAnimation.ref : null}
+                  sx={{
+                    height: '100%',
+                    opacity: educationAnimation.isVisible ? 1 : 0,
+                    animationDelay: `${idx * 110}ms`
+                  }}
+                >
                 <Card
                   sx={{
                     height: '100%',
@@ -201,7 +199,8 @@ const EducationCertifications = () => {
                     </Typography>
                   </CardContent>
                 </Card>
-              </Box>
+                </Box>
+              </ScrollScatter>
             ))}
           </Box>
         </Container>
@@ -210,7 +209,7 @@ const EducationCertifications = () => {
       <Box
         id="certificates"
         sx={{
-          py: { xs: 9, md: 10 },
+          py: { xs: 5, md: 6 },
           position: 'relative',
           background: 'linear-gradient(180deg, rgba(8,10,16,1) 0%, rgba(6,8,14,1) 100%)'
         }}
@@ -226,12 +225,9 @@ const EducationCertifications = () => {
           }}
         />
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <Box
-            ref={certificationAnimation.ref}
-            className={certificationAnimation.isVisible ? 'scroll-animate' : ''}
-            sx={{ opacity: certificationAnimation.isVisible ? 1 : 0 }}
-          >
-            <Typography
+          <ScrollScatter direction="up" distance={100}>
+            <Box>
+              <Typography
               sx={{
                 color: '#ff9f1a',
                 textTransform: 'uppercase',
@@ -251,6 +247,7 @@ const EducationCertifications = () => {
               Selected certifications that reflect my continuous learning in software development and cloud technologies.
             </Typography>
           </Box>
+        </ScrollScatter>
 
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(3, 1fr)' }, gap: { xs: 2.5, md: 4 } }}>
             {[...staticCertifications].sort((a, b) => b.id - a.id).map((cert, index) => {
@@ -258,16 +255,15 @@ const EducationCertifications = () => {
               const isVisible = animatingRow.isVisible;
               
               return (
-              <Box
-                key={cert.id}
-                ref={index === 0 ? certRow1Animation.ref : (index === 3 ? certRow2Animation.ref : null)}
-                className={isVisible ? getCertificateAnimationClass(index) : ''}
-                sx={{
-                  height: '100%',
-                  opacity: isVisible ? 1 : 0,
-                  animationDelay: `${Math.floor(index / 3) * 150 + (index % 3) * 110}ms`
-                }}
-              >
+              <ScrollScatter key={cert.id} direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"} distance={200}>
+                <Box
+                  ref={index === 0 ? certRow1Animation.ref : (index === 3 ? certRow2Animation.ref : null)}
+                  sx={{
+                    height: '100%',
+                    opacity: isVisible ? 1 : 0,
+                    animationDelay: `${Math.floor(index / 3) * 150 + (index % 3) * 110}ms`
+                  }}
+                >
                 <Card
                   sx={{
                     height: '100%',
@@ -334,6 +330,7 @@ const EducationCertifications = () => {
                   </CardContent>
                 </Card>
               </Box>
+              </ScrollScatter>
             );
             })}
           </Box>
