@@ -21,7 +21,12 @@ import {
 const Hero = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const skills = ['React', 'TypeScript', 'Spring Boot', 'Node.js', 'MongoDB', 'Cloud'];
+  const skills = [
+    'React', 'TypeScript', 'Spring Boot', 'Node.js', 'MongoDB',
+    'C', 'Java', 'JavaScript', 'Vite', 'Tailwind CSS', 'Express',
+    'Docker', 'Kubernetes', 'Jenkins', 'AWS', 'Azure', 'GCP', 'CI/CD',
+    'MySQL', 'UI/UX', 'Adobe Photoshop', 'Canva', 'Premiere Pro', 'DaVinci'
+  ];
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);

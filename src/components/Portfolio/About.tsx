@@ -166,7 +166,7 @@ const About: React.FC = () => {
               <CardContent sx={{ p: { xs: 2.8, md: 3.4 }, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                 <Typography sx={{ color: '#cfd8ed', fontWeight: 700, mb: 1.2 }}>Core strengths</Typography>
 
-                <Box sx={{ display: 'grid', gap: 1.2 }}>
+                <Box sx={{ display: 'grid', gap: 1.2, mb: 3 }}>
                   {[
                     'Strong frontend architecture and component systems',
                     'Backend API development and database design',

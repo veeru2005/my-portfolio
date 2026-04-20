@@ -451,7 +451,7 @@
 .skill-marquee-track {
   display: flex;
   width: max-content;
-  animation: marqueeMove 20s linear infinite;
+  animation: marqueeMove 35s linear infinite;
 }
 
 @media (min-width: 900px) {
