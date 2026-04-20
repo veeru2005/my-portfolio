@@ -427,7 +427,7 @@
   background-image: linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px);
   background-size: 52px 52px;
-  background-position: center top -7px;
+  background-position: center top -11px;
   pointer-events: none;
   background-attachment: fixed;
 }
@@ -446,7 +446,7 @@
 .skill-marquee-track {
   display: flex;
   width: max-content;
-  animation: marqueeMove 35s linear infinite;
+  animation: marqueeMove 30s linear infinite;
 }
 
 @media (min-width: 900px) {
