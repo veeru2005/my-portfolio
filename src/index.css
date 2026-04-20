@@ -429,12 +429,7 @@
   background-size: 52px 52px;
   background-position: center top -7px;
   pointer-events: none;
-}
-
-@media (min-width: 900px) {
-  .hero-grid-pattern {
-    background-attachment: fixed;
-  }
+  background-attachment: fixed;
 }
 
 .floating-glow {

@@ -122,7 +122,7 @@ const Hero = () => {
             <Typography
               sx={{
                 color: '#a6b0c6',
-                mb: 4,
+                mb: 3,
                 fontSize: { xs: '0.96rem', md: '1.07rem' },
                 lineHeight: 1.8,
                 maxWidth: 620,
