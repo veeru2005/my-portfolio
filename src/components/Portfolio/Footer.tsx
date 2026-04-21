@@ -57,7 +57,7 @@ const Footer = () => {
         background: 'rgba(255, 255, 255, 0.02)', 
         overflow: 'hidden' 
       }}>
-        <Box className="skill-marquee-track" sx={{ py: 2 }}>
+        <Box className="skill-marquee-track" sx={{ py: 1.5 }}>
           {Array.from({ length: 12 }).map((_, index) => (
             <Typography
               key={`footer-loop-${index}`}
@@ -65,7 +65,7 @@ const Footer = () => {
                 color: '#ecf1ff',
                 fontWeight: 800,
                 letterSpacing: '0.02em',
-                fontSize: { xs: '2rem', md: '3rem', lg: '3.5rem' },
+                fontSize: { xs: '1.5rem', md: '2rem', lg: '2.5rem' },
                 textTransform: 'uppercase',
                 whiteSpace: 'nowrap',
                 display: 'flex',
