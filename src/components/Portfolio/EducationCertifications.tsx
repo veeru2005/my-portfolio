@@ -182,9 +182,6 @@ const EducationCertifications = () => {
                   }}
                 >
                   <CardContent sx={{ p: 1.6, display: 'flex', flexDirection: 'column', height: '100%', boxSizing: 'border-box' }}>
-                    <Typography sx={{ color: '#ff9f1a', fontWeight: 800, mb: 2, fontSize: '0.875rem', letterSpacing: '0.06em' }}>
-                      0{idx + 1}
-                    </Typography>
                     <Typography variant="h5" title={edu.institution} sx={{ fontWeight: 800, color: '#ff9f1a', mb: 2, lineHeight: 1.3, fontSize: { xs: '1.2rem', md: '1.35rem' }, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {edu.institution}
                     </Typography>
