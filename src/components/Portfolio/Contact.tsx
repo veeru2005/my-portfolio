@@ -257,15 +257,7 @@ const Contact: React.FC = () => {
                       <Typography
                         variant="body2"
                         sx={{
-                          color: '#aeb8ce',
-                          cursor: 'pointer'
-                        }}
-                        onClick={() => {
-                          if (info.link.startsWith('http')) {
-                            window.open(info.link, '_blank');
-                            return;
-                          }
-                          window.location.href = info.link;
+                          color: '#aeb8ce'
                         }}
                       >
                         {info.value}
