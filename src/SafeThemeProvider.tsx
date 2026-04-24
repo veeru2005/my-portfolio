@@ -28,3 +28,4 @@ const SafeThemeProvider = ({ theme, children, ...props }: SafeThemeProviderProps
 };
 
 export default SafeThemeProvider;
+
