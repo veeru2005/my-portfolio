@@ -18,7 +18,7 @@ const defaultEducations = [
     degree: 'SSC (10th)',
     year: '2020 - 2021',
     location: 'Guntur, Andhra Pradesh, India',
-    description: 'Finished high school with a primary focus on foundational courses in mathematics, sciences and languages',
+    description: 'Finished high school with a primary focus on foundational courses in mathematics, sciences and languages.',
     image: '/brc.png'
   },
   {
