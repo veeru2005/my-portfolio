@@ -47,7 +47,7 @@ const About: React.FC = () => {
     },
     {
       name: 'Design & Tools',
-      skills: ['UI/UX', 'Adobe Photoshop', 'Canva', 'Adobe Premiere Pro', 'DaVinci Resolve']
+      skills: ['UI/UX', 'Canva', 'Adobe Photoshop', 'Adobe Premiere Pro', 'DaVinci Resolve']
     }
   ];
 

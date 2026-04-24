@@ -32,7 +32,7 @@ const defaultEducations = [
   {
     institution: 'KL University',
     degree: 'B.Tech in CSE (Ongoing)',
-    year: '2023 - Present',
+    year: '2023 - 2027',
     location: 'Vijayawada, Andhra Pradesh, India',
     description: 'Currently pursuing B.Tech with interests in software engineering, algorithms, web development and specialising in Cloud Native Software Engineering.',
     image: '/klu.png'
