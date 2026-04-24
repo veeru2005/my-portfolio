@@ -26,7 +26,7 @@ const defaultEducations = [
     degree: 'Intermediate (11th and 12th)',
     year: '2021 - 2023',
     location: 'Guntur, Andhra Pradesh, India',
-    description: 'Focused on Mathematics, Physics, and Chemistry with consistent academic performance.',
+    description: 'Focused on Mathematics, Physics, and Chemistry with consistent academic performance and problem-solving abilities.',
     image: '/btc.png'
   },
   {
