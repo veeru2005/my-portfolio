@@ -35,11 +35,11 @@ const About: React.FC = () => {
     },
     {
       name: 'Frameworks & Libraries',
-      skills: ['React', 'Vite', 'Tailwind CSS', 'Spring Boot', 'Node.js', 'Express']
+      skills: ['React', 'Vite', 'Tailwind CSS', 'Spring Boot', 'Node.js', 'Express.js']
     },
     {
       name: 'Cloud & DevOps',
-      skills: ['Docker', 'Kubernetes', 'Jenkins', 'AWS', 'Azure', 'GCP', 'CI/CD']
+      skills: ['Docker', 'Kubernetes', 'Jenkins', 'AWS', 'Azure', 'GCP', 'CI/CD', 'GitHub Actions']
     },
     {
       name: 'Databases',
@@ -47,7 +47,7 @@ const About: React.FC = () => {
     },
     {
       name: 'Design & Tools',
-      skills: ['UI/UX', 'Adobe Photoshop', 'Canva', 'Premiere Pro', 'DaVinci']
+      skills: ['UI/UX', 'Adobe Photoshop', 'Canva', 'Adobe Premiere Pro', 'DaVinci Resolve']
     }
   ];
 
