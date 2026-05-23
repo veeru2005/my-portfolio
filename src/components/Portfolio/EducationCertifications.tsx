@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Container, Typography, Card, CardContent, CardMedia } from '@mui/material';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import { ScrollScatter } from '../ui/ScrollScatter';
+import { useThemeColors } from '../../hooks/useThemeColors';
 
 interface Certification {
   id: number;
@@ -19,7 +20,7 @@ const defaultEducations = [
     year: '2020 - 2021',
     location: 'Guntur, Andhra Pradesh, India',
     description: 'Finished high school with a primary focus on foundational courses in mathematics, sciences and languages.',
-    image: '/brc.png'
+    image: '/brc.jpg'
   },
   {
     institution: 'Bhashyam Titanic Campus',
@@ -27,7 +28,7 @@ const defaultEducations = [
     year: '2021 - 2023',
     location: 'Guntur, Andhra Pradesh, India',
     description: 'Focused on Mathematics, Physics, and Chemistry with consistent academic performance and problem-solving abilities.',
-    image: '/btc.png'
+    image: '/btc.jpg'
   },
   {
     institution: 'KL University',
@@ -35,7 +36,7 @@ const defaultEducations = [
     year: '2023 - 2027',
     location: 'Vijayawada, Andhra Pradesh, India',
     description: 'Currently pursuing B.Tech with interests in software engineering, algorithms, web development and specialising in Cloud Native Software Engineering.',
-    image: '/klu.png'
+    image: '/klu.jpg'
   }
 ];
 
@@ -90,8 +91,9 @@ const staticCertifications: Certification[] = [
   }
 ];
 
-const EducationCertifications = () => {
+const EducationCertifications: React.FC = () => {
   const educationAnimation = useScrollAnimation(0.14);
+  const c = useThemeColors();
   const certificationAnimation = useScrollAnimation(0.14);
   const certRow1Animation = useScrollAnimation(0.14);
   const certRow2Animation = useScrollAnimation(0.14);
@@ -117,7 +119,7 @@ const EducationCertifications = () => {
         sx={{
           py: { xs: 5, md: 6 },
           position: 'relative',
-          background: 'linear-gradient(180deg, rgba(9,11,18,1) 0%, rgba(8,10,16,1) 100%)'
+          background: c.sectionBg
         }}
       >
         <Box
@@ -146,10 +148,10 @@ const EducationCertifications = () => {
             >
               Academic Path
             </Typography>
-            <Typography variant="h3" component="h2" align="center" sx={{ fontWeight: 800, mb: 1.6, color: '#f4f7ff' }}>
+            <Typography variant="h3" component="h2" align="center" sx={{ fontWeight: 800, mb: 1.6, color: c.textPrimary }}>
               Education
             </Typography>
-            <Typography align="center" sx={{ mb: 5, maxWidth: 640, mx: 'auto', color: '#aeb8ce' }}>
+            <Typography align="center" sx={{ mb: 5, maxWidth: 640, mx: 'auto', color: c.textSecondary }}>
               My academic journey and the institutions that shaped my foundation.
             </Typography>
           </Box>
@@ -191,7 +193,7 @@ const EducationCertifications = () => {
                     <Typography sx={{ color: '#8f9ab4', fontSize: '0.875rem', mb: 2 }}>
                       {edu.year} • {edu.location}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#aeb8cf', lineHeight: 1.7, fontSize: '0.875rem', mt: 'auto' }}>
+                    <Typography variant="body2" sx={{ color: c.textSecondary, lineHeight: 1.7, fontSize: '0.875rem', mt: 'auto' }}>
                       {edu.description}
                     </Typography>
                   </CardContent>
@@ -237,10 +239,10 @@ const EducationCertifications = () => {
             >
               Verified Learning
             </Typography>
-            <Typography variant="h3" component="h2" align="center" sx={{ fontWeight: 800, mb: 1.6, color: '#f4f7ff' }}>
+            <Typography variant="h3" component="h2" align="center" sx={{ fontWeight: 800, mb: 1.6, color: c.textPrimary }}>
               Certificates
             </Typography>
-            <Typography align="center" sx={{ mb: 5, maxWidth: 640, mx: 'auto', color: '#aeb8ce' }}>
+            <Typography align="center" sx={{ mb: 5, maxWidth: 640, mx: 'auto', color: c.textSecondary }}>
               Selected certifications that reflect my continuous learning in software development and cloud technologies.
             </Typography>
           </Box>
@@ -283,6 +285,9 @@ const EducationCertifications = () => {
                       component="img"
                       image={cert.imageUrl}
                       alt={`${cert.name} certificate`}
+                      loading="lazy"
+                      width={340}
+                      height={220}
                       sx={{
                         height: { xs: 210, sm: 220, md: 228 },
                         width: '100%',

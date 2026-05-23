@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+/* Fonts loaded in index.html with preconnect for optimal performance */
 
 @tailwind base;
 @tailwind components;
@@ -103,8 +103,8 @@
 
   /* Override browser autofill background for inputs */
   input:-webkit-autofill,
-  input:-webkit-autofill:hover, 
-  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
   input:-webkit-autofill:active,
   textarea:-webkit-autofill,
   textarea:-webkit-autofill:hover,
@@ -130,6 +130,7 @@
     opacity: 0;
     transform: translateY(36px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -141,6 +142,7 @@
     opacity: 0;
     transform: translateX(-34px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -152,6 +154,7 @@
     opacity: 0;
     transform: translateX(34px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -163,6 +166,7 @@
     opacity: 0;
     transform: translateY(-28px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -174,6 +178,7 @@
     opacity: 0;
     transform: translateY(28px) scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -185,6 +190,7 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateY(36px);
@@ -196,6 +202,7 @@
     opacity: 1;
     transform: translateX(0);
   }
+
   to {
     opacity: 0;
     transform: translateX(-34px);
@@ -207,6 +214,7 @@
     opacity: 1;
     transform: translateX(0);
   }
+
   to {
     opacity: 0;
     transform: translateX(34px);
@@ -218,6 +226,7 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateY(-28px);
@@ -229,6 +238,7 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
   to {
     opacity: 0;
     transform: translateY(28px) scale(0.96);
@@ -240,6 +250,7 @@
     opacity: 0;
     transform: translateX(-68px) translateY(16px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0) translateY(0);
@@ -251,6 +262,7 @@
     opacity: 0;
     transform: translateX(68px) translateY(16px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0) translateY(0);
@@ -262,6 +274,7 @@
     opacity: 0;
     transform: translateY(80px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -273,6 +286,7 @@
     opacity: 1;
     transform: translateX(0) translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateX(-68px) translateY(16px);
@@ -284,6 +298,7 @@
     opacity: 1;
     transform: translateX(0) translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateX(68px) translateY(16px);
@@ -295,6 +310,7 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateY(80px);
@@ -305,9 +321,11 @@
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   50% {
     transform: translate3d(0, -12px, 0);
   }
+
   100% {
     transform: translate3d(0, 0, 0);
   }
@@ -315,10 +333,11 @@
 
 @keyframes marqueeMove {
   0% {
-    transform: translateX(0%);
+    transform: translate3d(0, 0, 0);
   }
+
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -418,6 +437,7 @@
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 52px 52px;
   }
@@ -446,7 +466,11 @@
 .skill-marquee-track {
   display: flex;
   width: max-content;
-  animation: marqueeMove 30s linear infinite;
+  align-items: center;
+  animation: marqueeMove 52s linear infinite;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
 }
 
 @media (min-width: 900px) {
@@ -460,6 +484,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -469,14 +494,29 @@
     scroll-behavior: auto !important;
   }
 }
+
 @keyframes preloaderDropIn {
-  0% { transform: translateY(-45px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% {
+    transform: translateY(-45px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes preloaderFadeOut {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(0); opacity: 0; }
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
 }
 
 .preloader-fixed {
@@ -504,6 +544,19 @@
   align-items: center;
 }
 
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .preloader-char {
   display: inline-block;
   opacity: 0;
@@ -525,6 +578,141 @@
   opacity: 0;
   animation: preloaderDropIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   line-height: normal;
+}
+
+/* ======================== */
+/* LIGHT MODE OVERRIDES     */
+/* ======================== */
+
+body.light-mode {
+  background: #f8f9fc !important;
+}
+
+body.light-mode .hero-grid-pattern {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+body.light-mode .accent-gradient-text {
+  background: linear-gradient(135deg, #e88a00, #cc7000) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+body.light-mode .preloader-fixed {
+  background-color: #f8f9fc;
+}
+
+body.light-mode .preloader-char {
+  color: #1a1d2e;
+}
+
+body.light-mode .dot-indicator {
+  background-color: #1a1d2e;
+}
+
+/* Skill marquee chips */
+body.light-mode .skill-marquee-track .MuiChip-root {
+  background-color: #fff3e0 !important;
+  color: #e88a00 !important;
+}
+
+/* All MUI Cards */
+body.light-mode .MuiCard-root {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: #e88a00 !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Card text overrides */
+body.light-mode .MuiCard-root .MuiTypography-root {
+  color: #1a1d2e;
+}
+
+body.light-mode .MuiCard-root .MuiTypography-body1,
+body.light-mode .MuiCard-root .MuiTypography-body2 {
+  color: #4a5568;
+}
+
+/* Override specific amber text inside cards (labels, subtitles) */
+body.light-mode .MuiCard-root .MuiChip-root {
+  background-color: rgba(232, 138, 0, 0.1) !important;
+  color: #e88a00 !important;
+}
+
+/* MUI Dialog (Case Study modal) */
+body.light-mode .MuiDialog-paper {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: #e88a00 !important;
+}
+
+body.light-mode .MuiDialog-paper .MuiTypography-root {
+  color: #1a1d2e;
+}
+
+body.light-mode .MuiDialog-paper .MuiTypography-body1,
+body.light-mode .MuiDialog-paper .MuiTypography-body2 {
+  color: #4a5568;
+}
+
+/* Input fields in light mode */
+body.light-mode .MuiOutlinedInput-root {
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+body.light-mode .MuiOutlinedInput-root input,
+body.light-mode .MuiOutlinedInput-root textarea {
+  color: #1a1d2e !important;
+}
+
+body.light-mode .MuiInputLabel-root {
+  color: #5a6480 !important;
+}
+
+body.light-mode .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Icon buttons */
+body.light-mode .MuiIconButton-root {
+  color: #4a5568;
+}
+
+/* Footer marquee */
+body.light-mode .skill-marquee {
+  border-color: #e88a00 !important;
+  background: rgba(232, 138, 0, 0.03) !important;
+}
+
+/* Dividers */
+body.light-mode .MuiDivider-root {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Navbar in light mode - handled by component */
+
+/* Section headers - keep accent color */
+body.light-mode [id]>.MuiContainer-root .MuiTypography-h3 {
+  color: #1a1d2e !important;
+}
+
+/* Fix tooltip */
+body.light-mode .MuiTooltip-tooltip {
+  background-color: #1a1d2e !important;
+  color: #f4f7ff !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Pause Hero component animations until preloader begins sliding out */

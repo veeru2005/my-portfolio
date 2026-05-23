@@ -12,8 +12,10 @@ import {
   Email as EmailIcon,
   ArrowForward as ArrowForwardIcon
 } from '@mui/icons-material';
+import { useThemeColors } from '../../hooks/useThemeColors';
 
 const Footer = () => {
+  const c = useThemeColors();
   const socialLinks = [
     { icon: <LinkedInIcon />, url: 'https://www.linkedin.com/in/veerendra-chowdary-sunkavalli-513b58309/', label: 'LinkedIn' },
     { icon: <GitHubIcon />, url: 'https://github.com/veeru2005', label: 'GitHub' },
@@ -21,12 +23,13 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Education', href: '#education' },
-    { name: 'Certificates', href: '#certificates' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', href: 'home' },
+    { name: 'About', href: 'about' },
+    { name: 'Education', href: 'education' },
+    { name: 'Certificates', href: 'certificates' },
+    { name: 'Projects', href: 'projects' },
+    { name: 'Blog', href: 'blog' },
+    { name: 'Contact', href: 'contact' }
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -43,7 +46,7 @@ const Footer = () => {
       sx={{
         pt: 0,
         pb: 5,
-        background: 'linear-gradient(180deg, rgba(5,7,12,1) 0%, rgba(4,6,10,1) 100%)',
+        background: c.sectionBgAlt,
       }}
     >
       <Box className="skill-marquee" sx={{ 
@@ -109,6 +112,7 @@ const Footer = () => {
                   key={index}
                   href={social.url}
                   target="_blank"
+                  aria-label={social.label}
                   sx={{
                     color: '#dce4f5',
                     bgcolor: 'rgba(255,255,255,0.05)',

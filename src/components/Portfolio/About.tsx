@@ -1,8 +1,11 @@
 import React from 'react';
 import { Box, Typography, Container, Card, CardContent, Chip } from '@mui/material';
 import { ScrollScatter } from '../ui/ScrollScatter';
+import { useThemeColors } from '../../hooks/useThemeColors';
+
 
 const About: React.FC = () => {
+  const c = useThemeColors();
   const getCardTransform = (index: number) => {
     const col = index % 3;
     if (col === 0) return 'perspective(1000px) rotateY(8deg) rotateX(3deg)';
@@ -57,7 +60,7 @@ const About: React.FC = () => {
       sx={{
         pt: { xs: 5, md: 6 }, pb: { xs: 1, md: 2 },
         position: 'relative',
-        background: 'linear-gradient(180deg, rgba(6,8,15,0.82) 0%, rgba(9,11,18,1) 100%)'
+        background: c.sectionBg
       }}
     >
       <Box
@@ -75,7 +78,7 @@ const About: React.FC = () => {
           <Box>
             <Typography
             sx={{
-              color: '#ff9f1a',
+              color: c.accent,
               textTransform: 'uppercase',
               letterSpacing: '0.11em',
               fontSize: '0.72rem',
@@ -87,11 +90,11 @@ const About: React.FC = () => {
             Introduction
           </Typography>
 
-          <Typography variant="h3" align="center" fontWeight={800} sx={{ mb: 1.4, color: '#f4f7ff' }}>
+          <Typography variant="h3" align="center" fontWeight={800} sx={{ mb: 1.4, color: c.textPrimary }}>
             About Me
           </Typography>
           
-          <Typography align="center" sx={{ mb: 6, maxWidth: 640, mx: 'auto', color: '#aeb8ce' }}>
+          <Typography align="center" sx={{ mb: 6, maxWidth: 640, mx: 'auto', color: c.textSecondary }}>
             Exploring my technical background, core philosophies, and what drives my development approach.
           </Typography>
         </Box>
@@ -104,20 +107,20 @@ const About: React.FC = () => {
             <Card
               sx={{
                 borderRadius: '16px',
-                border: '1px solid #ff9f1a',
-                background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                border: `1px solid ${c.accent}`,
+                background: c.cardBg,
                 p: { xs: 1.5, md: 2 },
                 minHeight: '100%',
                 display: 'flex',
                 flexDirection: 'column',
-                boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                boxShadow: c.cardShadow,
               }}
             >
               <CardContent sx={{ p: { xs: 2.8, md: 3.4 } }}>
                 <Typography
                   variant="h3"
                   sx={{
-                    color: '#f6f8ff',
+                    color: c.textPrimary,
                     mb: 2,
                     fontSize: { xs: '2rem', md: '2.5rem' },
                     lineHeight: 1.1
@@ -129,20 +132,20 @@ const About: React.FC = () => {
                   </Box>
                 </Typography>
 
-                <Typography variant="body1" sx={{ mb: 2, lineHeight: 1.85, color: '#aeb8cf' }}>
+                <Typography variant="body1" sx={{ mb: 2, lineHeight: 1.85, color: c.textSecondary }}>
                   I started with visual design and grew into full-stack development to build complete digital products.
                   This blend helps me bridge functionality and aesthetics while keeping user experience central.
                 </Typography>
 
-                <Typography variant="body1" sx={{ lineHeight: 1.85, color: '#aeb8cf' }}>
+                <Typography variant="body1" sx={{ lineHeight: 1.85, color: c.textSecondary }}>
                   At KL University, I led multiple creative teams while sharpening my technical stack.
                   Today I focus on building responsive interfaces, robust application logic, and scalable systems.
                 </Typography>
 
                 <Box sx={{ mt: 2.4, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  <Chip label="Design Leadership" sx={{ bgcolor: 'rgba(255,159,26,0.16)', color: '#ff9f1a', borderRadius: '6px' }} />
-                  <Chip label="Full-Stack Projects" sx={{ bgcolor: 'rgba(255,159,26,0.16)', color: '#ff9f1a', borderRadius: '6px' }} />
-                  <Chip label="Cloud Learning Path" sx={{ bgcolor: 'rgba(255,159,26,0.16)', color: '#ff9f1a', borderRadius: '6px' }} />
+                  <Chip label="Design Leadership" sx={{ bgcolor: c.accentBg, color: c.accent, borderRadius: '6px' }} />
+                  <Chip label="Full-Stack Projects" sx={{ bgcolor: c.accentBg, color: c.accent, borderRadius: '6px' }} />
+                  <Chip label="Cloud Learning Path" sx={{ bgcolor: c.accentBg, color: c.accent, borderRadius: '6px' }} />
                 </Box>
               </CardContent>
             </Card>
@@ -154,17 +157,17 @@ const About: React.FC = () => {
                 borderRadius: '16px',
                 position: 'relative',
                 overflow: 'hidden',
-                border: '1px solid #ff9f1a',
-                background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                border: `1px solid ${c.accent}`,
+                background: c.cardBg,
                 p: { xs: 1.5, md: 2 },
                 minHeight: '100%',
-                boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                boxShadow: c.cardShadow,
                 display: 'flex',
                 flexDirection: 'column',
               }}
             >
               <CardContent sx={{ p: { xs: 2.8, md: 3.4 }, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                <Typography sx={{ color: '#cfd8ed', fontWeight: 700, mb: 1.2 }}>Core strengths</Typography>
+                <Typography sx={{ color: c.textPrimary, fontWeight: 700, mb: 1.2 }}>Core strengths</Typography>
 
                 <Box sx={{ display: 'grid', gap: 1.2, mb: 3 }}>
                   {[
@@ -179,12 +182,12 @@ const About: React.FC = () => {
                           width: 8,
                           height: 8,
                           borderRadius: '50%',
-                          bgcolor: '#ff9f1a',
+                          bgcolor: c.accent,
                           mt: '8px',
                           flexShrink: 0
                         }}
                       />
-                      <Typography sx={{ color: '#aeb8cf', lineHeight: 1.7 }}>{point}</Typography>
+                      <Typography sx={{ color: c.textSecondary, lineHeight: 1.7 }}>{point}</Typography>
                     </Box>
                   ))}
                 </Box>
@@ -194,12 +197,12 @@ const About: React.FC = () => {
                     mt: 'auto',
                     p: 2,
                     borderRadius: '16px',
-                    background: 'linear-gradient(135deg, rgba(255,159,26,0.14), rgba(255,159,26,0.08))',
-                    border: '1px solid #ff9f1a'
+                    background: c.highlightBg,
+                    border: `1px solid ${c.accent}`
                   }}
                 >
-                  <Typography sx={{ color: '#edf2ff', fontWeight: 700, mb: 0.4 }}>Goal</Typography>
-                  <Typography sx={{ color: '#c6d0e7', lineHeight: 1.7 }}>
+                  <Typography sx={{ color: c.textPrimary, fontWeight: 700, mb: 0.4 }}>Goal</Typography>
+                  <Typography sx={{ color: c.textSecondary, lineHeight: 1.7 }}>
                     Build modern software experiences that are visually strong, technically clean, and useful in real-world use.
                   </Typography>
                 </Box>
@@ -222,10 +225,10 @@ const About: React.FC = () => {
                   sx={{
                     borderRadius: '16px',
                     height: '100%',
-                  border: '1px solid #ff9f1a',
-                  background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                  border: `1px solid ${c.accent}`,
+                  background: c.cardBg,
                   p: { xs: 1.5, md: 2 },
-                  boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                  boxShadow: c.cardShadow,
                   transform: { md: getCardTransform(index) },
                   transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease',
                   '&:hover': {
@@ -236,11 +239,11 @@ const About: React.FC = () => {
                 }}
               >
                 <CardContent sx={{ p: 1.6 }}>
-                <Typography sx={{ color: '#ff9f1a', fontWeight: 700, mb: 1.1, fontSize: '0.86rem' }}>0{index + 1}</Typography>
-                <Typography variant="h6" sx={{ color: '#eef2ff', fontWeight: 700, mb: 1.2, lineHeight: 1.3 }}>
+                <Typography sx={{ color: c.accent, fontWeight: 700, mb: 1.1, fontSize: '0.86rem' }}>0{index + 1}</Typography>
+                <Typography variant="h6" sx={{ color: c.textOnCard, fontWeight: 700, mb: 1.2, lineHeight: 1.3 }}>
                   {item.title}
                 </Typography>
-                <Typography sx={{ color: '#9faaC3', lineHeight: 1.75 }}>{item.description}</Typography>
+                <Typography sx={{ color: c.textSecondary, lineHeight: 1.75 }}>{item.description}</Typography>
               </CardContent>
             </Card>
               </Box>
@@ -248,34 +251,35 @@ const About: React.FC = () => {
           ))}
         </Box>
 
-        {/* Added gap as separation */}
-        <Box sx={{ mt: { xs: 6, md: 10 }, mb: { xs: 6, md: 8 } }} />
 
-      <ScrollScatter direction="up" distance={100}>
-        <Box>
-          <Typography
-            sx={{
-              color: '#ff9f1a',
-              textTransform: 'uppercase',
-              letterSpacing: '0.11em',
-              fontSize: '0.72rem',
-              fontWeight: 700,
-              textAlign: 'center',
-              mb: 1
-            }}
-          >
-            Capabilities
-          </Typography>
 
-          <Typography variant="h3" align="center" fontWeight={800} sx={{ mb: 1.4, color: '#f4f7ff' }}>
-            Technical Skills
-          </Typography>
+        {/* Technical Skills Section */}
+        <Box sx={{ mt: { xs: 2, md: 4 } }}>
+          <ScrollScatter direction="up" distance={100}>
+            <Box>
+              <Typography
+                sx={{
+                  color: c.accent,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.11em',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  textAlign: 'center',
+                  mb: 1
+                }}
+              >
+                Capabilities
+              </Typography>
 
-          <Typography align="center" sx={{ mb: 6, maxWidth: 640, mx: 'auto', color: '#aeb8ce' }}>
-            A comprehensive overview of my technical expertise, programming languages, and tools.
-          </Typography>
-        </Box>
-      </ScrollScatter>
+              <Typography variant="h3" align="center" fontWeight={800} sx={{ mb: 1.4, color: c.textPrimary }}>
+                Technical Skills
+              </Typography>
+
+              <Typography align="center" sx={{ mb: 6, maxWidth: 640, mx: 'auto', color: c.textSecondary }}>
+                A comprehensive overview of my technical expertise, programming languages, and tools.
+              </Typography>
+            </Box>
+          </ScrollScatter>
 
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }, gap: 3.5, mb: 4 }}>
             {skillCategories.map((category, index) => (
@@ -287,10 +291,10 @@ const About: React.FC = () => {
                 <Card
                   sx={{
                     borderRadius: '16px',
-                    background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
-                    border: '1px solid #ff9f1a',
+                    background: c.cardBg,
+                    border: `1px solid ${c.accent}`,
                     p: { xs: 1.5, md: 2 },
-                    boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                    boxShadow: c.cardShadow,
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
@@ -302,7 +306,7 @@ const About: React.FC = () => {
                   }}
                 >
                   <CardContent sx={{ p: 1.6, flexGrow: 1 }}>
-                    <Typography variant="h5" sx={{ color: '#f4f7ff', fontWeight: 700, mb: 2, fontSize: { xs: '1.2rem', md: '1.35rem' }, letterSpacing: '-0.01em' }}>
+                    <Typography variant="h5" sx={{ color: c.textPrimary, fontWeight: 700, mb: 2, fontSize: { xs: '1.2rem', md: '1.35rem' }, letterSpacing: '-0.01em' }}>
                       {category.name}
                     </Typography>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
@@ -311,8 +315,8 @@ const About: React.FC = () => {
                         key={skill}
                         label={skill}
                         sx={{
-                          bgcolor: 'rgba(255,159,26,0.16)',
-                          color: '#ff9f1a',
+                          bgcolor: c.accentBg,
+                          color: c.accent,
                           border: 'none',
                           fontWeight: 600,
                           fontSize: '0.8rem',
@@ -331,6 +335,7 @@ const About: React.FC = () => {
               </ScrollScatter>
             ))}
           </Box>
+        </Box>
       </Container>
     </Box>
   );

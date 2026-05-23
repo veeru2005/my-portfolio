@@ -10,7 +10,8 @@ import {
   ListItemText,
   Box,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Tooltip,
 } from '@mui/material';
 import { 
   Menu as MenuIcon, 
@@ -20,8 +21,12 @@ import {
   SchoolOutlined as SchoolIcon,
   WorkspacePremiumOutlined as CertIcon,
   WorkOutline as WorkIcon,
-  EmailOutlined as EmailIcon
+  EmailOutlined as EmailIcon,
+  Article as BlogIcon,
+  DarkMode as DarkModeIcon,
+  LightMode as LightModeIcon,
 } from '@mui/icons-material';
+import { useThemeMode } from '../../App';
 
 const NAV_HEIGHT = 84;
 
@@ -31,6 +36,7 @@ const menuItems = [
   { label: 'Education', id: 'education', icon: <SchoolIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
   { label: 'Certificates', id: 'certificates', icon: <CertIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
   { label: 'Projects', id: 'projects', icon: <WorkIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
+  { label: 'Blog', id: 'blog', icon: <BlogIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
   { label: 'Contact', id: 'contact', icon: <EmailIcon sx={{ fontSize: 18, mr: 0.8 }} /> }
 ];
 
@@ -41,6 +47,7 @@ const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const mobileNavAnchorRef = useRef<HTMLDivElement | null>(null);
+  const { isDark, toggleTheme } = useThemeMode();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
@@ -113,6 +120,13 @@ const Navbar = () => {
     };
   }, [mobileOpen]);
 
+  const navBg = isDark
+    ? (isScrolled || mobileOpen ? 'rgba(7, 12, 21, 0.95)' : 'rgba(7, 12, 21, 0.85)')
+    : (isScrolled || mobileOpen ? 'rgba(248, 249, 252, 0.95)' : 'rgba(248, 249, 252, 0.88)');
+
+  const textColor = isDark ? '#f4f7ff' : '#1a1d2e';
+  const inactiveColor = isDark ? '#aeb8ce' : '#5a6480';
+
   return (
     <>
       <AppBar
@@ -145,7 +159,7 @@ const Navbar = () => {
               py: { xs: 0.8, md: 1.2 },
               borderRadius: '16px',
               border: '1px solid #ff9f1a',
-              bgcolor: isScrolled || mobileOpen ? 'rgba(7, 12, 21, 0.95)' : 'rgba(7, 12, 21, 0.85)',
+              bgcolor: navBg,
               backdropFilter: 'blur(16px)',
               boxShadow: isScrolled || mobileOpen ? '0 14px 34px rgba(0,0,0,0.36)' : '0 9px 24px rgba(0,0,0,0.24)',
               transition: 'all 0.3s ease',
@@ -185,56 +199,60 @@ const Navbar = () => {
                       textTransform: 'uppercase'
                     }}
                   >
-                    Veerendra-Portfolio
+                    Veerendra
                   </Typography>
                 </Box>
               </Box>
 
               {isMobile && (
-                <IconButton
-                  color="inherit"
-                  edge="end"
-                  onClick={handleDrawerToggle}
-                  sx={{ color: '#f4f7ff', ml: 'auto' }}
-                >
-                  {mobileOpen ? <CloseIcon /> : <MenuIcon />}
-                </IconButton>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                  <IconButton
+                    color="inherit"
+                    edge="end"
+                    aria-label="Toggle navigation menu"
+                    onClick={handleDrawerToggle}
+                    sx={{ color: textColor, ml: 0 }}
+                  >
+                    {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+                  </IconButton>
+                </Box>
               )}
 
               {!isMobile && (
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1, gap: { md: 0.8, lg: 1.2 } }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1, gap: { md: 0.5, lg: 0.8 }, alignItems: 'center' }}>
                   {menuItems.map((item) => (
                     <Button
                       key={item.id}
                       onClick={() => scrollToSection(item.id)}
                       sx={{
-                        color: activeSection === item.id ? '#ff9f1a' : '#aeb8ce',
+                        color: activeSection === item.id ? '#ff9f1a' : inactiveColor,
                         bgcolor: activeSection === item.id ? 'rgba(255, 159, 26, 0.09)' : 'transparent',
                         fontWeight: activeSection === item.id ? 600 : 500,
                         border: activeSection === item.id ? '1px solid rgba(255, 159, 26, 0.35)' : '1px solid transparent',
-                        px: { xs: 1.4, md: 1.8 },
+                        px: { xs: 1.2, md: 1.5 },
                         py: 1.0,
                         borderRadius: '12px',
                         lineHeight: 1.15,
                         textTransform: 'none',
-                        fontSize: '0.9rem',
+                        fontSize: '0.85rem',
                         transition: 'all 0.22s ease',
                         '&:hover': {
                           bgcolor: activeSection === item.id ? 'rgba(255, 159, 26, 0.15)' : 'rgba(255,255,255,0.04)',
                           borderColor: activeSection === item.id ? 'rgba(255, 159, 26, 0.5)' : 'rgba(255,255,255,0.1)',
-                          color: activeSection === item.id ? '#ffb95e' : '#e2e8f5'
+                          color: activeSection === item.id ? '#ffb95e' : (isDark ? '#e2e8f5' : '#1a1d2e')
                         },
                         '& .MuiButton-startIcon': { display: 'none' } 
                       }}
                     >
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         {React.cloneElement(item.icon as React.ReactElement, {
-                          sx: { ...((item.icon as React.ReactElement).props.sx), color: activeSection === item.id ? '#ff9f1a' : '#aeb8ce' }
+                          sx: { ...((item.icon as React.ReactElement).props.sx), color: activeSection === item.id ? '#ff9f1a' : inactiveColor }
                         })}
                         {item.label}
                       </Box>
                     </Button>
                   ))}
+
                 </Box>
               )}
             </Box>
@@ -245,7 +263,7 @@ const Navbar = () => {
                 sx={{ 
                   mt: 2, 
                   pt: 2, 
-                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderTop: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0,0,0,0.08)'}`,
                   animation: 'fadeIn 0.2s ease-out'
                 }}
               >
@@ -265,14 +283,14 @@ const Navbar = () => {
                         alignItems: 'center',
                         gap: 1.5,
                         '&:hover': {
-                          bgcolor: 'rgba(255, 255, 255, 0.04)'
+                          bgcolor: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0,0,0,0.04)'
                         }
                       }}
                     >
                       {React.cloneElement(item.icon as React.ReactElement, {
                         sx: { 
                           fontSize: 22, 
-                          color: activeSection === item.id ? '#ff9f1a' : '#aeb8ce' 
+                          color: activeSection === item.id ? '#ff9f1a' : inactiveColor 
                         }
                       })}
                       <ListItemText
@@ -280,7 +298,7 @@ const Navbar = () => {
                         sx={{
                           margin: 0,
                           '& .MuiTypography-root': {
-                            color: activeSection === item.id ? '#f4f7ff' : '#aeb8ce',
+                            color: activeSection === item.id ? textColor : inactiveColor,
                             fontWeight: activeSection === item.id ? 700 : 500,
                             fontSize: '1rem',
                             lineHeight: 1

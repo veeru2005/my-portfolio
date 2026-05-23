@@ -13,7 +13,7 @@ interface ScrollScatterProps {
  */
 export const ScrollScatter = ({ children, direction = "up", distance = 100, progressEnd = 0.2 }: ScrollScatterProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"], // Triggers from bottom of screen to top
@@ -26,25 +26,25 @@ export const ScrollScatter = ({ children, direction = "up", distance = 100, prog
     [0, enterEnd],
     [-distance, 0]
   );
-  
+
   const xRightProgress = useTransform(
     scrollYProgress,
     [0, enterEnd],
     [distance, 0]
   );
-  
+
   const yUpProgress = useTransform(
     scrollYProgress,
     [0, enterEnd],
     [distance, 0]
   );
-  
+
   const yDownProgress = useTransform(
     scrollYProgress,
     [0, enterEnd],
     [-distance, 0]
   );
-  
+
   const opacityProgress = useTransform(
     scrollYProgress,
     [0, enterEnd * 0.8],

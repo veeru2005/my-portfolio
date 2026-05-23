@@ -15,12 +15,20 @@ import {
   Download as DownloadIcon,
   Email as EmailIcon,
   LinkedIn as LinkedInIcon,
-  GitHub as GitHubIcon
+  GitHub as GitHubIcon,
+  Visibility as VisibilityIcon,
 } from '@mui/icons-material';
+import { useVisitorCount } from '../../hooks/useVisitorCount';
+import { useDownloadCounter } from '../../hooks/useDownloadCounter';
+import { useThemeColors } from '../../hooks/useThemeColors';
 
 const Hero = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { totalVisitors, isLoading: visitorLoading } = useVisitorCount();
+  const { downloadCount, trackDownload } = useDownloadCounter();
+  const c = useThemeColors();
+
   const skills = [
     'React', 'TypeScript', 'Spring Boot', 'Node.js', 'MongoDB',
     'C', 'Java', 'JavaScript', 'Vite', 'Tailwind CSS', 'Express',
@@ -81,209 +89,242 @@ const Hero = () => {
             <Box>
               <Typography
                 sx={{
-                  color: '#b8c3dd',
-                textTransform: 'uppercase',
-                letterSpacing: '0.14em',
-                fontWeight: 600,
-                fontSize: { xs: '0.72rem', sm: '0.8rem' },
-                mb: 2
-              }}
-            >
-              Full-Stack Developer + Creative Designer
-            </Typography>
-
-            <Typography
-              component="h1"
-              sx={{
-                fontSize: { xs: '1.75rem', sm: '2.4rem', md: '3.1rem', lg: '3.6rem' },
-                lineHeight: { xs: 1.1, md: 1.05 },
-                fontWeight: 800,
-                letterSpacing: '-0.03em',
-                color: '#f5f7ff'
-              }}
-            >
-              <Box component="span" sx={{ whiteSpace: { xs: 'normal', sm: 'nowrap' } }}>Sunkavalli Veerendra</Box> <br />
-              Chowdary
-            </Typography>
-
-            <Typography
-              sx={{
-                mt: 1,
-                mb: 3,
-                fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.55rem' },
-                fontWeight: 600,
-                whiteSpace: { xs: 'normal', sm: 'nowrap' }
-              }}
-              className="accent-gradient-text"
-            >
-              Building immersive, high-performance web products.
-            </Typography>
-
-            <Typography
-              sx={{
-                color: '#a6b0c6',
-                mb: 3,
-                fontSize: { xs: '0.96rem', md: '1.07rem' },
-                lineHeight: 1.8,
-                maxWidth: 620,
-                mx: { xs: 'auto', md: 0 }
-              }}
-            >
-              I blend software engineering with strong design direction to craft polished user experiences.
-              From frontend interactions to backend logic, I build products that feel modern, fast, and professional.
-            </Typography>
-
-            <Box
-              sx={{
-                mb: 4,
-                width: '100%',
-                maxWidth: { xs: '100%', md: '620px' },
-                overflow: 'hidden',
-                position: 'relative',
-                mx: { xs: 'auto', md: 0 },
-                maskImage: { xs: 'none', md: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' },
-                WebkitMaskImage: { xs: 'none', md: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' }
-              }}
-            >
-              <Box 
-                className="skill-marquee-track" 
-                sx={{ 
-                  gap: 1.5,
-                  alignItems: 'center',
-                  py: 1
+                  color: c.textSecondary,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.14em',
+                  fontWeight: 600,
+                  fontSize: { xs: '0.72rem', sm: '0.8rem' },
+                  mb: 2
                 }}
               >
-                {[...skills, ...skills, ...skills, ...skills].map((skill, index) => (
+                Full-Stack Developer + Creative Designer
+              </Typography>
+
+              <Typography
+                component="h1"
+                sx={{
+                  fontSize: { xs: '1.75rem', sm: '2.4rem', md: '3.1rem', lg: '3.6rem' },
+                  lineHeight: { xs: 1.1, md: 1.05 },
+                  fontWeight: 800,
+                  letterSpacing: '-0.03em',
+                  color: c.textPrimary
+                }}
+              >
+                <Box component="span" sx={{ whiteSpace: { xs: 'normal', sm: 'nowrap' } }}>Sunkavalli Veerendra</Box> <br />
+                Chowdary
+              </Typography>
+
+              <Typography
+                sx={{
+                  mt: 1,
+                  mb: 3,
+                  fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.55rem' },
+                  fontWeight: 600,
+                  whiteSpace: { xs: 'normal', sm: 'nowrap' }
+                }}
+                className="accent-gradient-text"
+              >
+                Building immersive, high-performance web products.
+              </Typography>
+
+              <Typography
+                sx={{
+                  color: c.textSecondary,
+                  mb: 3,
+                  fontSize: { xs: '0.96rem', md: '1.07rem' },
+                  lineHeight: 1.8,
+                  maxWidth: 620,
+                  mx: { xs: 'auto', md: 0 }
+                }}
+              >
+                I blend software engineering with strong design direction to craft polished user experiences.
+                From frontend interactions to backend logic, I build products that feel modern, fast, and professional.
+              </Typography>
+
+              <Box
+                sx={{
+                  mb: 4,
+                  width: '100%',
+                  maxWidth: { xs: '100%', md: '620px' },
+                  overflow: 'hidden',
+                  position: 'relative',
+                  mx: { xs: 'auto', md: 0 },
+                  maskImage: { xs: 'none', md: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' },
+                  WebkitMaskImage: { xs: 'none', md: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' }
+                }}
+              >
+                <Box
+                  className="skill-marquee-track"
+                  sx={{
+                    gap: 1.5,
+                    alignItems: 'center',
+                    py: 1
+                  }}
+                >
+                  {[...skills, ...skills, ...skills, ...skills].map((skill, index) => (
+                    <Chip
+                      key={`${skill}-${index}`}
+                      label={skill}
+                      sx={{
+                        bgcolor: c.accentChipBg,
+                        color: c.accent,
+                        border: 'none',
+                        fontWeight: 600,
+                        fontSize: '0.85rem',
+                        borderRadius: '8px',
+                        px: 0.5
+                      }}
+                    />
+                  ))}
+                </Box>
+              </Box>
+
+              <Stack direction={{ xs: 'row', sm: 'row' }} spacing={1.6} sx={{ alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                <Button
+                  variant="contained"
+                  component="a"
+                  href="/VEERENDRA_CHOWDARY.pdf"
+                  download="VEERENDRA_CHOWDARY.pdf"
+                  endIcon={<DownloadIcon />}
+                  onClick={() => trackDownload()}
+                  sx={{
+                    px: { xs: 2.5, sm: 3.5 },
+                    py: 1.4,
+                    width: { xs: 'auto', sm: 'auto' },
+                    background: c.accent,
+                    color: c.isDark ? '#1b1205' : '#ffffff',
+                    fontSize: '0.94rem',
+                    fontWeight: 700,
+                    borderRadius: '12px',
+                    border: `1px solid ${c.accent}`,
+                    boxShadow: 'none',
+                    '&:hover': {
+                      background: c.isDark ? '#ffab33' : '#cc7000',
+                      borderColor: c.isDark ? '#ffab33' : '#cc7000',
+                      boxShadow: 'none'
+                    }
+                  }}
+                >
+                  Download CV
+                </Button>
+
+                <Button
+                  variant="outlined"
+                  startIcon={<EmailIcon />}
+                  onClick={() => scrollToSection('contact')}
+                  sx={{
+                    border: `1px solid ${c.accent}`,
+                    color: c.accent,
+                    px: { xs: 2.5, sm: 3.5 },
+                    py: 1.4,
+                    width: { xs: 'auto', sm: 'auto' },
+                    fontSize: '0.94rem',
+                    fontWeight: 700,
+                    borderRadius: '12px',
+                    '&:hover': {
+                      border: `1px solid ${c.isDark ? '#ffab33' : '#cc7000'}`,
+                      color: c.isDark ? '#ffab33' : '#cc7000',
+                      bgcolor: c.isDark ? '#0c111c' : 'rgba(232,138,0,0.06)'
+                    }
+                  }}
+                >
+                  Contact Me
+                </Button>
+              </Stack>
+
+              {/* Visitor + Download Counters */}
+              <Box sx={{ display: 'flex', gap: { xs: 1.5, sm: 2 }, mt: 2.5, justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap' }}>
+                {!visitorLoading && (
                   <Chip
-                    key={`${skill}-${index}`}
-                    label={skill}
+                    icon={<VisibilityIcon sx={{ fontSize: 16, color: `${c.accent} !important` }} />}
+                    label={`${totalVisitors.toLocaleString()}+ profile views`}
                     sx={{
-                      bgcolor: '#302313',
-                      color: '#ff9f1a',
-                      border: 'none',
+                      bgcolor: c.accentBg,
+                      color: c.accent,
+                      border: `1px solid ${c.accentBorder}`,
                       fontWeight: 600,
-                      fontSize: '0.85rem',
+                      fontSize: '0.78rem',
                       borderRadius: '8px',
-                      px: 0.5
+                      animation: 'fadeInUp 0.6s ease-out',
                     }}
                   />
-                ))}
+                )}
+                <Chip
+                  icon={<DownloadIcon sx={{ fontSize: 16, color: `${c.accent} !important` }} />}
+                  label={`${downloadCount.toLocaleString()}+ downloads`}
+                  sx={{
+                    bgcolor: c.accentBg,
+                    color: c.accent,
+                    border: `1px solid ${c.accentBorder}`,
+                    fontWeight: 600,
+                    fontSize: '0.78rem',
+                    borderRadius: '8px',
+                    animation: 'fadeInUp 0.6s ease-out 0.1s both',
+                  }}
+                />
               </Box>
-            </Box>
 
-            <Stack direction={{ xs: 'row', sm: 'row' }} spacing={1.6} sx={{ alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
-              <Button
-                variant="contained"
-                component="a"
-                href="/VEERENDRA_CHOWDARY.pdf"
-                download="VEERENDRA_CHOWDARY.pdf"
-                endIcon={<DownloadIcon />}
-                sx={{
-                  px: { xs: 2.5, sm: 3.5 },
-                  py: 1.4,
-                  width: { xs: 'auto', sm: 'auto' },
-                  background: '#ff9f1a',
-                  color: '#1b1205',
-                  fontSize: '0.94rem',
-                  fontWeight: 700,
-                  borderRadius: '12px',
-                  border: '1px solid #ff9f1a',
-                  boxShadow: 'none',
-                  '&:hover': {
-                    background: '#ffab33',
-                    borderColor: '#ffab33',
-                    boxShadow: 'none'
-                  }
-                }}
-              >
-                Download CV
-              </Button>
-
-              <Button
-                variant="outlined"
-                startIcon={<EmailIcon />}
-                onClick={() => scrollToSection('contact')}
-                sx={{
-                  border: '1px solid #ff9f1a',
-                  color: '#ff9f1a',
-                  px: { xs: 2.5, sm: 3.5 },
-                  py: 1.4,
-                  width: { xs: 'auto', sm: 'auto' },
-                  fontSize: '0.94rem',
-                  fontWeight: 700,
-                  borderRadius: '12px',
-                  '&:hover': {
-                    border: '1px solid #ffab33',
-                    color: '#ffab33',
-                    bgcolor: '#0c111c'
-                  }
-                }}
-              >
-                Contact Me
-              </Button>
-            </Stack>
-
-            <Box sx={{ display: 'flex', gap: 1.15, mt: 3.5, justifyContent: { xs: 'center', md: 'flex-start' } }}>
-              <IconButton
-                sx={{
-                  width: 50,
-                  height: 50,
-                  color: '#dce4f5',
-                  bgcolor: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.14)',
-                  transition: 'all 0.25s ease',
-                  '&:hover': {
-                    color: '#ff9f1a',
-                    bgcolor: 'rgba(255,159,26,0.13)',
-                    borderColor: 'rgba(255,159,26,0.62)',
-                    boxShadow: '0 0 0 1px rgba(255,159,26,0.2) inset'
-                  }
-                }}
-                href="https://www.linkedin.com/in/veerendra-chowdary-sunkavalli-513b58309"
-                target="_blank"
-              >
-                <LinkedInIcon />
-              </IconButton>
-              <IconButton
-                sx={{
-                  width: 50,
-                  height: 50,
-                  color: '#dce4f5',
-                  bgcolor: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.14)',
-                  transition: 'all 0.25s ease',
-                  '&:hover': {
-                    color: '#ff9f1a',
-                    bgcolor: 'rgba(255,159,26,0.13)',
-                    borderColor: 'rgba(255,159,26,0.62)',
-                    boxShadow: '0 0 0 1px rgba(255,159,26,0.2) inset'
-                  }
-                }}
-                href="https://github.com/veeru2005"
-                target="_blank"
-              >
-                <GitHubIcon />
-              </IconButton>
-              <IconButton
-                sx={{
-                  width: 50,
-                  height: 50,
-                  color: '#dce4f5',
-                  bgcolor: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.14)',
-                  transition: 'all 0.25s ease',
-                  '&:hover': {
-                    color: '#ff9f1a',
-                    bgcolor: 'rgba(255,159,26,0.13)',
-                    borderColor: 'rgba(255,159,26,0.62)',
-                    boxShadow: '0 0 0 1px rgba(255,159,26,0.2) inset'
-                  }
-                }}
-                href="mailto:sunkavalli.veerendra1973@gmail.com"
-              >
-                <EmailIcon />
-              </IconButton>
-            </Box>
+              <Box sx={{ display: 'flex', gap: 1.15, mt: 2.5, justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                <IconButton
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    color: c.iconColor,
+                    bgcolor: c.iconBg,
+                    border: `1px solid ${c.iconBorder}`,
+                    transition: 'all 0.25s ease',
+                    '&:hover': {
+                      color: c.accent,
+                      bgcolor: c.accentBg,
+                      borderColor: c.accentBorder,
+                    }
+                  }}
+                  href="https://www.linkedin.com/in/veerendra-chowdary-sunkavalli-513b58309"
+                  target="_blank"
+                  aria-label="LinkedIn profile"
+                >
+                  <LinkedInIcon />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    color: c.iconColor,
+                    bgcolor: c.iconBg,
+                    border: `1px solid ${c.iconBorder}`,
+                    transition: 'all 0.25s ease',
+                    '&:hover': {
+                      color: c.accent,
+                      bgcolor: c.accentBg,
+                      borderColor: c.accentBorder,
+                    }
+                  }}
+                  href="https://github.com/veeru2005"
+                  target="_blank"
+                  aria-label="GitHub profile"
+                >
+                  <GitHubIcon />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    color: c.iconColor,
+                    bgcolor: c.iconBg,
+                    border: `1px solid ${c.iconBorder}`,
+                    transition: 'all 0.25s ease',
+                    '&:hover': {
+                      color: c.accent,
+                      bgcolor: c.accentBg,
+                      borderColor: c.accentBorder,
+                    }
+                  }}
+                  href="mailto:sunkavalli.veerendra1973@gmail.com"
+                  aria-label="Send email"
+                >
+                  <EmailIcon />
+                </IconButton>
+              </Box>
             </Box>
           </Box>
 
@@ -306,10 +347,10 @@ const Hero = () => {
                 height: { xs: 130, sm: 'auto', md: 'auto' },
                 maxWidth: 430,
                 borderRadius: '16px',
-                border: '1px solid #ff9f1a',
-                background: 'linear-gradient(160deg, rgba(12,17,28,0.9), rgba(9,12,19,0.9))',
+                border: `1px solid ${c.accent}`,
+                background: c.cardBg,
                 p: { xs: 1, sm: 1.5, md: 2 },
-                boxShadow: '0 28px 55px rgba(0,0,0,0.45)',
+                boxShadow: c.cardShadow,
                 transform: { xs: 'none', md: 'perspective(1000px) rotateY(-8deg) rotateX(3deg)' },
                 transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
                 '&:hover': {
@@ -321,9 +362,16 @@ const Hero = () => {
                 component="img"
                 src="Web.jpg"
                 alt="Sunkavalli Veerendra Chowdary"
+                width={410}
+                height={440}
+                loading="eager"
+                decoding="async"
+                // @ts-ignore - fetchPriority is a valid HTML attribute
+                fetchPriority="high"
                 sx={{
                   width: '100%',
-                  height: { xs: '100%', sm: 380, md: 440 },
+                  height: { xs: 'auto', sm: 380, md: 440 },
+                  aspectRatio: { xs: '1 / 1', sm: '410 / 380', md: '410 / 440' },
                   objectFit: 'cover',
                   objectPosition: 'center top',
                   borderRadius: { xs: '10px', sm: '12px' }
@@ -337,14 +385,14 @@ const Hero = () => {
                   px: 1.4,
                   py: 1,
                   borderRadius: '16px',
-                  bgcolor: 'rgba(255,255,255,0.04)',
-                  border: '1px solid #ff9f1a'
+                  bgcolor: c.isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                  border: `1px solid ${c.accent}`
                 }}
               >
-                <Typography sx={{ color: '#ff9f1a', fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <Typography sx={{ color: c.accent, fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   Available for freelance
                 </Typography>
-                <Typography sx={{ color: '#d9e1f5', fontSize: '0.9rem', mt: 0.4 }}>
+                <Typography sx={{ color: c.textPrimary, fontSize: '0.9rem', mt: 0.4 }}>
                   Full Stack Web Apps | UI/UX Focused Delivery
                 </Typography>
               </Box>
@@ -357,15 +405,15 @@ const Hero = () => {
                 px: 1.2,
                 py: 0.9,
                 borderRadius: '14px',
-                bgcolor: '#0c111c',
-                border: '1px solid #ff9f1a',
+                bgcolor: c.cardBgSolid,
+                border: `1px solid ${c.accent}`,
                 width: 280
               }}
             >
-              <Typography sx={{ color: '#ff9f1a', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <Typography sx={{ color: c.accent, fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 Available for freelance
               </Typography>
-              <Typography sx={{ color: '#d9e1f5', fontSize: '0.82rem', mt: 0.35 }}>
+              <Typography sx={{ color: c.textPrimary, fontSize: '0.82rem', mt: 0.35 }}>
                 Full Stack Web Apps | UI/UX Focused Delivery
               </Typography>
             </Box>

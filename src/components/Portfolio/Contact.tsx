@@ -24,6 +24,7 @@ import {
   Send as SendIcon
 } from '@mui/icons-material';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { useThemeColors } from '../../hooks/useThemeColors';
 import { ScrollScatter } from '../ui/ScrollScatter';
 
 // Interface for the form's state
@@ -53,6 +54,7 @@ const Contact: React.FC = () => {
   const headerAnimation = useScrollAnimation(0.14);
   const contentAnimation = useScrollAnimation(0.14);
   const contactInfoAnimation = useScrollAnimation(0.14);
+  const c = useThemeColors();
 
   const getContactAnimationClass = (index: number) => {
     const mod = index % 3;
@@ -145,7 +147,7 @@ const Contact: React.FC = () => {
       sx={{
         pt: { xs: 5, md: 6 }, pb: { xs: 9, md: 10 },
         position: 'relative',
-        background: 'linear-gradient(180deg, rgba(8,10,15,1) 0%, rgba(5,7,12,1) 100%)'
+        background: c.sectionBgAlt
       }}
     >
       <Box
@@ -164,7 +166,7 @@ const Contact: React.FC = () => {
             <Box>
               <Typography
                 sx={{
-                  color: '#ff9f1a',
+                  color: c.accent,
                   textTransform: 'uppercase',
                   letterSpacing: '0.11em',
                   fontSize: '0.72rem',
@@ -183,7 +185,7 @@ const Contact: React.FC = () => {
                 sx={{
                   fontWeight: 800,
                   mb: 1.5,
-                  color: '#f5f7ff'
+                  color: c.textPrimary
                 }}
               >
                 Get In Touch
@@ -193,7 +195,7 @@ const Contact: React.FC = () => {
                 variant="body1"
                 align="center"
                 sx={{
-                  color: '#aeb8ce',
+                  color: c.textSecondary,
                   mb: 5,
                   fontSize: '1rem',
                   maxWidth: '600px',
@@ -276,6 +278,7 @@ const Contact: React.FC = () => {
                         key={index}
                         href={social.url}
                         target="_blank"
+                        aria-label={`Visit my ${social.platform || 'social'} profile`}
                         sx={{
                           bgcolor: 'rgba(255,255,255,0.05)',
                           color: '#dce4f5',
