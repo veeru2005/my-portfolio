@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useMemo, lazy, Suspense } from "react";
+import React, { createContext, useContext, useEffect, useMemo, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,7 +7,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Box, CircularProgress } from "@mui/material";
 
-const Index = lazy(() => import("./pages/Index"));
+import Index from "./pages/Index";
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Theme Context

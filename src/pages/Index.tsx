@@ -3,7 +3,20 @@ import Portfolio from '../components/Portfolio/Portfolio';
 import Preloader from '../components/Preloader';
 
 const Index = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isMobile = window.matchMedia('(max-width: 899px)').matches;
+      const connection = typeof navigator !== 'undefined' ? (navigator as any).connection : undefined;
+      const saveData = !!connection?.saveData;
+      const deviceMemory = typeof navigator !== 'undefined' ? (navigator as any).deviceMemory : undefined;
+      const lowMemory = typeof deviceMemory === 'number' && deviceMemory <= 4;
+      return !prefersReducedMotion && !isMobile && !saveData && !lowMemory;
+    } catch {
+      return false;
+    }
+  });
 
   // Prevent scrolling while the preloader is covering the screen
   useEffect(() => {
@@ -24,7 +37,12 @@ const Index = () => {
 
   return (
     <>
-      {loading && <Preloader onComplete={() => setLoading(false)} onExiting={() => document.body.classList.remove('preloader-active')} />}
+      {loading && (
+        <Preloader
+          onComplete={() => setLoading(false)}
+          onExiting={() => document.body.classList.remove('preloader-active')}
+        />
+      )}
       <Portfolio />
     </>
   );

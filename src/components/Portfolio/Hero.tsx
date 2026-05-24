@@ -1,4 +1,5 @@
-import React from 'react';
+import { useMemo } from 'react';
+import type { ReactNode } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
@@ -11,7 +12,6 @@ import {
   Stack
 } from '@mui/material';
 import {
-  ArrowOutward as ArrowOutwardIcon,
   Download as DownloadIcon,
   Email as EmailIcon,
   LinkedIn as LinkedInIcon,
@@ -22,6 +22,13 @@ import { useVisitorCount } from '../../hooks/useVisitorCount';
 import { useDownloadCounter } from '../../hooks/useDownloadCounter';
 import { useThemeColors } from '../../hooks/useThemeColors';
 
+const SKILLS = [
+  'React', 'TypeScript', 'Spring Boot', 'Node.js', 'MongoDB',
+  'C', 'Java', 'JavaScript', 'Vite', 'Tailwind CSS', 'Express',
+  'Docker', 'Kubernetes', 'Jenkins', 'AWS', 'Azure', 'GCP', 'CI/CD',
+  'MySQL', 'UI/UX', 'Adobe Photoshop', 'Canva', 'Premiere Pro', 'DaVinci'
+];
+
 const Hero = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -29,12 +36,33 @@ const Hero = () => {
   const { downloadCount, trackDownload } = useDownloadCounter();
   const c = useThemeColors();
 
-  const skills = [
-    'React', 'TypeScript', 'Spring Boot', 'Node.js', 'MongoDB',
-    'C', 'Java', 'JavaScript', 'Vite', 'Tailwind CSS', 'Express',
-    'Docker', 'Kubernetes', 'Jenkins', 'AWS', 'Azure', 'GCP', 'CI/CD',
-    'MySQL', 'UI/UX', 'Adobe Photoshop', 'Canva', 'Premiere Pro', 'DaVinci'
-  ];
+  const marqueeCopies = isMobile ? 2 : 3;
+  const skillChips = useMemo(() => {
+    const nodes: ReactNode[] = [];
+
+    for (let copy = 0; copy < marqueeCopies; copy += 1) {
+      for (let i = 0; i < SKILLS.length; i += 1) {
+        const skill = SKILLS[i];
+        nodes.push(
+          <Chip
+            key={`${skill}-${copy}-${i}`}
+            label={skill}
+            sx={{
+              bgcolor: c.accentChipBg,
+              color: c.accent,
+              border: 'none',
+              fontWeight: 600,
+              fontSize: '0.85rem',
+              borderRadius: '8px',
+              px: 0.5
+            }}
+          />
+        );
+      }
+    }
+
+    return nodes;
+  }, [marqueeCopies, c.accentChipBg, c.accent]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -161,21 +189,7 @@ const Hero = () => {
                     py: 1
                   }}
                 >
-                  {[...skills, ...skills, ...skills, ...skills].map((skill, index) => (
-                    <Chip
-                      key={`${skill}-${index}`}
-                      label={skill}
-                      sx={{
-                        bgcolor: c.accentChipBg,
-                        color: c.accent,
-                        border: 'none',
-                        fontWeight: 600,
-                        fontSize: '0.85rem',
-                        borderRadius: '8px',
-                        px: 0.5
-                      }}
-                    />
-                  ))}
+                  {skillChips}
                 </Box>
               </Box>
 
