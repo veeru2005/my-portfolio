@@ -1,7 +1,7 @@
 export const lighthouseScores = {
-  lastUpdated: "2026-05-23",
+  lastUpdated: "2026-05-24",
   scores: [
-    { label: "Performance", score: 98 },
+    { label: "Performance", score: 92 },
     { label: "Accessibility", score: 99 },
     { label: "Best Practices", score: 96 },
     { label: "SEO", score: 100 }
