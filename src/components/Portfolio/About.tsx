@@ -15,19 +15,19 @@ const About: React.FC = () => {
 
   const expertiseCards = [
     {
-      title: 'Product-Focused Development',
+      title: 'Cloud-Native Engineering',
       description:
-        'I architect features from idea to release with practical UX decisions and maintainable code structure.'
+        'I architect scalable serverless and microservices applications using AWS, Azure, and Spring Boot.'
     },
     {
-      title: 'Creative Engineering Edge',
+      title: 'Full-Stack Development',
       description:
-        'Design background helps me craft stronger layouts, balanced visual hierarchy, and polished interactions.'
+        'Building robust, responsive applications across the MERN stack and Spring ecosystem from database to UI.'
     },
     {
-      title: 'Scalable Full-Stack Delivery',
+      title: 'DevOps & CI/CD Pipelines',
       description:
-        'From React interfaces to backend APIs and cloud-ready workflows, I build systems that can grow.'
+        'Automating deployments and infrastructure with Docker, Kubernetes, and GitHub Actions for continuous delivery.'
     }
   ];
 
@@ -126,26 +126,26 @@ const About: React.FC = () => {
                     lineHeight: 1.1
                   }}
                 >
-                  Creative at the core,
+                  Cloud-driven mindset,
                   <Box component="span" className="accent-gradient-text" sx={{ display: 'block', mt: 0.5 }}>
-                    engineer in execution.
+                    full-stack execution.
                   </Box>
                 </Typography>
 
                 <Typography variant="body1" sx={{ mb: 2, lineHeight: 1.85, color: c.textSecondary }}>
-                  I started with visual design and grew into full-stack development to build complete digital products.
-                  This blend helps me bridge functionality and aesthetics while keeping user experience central.
+                  I am a disciplined problem-solver focused on building scalable applications. My expertise spans across
+                  frontend technologies, backend microservices, and robust cloud deployments.
                 </Typography>
 
                 <Typography variant="body1" sx={{ lineHeight: 1.85, color: c.textSecondary }}>
-                  At KL University, I led multiple creative teams while sharpening my technical stack.
-                  Today I focus on building responsive interfaces, robust application logic, and scalable systems.
+                  Specializing in Cloud Native Software Engineering at KL University, I take ownership of projects from
+                  conception to deployment. Today, I focus on delivering high-quality, production-ready systems using modern DevOps practices.
                 </Typography>
 
                 <Box sx={{ mt: 2.4, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  <Chip label="Design Leadership" sx={{ bgcolor: c.accentBg, color: c.accent, borderRadius: '6px' }} />
-                  <Chip label="Full-Stack Projects" sx={{ bgcolor: c.accentBg, color: c.accent, borderRadius: '6px' }} />
-                  <Chip label="Cloud Learning Path" sx={{ bgcolor: c.accentBg, color: c.accent, borderRadius: '6px' }} />
+                  <Chip label="Cloud & DevOps" sx={{ bgcolor: c.accentBg, color: c.accent, borderRadius: '6px' }} />
+                  <Chip label="MERN & Spring Boot" sx={{ bgcolor: c.accentBg, color: c.accent, borderRadius: '6px' }} />
+                  <Chip label="Scalable Architecture" sx={{ bgcolor: c.accentBg, color: c.accent, borderRadius: '6px' }} />
                 </Box>
               </CardContent>
             </Card>
@@ -171,10 +171,10 @@ const About: React.FC = () => {
 
                 <Box sx={{ display: 'grid', gap: 1.2, mb: 3 }}>
                   {[
-                    'Strong frontend architecture and component systems',
-                    'Backend API development and database design',
-                    'UI polish with performance-focused implementation',
-                    'Production-ready deployment mindset'
+                    'End-to-end full-stack development (React, Spring Boot)',
+                    'Cloud infrastructure & serverless architecture (AWS, Azure)',
+                    'Automated CI/CD pipelines and containerization (Docker)',
+                    'Strong foundation in Data Structures & Algorithms'
                   ].map((point) => (
                     <Box key={point} sx={{ display: 'flex', gap: 1.2, alignItems: 'flex-start' }}>
                       <Box
@@ -203,7 +203,7 @@ const About: React.FC = () => {
                 >
                   <Typography sx={{ color: c.textPrimary, fontWeight: 700, mb: 0.4 }}>Goal</Typography>
                   <Typography sx={{ color: c.textSecondary, lineHeight: 1.7 }}>
-                    Build modern software experiences that are visually strong, technically clean, and useful in real-world use.
+                    Build scalable, high-performance software systems leveraging modern cloud native technologies and best engineering practices.
                   </Typography>
                 </Box>
               </CardContent>

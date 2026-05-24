@@ -127,7 +127,7 @@ const Hero = () => {
                   mb: 2
                 }}
               >
-                Full-Stack Developer + Creative Designer
+                Cloud-Native Full-Stack Engineer
               </Typography>
 
               <Typography
@@ -154,7 +154,7 @@ const Hero = () => {
                 }}
                 className="accent-gradient-text"
               >
-                Building immersive, high-performance web products.
+                Architecting Scalable Cloud & Full-Stack Solutions.
               </Typography>
 
               <Typography
@@ -167,8 +167,8 @@ const Hero = () => {
                   mx: { xs: 'auto', md: 0 }
                 }}
               >
-                I blend software engineering with strong design direction to craft polished user experiences.
-                From frontend interactions to backend logic, I build products that feel modern, fast, and professional.
+                I specialize in building scalable web applications using React, Spring Boot, and cloud infrastructure.
+                From responsive frontends to serverless architectures and CI/CD pipelines, I deliver robust engineering solutions.
               </Typography>
 
               <Box
@@ -406,10 +406,10 @@ const Hero = () => {
                 }}
               >
                 <Typography sx={{ color: c.accent, fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  Available for freelance
+                  Open to Opportunities
                 </Typography>
                 <Typography sx={{ color: c.textPrimary, fontSize: '0.9rem', mt: 0.4 }}>
-                  Full Stack Web Apps | UI/UX Focused Delivery
+                  Cloud, DevOps & Full-Stack Engineering
                 </Typography>
               </Box>
             </Box>
@@ -427,10 +427,10 @@ const Hero = () => {
               }}
             >
               <Typography sx={{ color: c.accent, fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Available for freelance
+                Open to Opportunities
               </Typography>
               <Typography sx={{ color: c.textPrimary, fontSize: '0.82rem', mt: 0.35 }}>
-                Full Stack Web Apps | UI/UX Focused Delivery
+                Cloud, DevOps & Full-Stack Engineering
               </Typography>
             </Box>
           </Box>
