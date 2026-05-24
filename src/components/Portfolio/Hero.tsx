@@ -35,6 +35,8 @@ const Hero = () => {
   const { totalVisitors, isLoading: visitorLoading } = useVisitorCount();
   const { downloadCount, trackDownload } = useDownloadCounter();
   const c = useThemeColors();
+  const heroLoading = isMobile ? 'lazy' : 'eager';
+  const heroFetchPriority = isMobile ? 'auto' : 'high';
 
   const marqueeCopies = isMobile ? 2 : 3;
   const skillChips = useMemo(() => {
@@ -378,10 +380,10 @@ const Hero = () => {
                 alt="Sunkavalli Veerendra Chowdary"
                 width={410}
                 height={440}
-                loading="eager"
+                loading={heroLoading}
                 decoding="async"
                 // @ts-ignore - fetchPriority is a valid HTML attribute
-                fetchPriority="high"
+                fetchPriority={heroFetchPriority}
                 sx={{
                   width: '100%',
                   height: { xs: 'auto', sm: 380, md: 440 },

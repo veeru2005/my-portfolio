@@ -14,13 +14,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://res.cloudinary.com" />
+    <link rel="preconnect" href="https://github-contributions-api.jogruber.de" />
     <link rel="dns-prefetch" href="https://github.com" />
 
-    <!-- Fonts with display=swap for performance (no render blocking) -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Fonts with display=swap for performance (non-blocking) -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+      />
+    </noscript>
 
-    <!-- Preload Hero Image for LCP Optimization -->
-    <link rel="preload" as="image" href="/Web.jpg" fetchpriority="high" />
+    <!-- Preload Hero Image for LCP Optimization (desktop only) -->
+    <link rel="preload" as="image" href="/Web.jpg" fetchpriority="high" media="(min-width: 900px)" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="Veerendra Chowdary — Full-Stack Developer & Creative Designer" />

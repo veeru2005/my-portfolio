@@ -25,7 +25,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete, onExiting }) => {
   useEffect(() => {
     // Determine how long this specific word should stay on screen
     // First word "Hello" slightly longer, others faster to simulate the rapid swap
-    const delay = index === 0 ? 950 : 250;
+    const delay = index === 0 ? 950 :150;
 
     if (index === GREETINGS.length) {
       // All greetings finished, trigger the exit slide up
@@ -35,7 +35,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete, onExiting }) => {
       // Wait for exit animation to finish before unmounting
       const exitTimer = setTimeout(() => {
         onComplete();
-      }, 500); 
+      }, 250); 
       return () => clearTimeout(exitTimer);
     }
 

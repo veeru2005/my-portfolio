@@ -18,6 +18,7 @@ import {
 } from '@mui/icons-material';
 import { ScrollScatter } from '../ui/ScrollScatter';
 import { useThemeColors } from '../../hooks/useThemeColors';
+import { getCloudinaryImageUrl, getCloudinarySrcSet } from '../../lib/cloudinary';
 
 interface CaseStudy {
   problem: string;
@@ -159,6 +160,8 @@ const STATIC_PROJECTS: Project[] = [
   },
 ];
 
+const PROJECT_IMAGE_WIDTHS = [320, 480, 640, 800];
+
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const c = useThemeColors();
@@ -237,153 +240,161 @@ const Projects: React.FC = () => {
         >
           {[...STATIC_PROJECTS]
             .sort((a, b) => b.id - a.id)
-            .map((project, index) => (
-              <ScrollScatter
-                key={project.id}
-                direction={
-                  index % 3 === 0
-                    ? 'left'
-                    : index % 3 === 1
-                    ? 'up'
-                    : 'right'
-                }
-                distance={200}
-              >
-                <Box sx={{ height: '100%' }}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      borderRadius: '16px',
-                      border: `1px solid ${c.accent}`,
-                      background: c.cardBg,
-                      p: { xs: 1.5, md: 2 },
-                      boxShadow: c.cardShadow,
-                      transform: { md: getCardTransform(index) },
-                      transition:
-                        'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                      '&:hover': {
-                        transform: {
-                          md: 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-6px)',
-                        },
-                      },
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      src={project.imageUrl}
-                      alt={project.title}
-                      loading="lazy"
-                      width={340}
-                      height={220}
-                      onError={(e: any) => {
-                        e.currentTarget.src = '/placeholder.svg';
-                      }}
+            .map((project, index) => {
+              const optimizedImage = getCloudinaryImageUrl(project.imageUrl, 640);
+              const srcSet = getCloudinarySrcSet(project.imageUrl, PROJECT_IMAGE_WIDTHS);
+
+              return (
+                <ScrollScatter
+                  key={project.id}
+                  direction={
+                    index % 3 === 0
+                      ? 'left'
+                      : index % 3 === 1
+                      ? 'up'
+                      : 'right'
+                  }
+                  distance={200}
+                >
+                  <Box sx={{ height: '100%' }}>
+                    <Card
                       sx={{
-                        width: '100%',
-                        height: 220,
-                        objectFit: 'cover',
-                        borderRadius: '12px',
-                        borderBottom: '1px solid rgba(255,255,255,0.1)',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        borderRadius: '16px',
+                        border: `1px solid ${c.accent}`,
+                        background: c.cardBg,
+                        p: { xs: 1.5, md: 2 },
+                        boxShadow: c.cardShadow,
+                        transform: { md: getCardTransform(index) },
+                        transition:
+                          'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                        '&:hover': {
+                          transform: {
+                            md: 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-6px)',
+                          },
+                        },
                       }}
-                    />
-
-                    <CardContent sx={{ flexGrow: 1, p: 2, px: 1 }}>
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontWeight: 700,
-                          color: '#eef2ff',
-                          mb: 1.1,
-                          lineHeight: 1.3,
+                    >
+                      <Box
+                        component="img"
+                        src={optimizedImage}
+                        srcSet={srcSet}
+                        sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        alt={project.title}
+                        loading="lazy"
+                        decoding="async"
+                        width={340}
+                        height={220}
+                        onError={(e: any) => {
+                          e.currentTarget.src = '/placeholder.svg';
                         }}
-                      >
-                        {project.title}
-                      </Typography>
-
-                      <Typography
-                        variant="body2"
                         sx={{
-                          color: '#a8b3ca',
-                          mb: 2.3,
-                          lineHeight: 1.75,
-                        }}
-                      >
-                        {project.description}
-                      </Typography>
-
-                      <Box>
-                        {project.technologies
-                          .split(',')
-                          .map(
-                            (tech) =>
-                              tech.trim() && (
-                                <Chip
-                                  key={tech}
-                                  label={tech.trim()}
-                                  size="small"
-                                  sx={{
-                                    mr: 0.8,
-                                    mb: 0.8,
-                                    bgcolor: 'rgba(255,159,26,0.16)',
-                                    color: '#ff9f1a',
-                                    border: 'none',
-                                    fontWeight: 600,
-                                    fontSize: '0.75rem',
-                                    borderRadius: '6px',
-                                    px: 0.5,
-                                  }}
-                                />
-                              )
-                          )}
-                      </Box>
-                    </CardContent>
-
-                    <Box sx={{ px: 2, pb: 2, pt: 0, display: 'flex', justifyContent: project.liveUrl ? 'space-between' : 'flex-end', alignItems: 'center' }}>
-                      {project.liveUrl && (
-                        <Chip
-                          component="a"
-                          href={project.liveUrl}
-                          target="_blank"
-                          icon={<LaunchIcon sx={{ fontSize: 16, color: '#1a1205 !important' }} />}
-                          label="Live Demo"
-                          clickable
-                          sx={{
-                            bgcolor: '#ff9f1a',
-                            color: '#1a1205',
-                            fontWeight: 700,
-                            fontSize: '0.8rem',
-                            '&:hover': { bgcolor: '#ffab33' },
-                          }}
-                        />
-                      )}
-                      <Chip
-                        label="Case Study"
-                        clickable
-                        onClick={() => setSelectedProject(project)}
-                        deleteIcon={<ArrowForwardIcon sx={{ fontSize: 16, color: '#ff9f1a !important' }} />}
-                        onDelete={() => setSelectedProject(project)}
-                        sx={{
-                          bgcolor: 'rgba(255,159,26,0.12)',
-                          color: '#ff9f1a',
-                          fontWeight: 700,
-                          fontSize: '0.8rem',
-                          border: '1px solid rgba(255,159,26,0.3)',
-                          '&:hover': {
-                            bgcolor: 'rgba(255,159,26,0.22)',
-                          },
-                          '& .MuiChip-deleteIcon': {
-                            color: '#ff9f1a',
-                            '&:hover': { color: '#ffb94d' },
-                          },
+                          width: '100%',
+                          height: 220,
+                          objectFit: 'cover',
+                          borderRadius: '12px',
+                          borderBottom: '1px solid rgba(255,255,255,0.1)',
                         }}
                       />
-                    </Box>
-                  </Card>
-                </Box>
-              </ScrollScatter>
-            ))}
+
+                      <CardContent sx={{ flexGrow: 1, p: 2, px: 1 }}>
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            fontWeight: 700,
+                            color: '#eef2ff',
+                            mb: 1.1,
+                            lineHeight: 1.3,
+                          }}
+                        >
+                          {project.title}
+                        </Typography>
+
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: '#a8b3ca',
+                            mb: 2.3,
+                            lineHeight: 1.75,
+                          }}
+                        >
+                          {project.description}
+                        </Typography>
+
+                        <Box>
+                          {project.technologies
+                            .split(',')
+                            .map(
+                              (tech) =>
+                                tech.trim() && (
+                                  <Chip
+                                    key={tech}
+                                    label={tech.trim()}
+                                    size="small"
+                                    sx={{
+                                      mr: 0.8,
+                                      mb: 0.8,
+                                      bgcolor: 'rgba(255,159,26,0.16)',
+                                      color: '#ff9f1a',
+                                      border: 'none',
+                                      fontWeight: 600,
+                                      fontSize: '0.75rem',
+                                      borderRadius: '6px',
+                                      px: 0.5,
+                                    }}
+                                  />
+                                )
+                            )}
+                        </Box>
+                      </CardContent>
+
+                      <Box sx={{ px: 2, pb: 2, pt: 0, display: 'flex', justifyContent: project.liveUrl ? 'space-between' : 'flex-end', alignItems: 'center' }}>
+                        {project.liveUrl && (
+                          <Chip
+                            component="a"
+                            href={project.liveUrl}
+                            target="_blank"
+                            icon={<LaunchIcon sx={{ fontSize: 16, color: '#1a1205 !important' }} />}
+                            label="Live Demo"
+                            clickable
+                            sx={{
+                              bgcolor: '#ff9f1a',
+                              color: '#1a1205',
+                              fontWeight: 700,
+                              fontSize: '0.8rem',
+                              '&:hover': { bgcolor: '#ffab33' },
+                            }}
+                          />
+                        )}
+                        <Chip
+                          label="Case Study"
+                          clickable
+                          onClick={() => setSelectedProject(project)}
+                          deleteIcon={<ArrowForwardIcon sx={{ fontSize: 16, color: '#ff9f1a !important' }} />}
+                          onDelete={() => setSelectedProject(project)}
+                          sx={{
+                            bgcolor: 'rgba(255,159,26,0.12)',
+                            color: '#ff9f1a',
+                            fontWeight: 700,
+                            fontSize: '0.8rem',
+                            border: '1px solid rgba(255,159,26,0.3)',
+                            '&:hover': {
+                              bgcolor: 'rgba(255,159,26,0.22)',
+                            },
+                            '& .MuiChip-deleteIcon': {
+                              color: '#ff9f1a',
+                              '&:hover': { color: '#ffb94d' },
+                            },
+                          }}
+                        />
+                      </Box>
+                    </Card>
+                  </Box>
+                </ScrollScatter>
+              );
+            })}
         </Box>
       </Container>
 

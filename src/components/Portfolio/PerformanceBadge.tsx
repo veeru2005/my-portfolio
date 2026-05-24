@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Container, Chip } from '@mui/material';
+import { Box, Typography, Container } from '@mui/material';
 import { ScrollScatter } from '../ui/ScrollScatter';
 import { lighthouseScores } from '../../data/lighthouseScores';
 
@@ -16,16 +16,7 @@ const DEFAULT_SCORES: ScoreItem[] = [
   { label: 'SEO', score: 100 },
 ];
 
-const formatUpdatedDate = (value?: string) => {
-  if (!value) return null;
-  const parsed = new Date(value);
-  if (Number.isNaN(parsed.getTime())) return null;
-  return parsed.toLocaleDateString('en-US', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  });
-};
+
 
 const getScoreColor = (score: number) => {
   if (score >= 90) return '#22c55e';
@@ -135,7 +126,6 @@ const PerformanceBadge: React.FC = () => {
   const [animate, setAnimate] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const scores = lighthouseScores?.scores?.length ? lighthouseScores.scores : DEFAULT_SCORES;
-  const updatedLabel = formatUpdatedDate(lighthouseScores?.lastUpdated);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -222,25 +212,9 @@ const PerformanceBadge: React.FC = () => {
                 textAlign: 'center',
               }}
             >
-              <Typography sx={{ color: '#7a859e', fontSize: '0.78rem', mb: 1 }}>
+              <Typography sx={{ color: '#7a859e', fontSize: '0.78rem' }}>
                 Measured on production build with Google Lighthouse • Chrome DevTools
               </Typography>
-              {updatedLabel && (
-                <Typography sx={{ color: '#9aa4bf', fontSize: '0.76rem', mb: 1 }}>
-                  Last updated: {updatedLabel}
-                </Typography>
-              )}
-              <Chip
-                label="Update scores after Lighthouse run"
-                size="small"
-                sx={{
-                  bgcolor: 'rgba(255,159,26,0.08)',
-                  color: '#9faaC3',
-                  fontSize: '0.7rem',
-                  fontWeight: 500,
-                  borderRadius: '6px',
-                }}
-              />
             </Box>
           </Box>
         </ScrollScatter>

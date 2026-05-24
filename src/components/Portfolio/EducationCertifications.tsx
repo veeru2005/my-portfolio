@@ -3,6 +3,7 @@ import { Box, Container, Typography, Card, CardContent, CardMedia } from '@mui/m
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import { ScrollScatter } from '../ui/ScrollScatter';
 import { useThemeColors } from '../../hooks/useThemeColors';
+import { getCloudinaryImageUrl, getCloudinarySrcSet } from '../../lib/cloudinary';
 
 interface Certification {
   id: number;
@@ -90,6 +91,8 @@ const staticCertifications: Certification[] = [
     imageUrl: 'https://res.cloudinary.com/dpff7l6hb/image/upload/v1776617341/Essential_Automation_fdaumh.jpg'
   }
 ];
+
+const CERT_IMAGE_WIDTHS = [320, 480, 640];
 
 const EducationCertifications: React.FC = () => {
   const educationAnimation = useScrollAnimation(0.14);
@@ -252,6 +255,8 @@ const EducationCertifications: React.FC = () => {
             {[...staticCertifications].sort((a, b) => b.id - a.id).map((cert, index) => {
               const animatingRow = index < 3 ? certRow1Animation : certRow2Animation;
               const isVisible = animatingRow.isVisible;
+              const optimizedImage = getCloudinaryImageUrl(cert.imageUrl, 640);
+              const srcSet = getCloudinarySrcSet(cert.imageUrl, CERT_IMAGE_WIDTHS);
               
               return (
               <ScrollScatter key={cert.id} direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"} distance={200}>
@@ -283,9 +288,12 @@ const EducationCertifications: React.FC = () => {
                   {cert.imageUrl && (
                     <CardMedia
                       component="img"
-                      image={cert.imageUrl}
+                      image={optimizedImage}
+                      srcSet={srcSet}
+                      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
                       alt={`${cert.name} certificate`}
                       loading="lazy"
+                      decoding="async"
                       width={340}
                       height={220}
                       sx={{
