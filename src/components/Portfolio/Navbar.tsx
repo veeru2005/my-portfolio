@@ -13,14 +13,15 @@ import {
   useMediaQuery,
   Tooltip,
 } from '@mui/material';
-import { 
-  Menu as MenuIcon, 
+import {
+  Menu as MenuIcon,
   Close as CloseIcon,
   HomeOutlined as HomeIcon,
   PersonOutline as PersonIcon,
   SchoolOutlined as SchoolIcon,
   WorkspacePremiumOutlined as CertIcon,
   WorkOutline as WorkIcon,
+  BusinessCenterOutlined as ExperienceIcon,
   EmailOutlined as EmailIcon,
   Article as BlogIcon,
   DarkMode as DarkModeIcon,
@@ -35,6 +36,7 @@ const menuItems = [
   { label: 'About', id: 'about', icon: <PersonIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
   { label: 'Education', id: 'education', icon: <SchoolIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
   { label: 'Certificates', id: 'certificates', icon: <CertIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
+  { label: 'Experience', id: 'experience', icon: <ExperienceIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
   { label: 'Projects', id: 'projects', icon: <WorkIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
   { label: 'Blog', id: 'blog', icon: <BlogIcon sx={{ fontSize: 18, mr: 0.8 }} /> },
   { label: 'Contact', id: 'contact', icon: <EmailIcon sx={{ fontSize: 18, mr: 0.8 }} /> }
@@ -167,11 +169,11 @@ const Navbar = () => {
             }}
           >
             {/* Top Row with Logo and Toggle/Desktop Menu */}
-            <Box sx={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'space-between', 
-              width: '100%' 
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%'
             }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.9, md: 1.2 }, flexGrow: { xs: 1, md: 0 }, minWidth: { md: 200 } }}>
                 <Box
@@ -241,7 +243,7 @@ const Navbar = () => {
                           borderColor: activeSection === item.id ? 'rgba(255, 159, 26, 0.5)' : 'rgba(255,255,255,0.1)',
                           color: activeSection === item.id ? '#ffb95e' : (isDark ? '#e2e8f5' : '#1a1d2e')
                         },
-                        '& .MuiButton-startIcon': { display: 'none' } 
+                        '& .MuiButton-startIcon': { display: 'none' }
                       }}
                     >
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -259,10 +261,10 @@ const Navbar = () => {
 
             {/* Mobile Dropdown Menu */}
             {isMobile && mobileOpen && (
-              <Box 
-                sx={{ 
-                  mt: 2, 
-                  pt: 2, 
+              <Box
+                sx={{
+                  mt: 2,
+                  pt: 2,
                   borderTop: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0,0,0,0.08)'}`,
                   animation: 'fadeIn 0.2s ease-out'
                 }}
@@ -288,9 +290,9 @@ const Navbar = () => {
                       }}
                     >
                       {React.cloneElement(item.icon as React.ReactElement, {
-                        sx: { 
-                          fontSize: 22, 
-                          color: activeSection === item.id ? '#ff9f1a' : inactiveColor 
+                        sx: {
+                          fontSize: 22,
+                          color: activeSection === item.id ? '#ff9f1a' : inactiveColor
                         }
                       })}
                       <ListItemText

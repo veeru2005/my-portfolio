@@ -74,7 +74,6 @@ const CustomCursor: React.FC = () => {
           zIndex: 9999,
           opacity: isVisible ? 1 : 0,
           backgroundColor: isHovering ? 'rgba(255, 159, 26, 0.15)' : 'transparent',
-          backdropFilter: isHovering ? 'blur(2px)' : 'none',
         }}
       />
 
