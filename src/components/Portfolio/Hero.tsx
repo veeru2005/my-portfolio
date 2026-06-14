@@ -140,8 +140,8 @@ const Hero = () => {
                   color: c.textPrimary
                 }}
               >
-                <Box component="span" sx={{ whiteSpace: { xs: 'normal', sm: 'nowrap' } }}>Sunkavalli Veerendra</Box> <br />
-                Chowdary
+                <Box component="span" sx={{ whiteSpace: { xs: 'normal', sm: 'nowrap' } }}>Veerendra Chowdary</Box> <br />
+                Sunkavalli
               </Typography>
 
               <Typography
