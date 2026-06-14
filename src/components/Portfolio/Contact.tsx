@@ -50,7 +50,7 @@ const Contact: React.FC = () => {
   const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
   const [alertMessage, setAlertMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  
+
   const headerAnimation = useScrollAnimation(0.14);
   const contentAnimation = useScrollAnimation(0.14);
   const contactInfoAnimation = useScrollAnimation(0.14);
@@ -190,7 +190,7 @@ const Contact: React.FC = () => {
               >
                 Get In Touch
               </Typography>
-              
+
               <Typography
                 variant="body1"
                 align="center"
@@ -208,15 +208,15 @@ const Contact: React.FC = () => {
           </ScrollScatter>
         </Box>
 
-        <Box 
+        <Box
           sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '0.92fr 1.08fr' }, gap: 2.4 }}
         >
           <ScrollScatter direction="left" distance={250}>
             <Box sx={{ width: '100%', height: '100%' }}>
-              <Card 
-                sx={{ 
-                  height: '100%', 
-                  borderRadius: '16px', 
+              <Card
+                sx={{
+                  height: '100%',
+                  borderRadius: '16px',
                   border: '1px solid #ff9f1a',
                 }}
               >
@@ -232,7 +232,7 @@ const Contact: React.FC = () => {
                     <Chip label="Open to freelance" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
                     <Chip label="Open to full-time role" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
                   </Box>
-                  
+
                   {contactInfo.map((info, index) => (
                     <Box
                       key={index}
@@ -251,80 +251,80 @@ const Contact: React.FC = () => {
                         }
                       }}
                     >
-                    <Box sx={{ mr: 2.2 }}>{info.icon}</Box>
-                    <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#eef2ff' }}>
-                        {info.title}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: '#aeb8ce'
-                        }}
-                      >
-                        {info.value}
-                      </Typography>
+                      <Box sx={{ mr: 2.2 }}>{info.icon}</Box>
+                      <Box>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#eef2ff' }}>
+                          {info.title}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: '#aeb8ce'
+                          }}
+                        >
+                          {info.value}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  ))}
+
+                  <Box sx={{ mt: 4 }}>
+                    <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.2, color: '#f1f5ff' }}>
+                      Follow Me
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 2 }}>
+                      {socialLinks.map((social, index) => (
+                        <IconButton
+                          key={index}
+                          href={social.url}
+                          target="_blank"
+                          aria-label={`Visit my ${social.label || 'social'} profile`}
+                          sx={{
+                            bgcolor: 'rgba(255,255,255,0.05)',
+                            color: '#dce4f5',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            '&:hover': {
+                              bgcolor: 'rgba(255,159,26,0.12)',
+                              borderColor: 'rgba(255,159,26,0.4)',
+                              color: '#ff9f1a',
+                              transform: 'translateY(-2px)'
+                            }
+                          }}
+                        >
+                          {social.icon}
+                        </IconButton>
+                      ))}
                     </Box>
                   </Box>
-                ))}
 
-                <Box sx={{ mt: 4 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.2, color: '#f1f5ff' }}>
-                    Follow Me
-                  </Typography>
-                  <Box sx={{ display: 'flex', gap: 2 }}>
-                    {socialLinks.map((social, index) => (
-                      <IconButton
-                        key={index}
-                        href={social.url}
-                        target="_blank"
-                        aria-label={`Visit my ${social.platform || 'social'} profile`}
-                        sx={{
-                          bgcolor: 'rgba(255,255,255,0.05)',
-                          color: '#dce4f5',
-                          border: '1px solid rgba(255,255,255,0.1)',
-                          '&:hover': {
-                            bgcolor: 'rgba(255,159,26,0.12)',
-                            borderColor: 'rgba(255,159,26,0.4)',
-                            color: '#ff9f1a',
-                            transform: 'translateY(-2px)'
-                          }
-                        }}
-                      >
-                        {social.icon}
-                      </IconButton>
-                    ))}
+                  <Box
+                    sx={{
+                      mt: 3,
+                      p: 2.3,
+                      background: 'linear-gradient(125deg, rgba(255,159,26,0.17), rgba(255,159,26,0.1))',
+                      border: '1px solid #ff9f1a',
+                      borderRadius: '16px',
+                      textAlign: 'left'
+                    }}
+                  >
+                    <Typography variant="h6" sx={{ color: '#f3f7ff', mb: 0.6 }}>
+                      Let's Build Something Great!
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#d4ddf2', lineHeight: 1.7 }}>
+                      Send your details with project scope and timeline. I usually respond within 24 hours.
+                    </Typography>
                   </Box>
-                </Box>
-
-                <Box
-                  sx={{
-                    mt: 3,
-                    p: 2.3,
-                    background: 'linear-gradient(125deg, rgba(255,159,26,0.17), rgba(255,159,26,0.1))',
-                    border: '1px solid #ff9f1a',
-                    borderRadius: '16px',
-                    textAlign: 'left'
-                  }}
-                >
-                  <Typography variant="h6" sx={{ color: '#f3f7ff', mb: 0.6 }}>
-                    Let's Build Something Great!
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: '#d4ddf2', lineHeight: 1.7 }}>
-                    Send your details with project scope and timeline. I usually respond within 24 hours.
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
             </Box>
           </ScrollScatter>
 
           <ScrollScatter direction="right" distance={250}>
             <Box sx={{ width: '100%', height: '100%' }}>
-              <Card 
-                sx={{ 
-                  height: '100%', 
-                  borderRadius: '16px', 
+              <Card
+                sx={{
+                  height: '100%',
+                  borderRadius: '16px',
                   border: '1px solid #ff9f1a',
                 }}
               >
@@ -333,77 +333,77 @@ const Contact: React.FC = () => {
                     variant="h5"
                     sx={{ fontWeight: 750, mb: 0.9, color: '#f1f5ff' }}
                   >
-                  Send Message
-                </Typography>
+                    Send Message
+                  </Typography>
 
-                <Typography sx={{ color: '#9faac4', mb: 3.2, lineHeight: 1.7 }}>
-                  Share your requirement and I will contact you directly by email.
-                </Typography>
-                
-                <Box component="form" onSubmit={handleSubmit}>
-                  <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 3, mb: 3 }}>
+                  <Typography sx={{ color: '#9faac4', mb: 3.2, lineHeight: 1.7 }}>
+                    Share your requirement and I will contact you directly by email.
+                  </Typography>
+
+                  <Box component="form" onSubmit={handleSubmit}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 3, mb: 3 }}>
+                      <TextField
+                        fullWidth
+                        label="Your Name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                      />
+                      <TextField
+                        fullWidth
+                        label="Your Email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </Box>
                     <TextField
                       fullWidth
-                      label="Your Name"
-                      name="name"
-                      value={formData.name}
+                      label="Subject"
+                      name="subject"
+                      value={formData.subject}
                       onChange={handleInputChange}
                       required
+                      sx={{ mb: 3 }}
                     />
                     <TextField
                       fullWidth
-                      label="Your Email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
+                      label="Your Message"
+                      name="message"
+                      multiline
+                      rows={12}
+                      value={formData.message}
                       onChange={handleInputChange}
                       required
+                      sx={{ mb: 3 }}
                     />
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      size="large"
+                      disabled={isSubmitting}
+                      startIcon={<SendIcon />}
+                      sx={{
+                        px: 4,
+                        py: 1.35,
+                        minWidth: '190px',
+                        bgcolor: '#ff9f1a',
+                        color: '#1a1205',
+                        boxShadow: 'none',
+                        '&:hover': {
+                          bgcolor: '#ffab33',
+                          boxShadow: 'none'
+                        }
+                      }}
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                    </Button>
                   </Box>
-                  <TextField
-                    fullWidth
-                    label="Subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    required
-                    sx={{ mb: 3 }}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Your Message"
-                    name="message"
-                    multiline
-                    rows={12}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    sx={{ mb: 3 }}
-                  />
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    size="large"
-                    disabled={isSubmitting}
-                    startIcon={<SendIcon />}
-                    sx={{
-                      px: 4,
-                      py: 1.35,
-                      minWidth: '190px',
-                      bgcolor: '#ff9f1a',
-                      color: '#1a1205',
-                      boxShadow: 'none',
-                      '&:hover': {
-                        bgcolor: '#ffab33',
-                        boxShadow: 'none'
-                      }
-                    }}
-                  >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </Button>
-                </Box>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
             </Box>
           </ScrollScatter>
         </Box>
@@ -417,12 +417,12 @@ const Contact: React.FC = () => {
             TransitionComponent={SlideTransition}
             sx={{ zIndex: 999999, top: { xs: 24, md: 32 } }}
           >
-            <Alert 
-              severity={alertSeverity} 
-              onClose={() => setShowAlert(false)} 
-              sx={{ 
-                width: '100%', 
-                fontSize: '1.05rem', 
+            <Alert
+              severity={alertSeverity}
+              onClose={() => setShowAlert(false)}
+              sx={{
+                width: '100%',
+                fontSize: '1.05rem',
                 alignItems: 'center',
                 color: '#ffffff',
                 '& .MuiAlert-icon': { color: '#ffffff' },
