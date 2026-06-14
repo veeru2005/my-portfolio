@@ -247,7 +247,7 @@ const Footer = () => {
               display: { xs: 'none', sm: 'block' },
             }}
           >
-            © 2025 Sunkavalli Veerendra Chowdary. All Rights Reserved.
+            © 2025 Veerendra Chowdary Sunkavalli. All Rights Reserved.
           </Typography>
 
           <Typography
@@ -258,7 +258,7 @@ const Footer = () => {
               lineHeight: 1.6
             }}
           >
-            © 2025 Sunkavalli Veerendra Chowdary.<br />All Rights Reserved.
+            © 2025 Veerendra Chowdary Sunkavalli.<br />All Rights Reserved.
           </Typography>
         </Box>
       </Container>
