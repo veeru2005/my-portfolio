@@ -247,7 +247,7 @@ const Footer = () => {
               display: { xs: 'none', sm: 'block' },
             }}
           >
-            © 2025 Veerendra Chowdary Sunkavalli. All Rights Reserved.
+            © 2026 Veerendra Chowdary Sunkavalli. All Rights Reserved.
           </Typography>
 
           <Typography
