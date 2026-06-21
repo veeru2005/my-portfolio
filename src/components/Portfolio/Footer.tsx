@@ -208,15 +208,7 @@ const Footer = () => {
             >
               📧 sunkavalli.veerendra1973@gmail.com
             </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                color: '#dce4f5',
-                mb: 1
-              }}
-            >
-              📱 +91 7995762616
-            </Typography>
+
             <Typography
               variant="body2"
               sx={{

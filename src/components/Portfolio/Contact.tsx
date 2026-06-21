@@ -122,12 +122,7 @@ const Contact: React.FC = () => {
       value: 'sunkavalli.veerendra1973@gmail.com',
       link: 'mailto:sunkavalli.veerendra1973@gmail.com'
     },
-    {
-      icon: <PhoneIcon sx={{ fontSize: 30, color: '#ff9f1a' }} />,
-      title: 'Phone',
-      value: '+91 7995762616',
-      link: 'tel:+917995762616'
-    },
+
     {
       icon: <LocationIcon sx={{ fontSize: 30, color: '#ff9f1a' }} />,
       title: 'Location',
@@ -220,7 +215,7 @@ const Contact: React.FC = () => {
                   border: '1px solid #ff9f1a',
                 }}
               >
-                <CardContent sx={{ p: { xs: 2.7, md: 3.2 } }}>
+                <CardContent sx={{ p: { xs: 2.7, md: 3.2 }, height: '100%', display: 'flex', flexDirection: 'column' }}>
                   <Typography
                     variant="h5"
                     sx={{ fontWeight: 750, mb: 2.2, color: '#f1f5ff' }}
@@ -228,10 +223,14 @@ const Contact: React.FC = () => {
                     Contact Information
                   </Typography>
 
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, mb: 2.5 }}>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, mb: 1.5 }}>
                     <Chip label="Open to freelance" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
                     <Chip label="Open to full-time role" sx={{ bgcolor: 'rgba(255,159,26,0.14)', color: '#ff9f1a' }} />
                   </Box>
+
+                  <Typography variant="body2" sx={{ color: '#aeb8ce', mb: 3.5, lineHeight: 1.7 }}>
+                    I am currently available for new projects and collaborations. Whether you are offering a short-term freelance contract or a full-time opportunity, I am looking forward to connecting with you. Let's build something amazing together.
+                  </Typography>
 
                   {contactInfo.map((info, index) => (
                     <Box
@@ -268,7 +267,7 @@ const Contact: React.FC = () => {
                     </Box>
                   ))}
 
-                  <Box sx={{ mt: 4 }}>
+                  <Box sx={{ mt: 'auto', pt: 2 }}>
                     <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.2, color: '#f1f5ff' }}>
                       Follow Me
                     </Typography>
