@@ -258,7 +258,7 @@ const Footer = () => {
               lineHeight: 1.6
             }}
           >
-            © 2025 Veerendra Chowdary Sunkavalli.<br />All Rights Reserved.
+            © 2026 Veerendra Chowdary Sunkavalli.<br />All Rights Reserved.
           </Typography>
         </Box>
       </Container>
